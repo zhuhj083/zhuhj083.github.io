@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Mac teminal ssh 免密码]]></title>
+    <url>%2F2018%2F12%2F21%2FMac-teminal-ssh-%E5%85%8D%E5%AF%86%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[一、创建expect脚本 在/usr/local/bin目录下创建item2ssh.sh脚本 123456789101112131415#!/usr/bin/expectset timeout 15set port [lindex $argv 0]set username [lindex $argv 1]set host [lindex $argv 2]set passwd [lindex $argv 3]spawn ssh -p $port $username@$hostexpect &#123; "(yes/no)?" &#123;send "yes\n";exp_continue&#125; "password:" &#123;send "$passwd\n"&#125;&#125;interact 赋予可执行权限 12cd /usr/local/binsudo chmod +x item2ssh.sh 二、创建alias 创建alias在~目录下，创建.bash_alies文件，内容如下 1alias ssh2std='item2login.sh 22 username ip passwd' 修改.bash_profile添加以下几行 123if [ -f ~/.bash_aliases ]; then source ~/.bash_aliasesfi 5.source使之生效1source ~/.bash_profile 这样以后，直接敲ssd2std 就可以免密码ssh登录到std机器上了。 三、item2中使用在item2软件中，comand+, 弹出Preferences，然后可以添加Profiles,如下图所示]]></content>
+      <categories>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MAC使用nginx分发80至8080端口]]></title>
+    <url>%2F2018%2F12%2F21%2FMAC%E4%BD%BF%E7%94%A8nginx%E5%88%86%E5%8F%9180%E8%87%B38080%E7%AB%AF%E5%8F%A3%2F</url>
+    <content type="text"><![CDATA[1、使用背景由于项目必须要启动80端口，但是mac系统中非root用户无法直接使用1024以下的端口 2、释放apache的80端口由于Mac OS是自带Apache服务的，它本身占用了80端口，首先你需要将Apache的监听端口改为其他端口或者将其直接卸载，我选用的是将其端口改为80111sudo vim /etc/apache2/httpd.conf Listen 8011 改动后，重启生效1sudo /usr/sbin/apachectl restart 到这里，你已经释放了80端口 3、使用Nginx分发80端口到8080端口 安装brew 见官网：https://brew.sh/index_zh-cn.html 使用Homebrew安装库 12brew search nginxbrew install nginx 安装好了后，修改配置 1sudo vim /usr/local/etc/nginx/nginx.conf 1234567891011121314151617181920212223242526272829303132333435server &#123; listen 80; server_name localhost l.sogou.com; #charset koi8-r; #access_log logs/host.access.log main; location ~* ^/h5/&#123; proxy_pass http://127.0.0.1:8091; &#125; location ~* ^/weixin/&#123; proxy_pass http://127.0.0.1:8093; &#125; location ~* ^/api/&#123; proxy_pass http://127.0.0.1:8087; &#125; location / &#123; root html; index index.html index.htm; proxy_pass http://127.0.0.1:8080; &#125; #error_page 404 /404.html; # redirect server error pages to the static page /50x.html # error_page 500 502 503 504 /50x.html; location = /50x.html &#123; root html; &#125;&#125; server下的结点：listen：监听80端口server_name：转发到哪个地址proxy_pass：代理到哪个地址 Nginx开机启动 你需要了解的就是plist文件。plist就是property list format的意思，是苹果用来保存应用数据的格式，其实就是个xml。可以在/usr/local/opt/nginx 下找到nginx对应的plist文件，比如在作者电脑上是 homebrew.mxcl.nginx.plist 。 需要把这个文件复制到 /Library/LaunchDaemons 下，系统启动时启动。也可以复制到 /Library/LaunchAgents下，在用户登录时启动。接着执行launchctl load -w，如下： 123sudo cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemonssudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist 最后，重启你的机器，你会发现nginx在80端口启动了，试着通过http://localhost直接访问 修改配置 重启生效1234sudo vim /usr/local/etc/nginx/nginx.confcd /usr/local/opt/nginx/bin/sudo ./nginx -s reload]]></content>
+      <categories>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2018%2F12%2F19%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[java字节码分析工具classpy]]></title>
+    <url>%2F2018%2F12%2F05%2Fclasspy%2F</url>
+    <content type="text"><![CDATA[字节码分析工具classpy这个开源工具的地址: https://github.com/zxh0/classpy classpy环境依赖下载地址上有说明，首先保证你的环境里配置了gradle git clone git@github.com:zxh0/classpy.git 下载工具 进入到classpy目录下执行命令3.1. 编译：gradle uberjar4.2. 启动：gradle run 经过以上两步就可以打开classpy界面，再打开一个class文件，如下所示]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>jvm</tag>
+        <tag>classpy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[install go]]></title>
+    <url>%2F2018%2F11%2F06%2Finstall-go%2F</url>
+    <content type="text"><![CDATA[Linux 下安装 下载 1wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz 解压到/usr/local目录下 1tar -C /usr/local -zxf go1.11.linux-amd64.tar.gz 加入环境变量 1export PATH=$PATH:/usr/local/go/bin 验证 1go version windows下安装1、下载https://studygolang.com/dl2、双击安装3、默认情况下.msi文件会安装在 c:\Go 目录下。你可以将 c:\Go\bin 目录添加到 PATH 环境变量中。添加后你需要重启命令窗口才能生效。]]></content>
+      <categories>
+        <category>go</category>
+      </categories>
+      <tags>
+        <tag>go</tag>
+        <tag>install</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[windows cmdpython交互模式下cp65001异常]]></title>
+    <url>%2F2018%2F11%2F01%2Fwindows%20cmd%20python%E4%BA%A4%E4%BA%92%E6%A8%A1%E5%BC%8F%E4%B8%8Bcp65001%E5%BC%82%E5%B8%B8%2F</url>
+    <content type="text"><![CDATA[python安装后进入命令行交互模式，输入任何代码都报 unknown encoding: cp65001异常 需要将编码(UTF-8)修改为 简体中文(GBK) 在CMD窗口执行 chcp 936]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[IntelliJ IDEA 快捷键与 Eclipse 对比]]></title>
+    <url>%2F2018%2F11%2F01%2FIntelliJ-IDEA-%E5%BF%AB%E6%8D%B7%E9%94%AE%2F</url>
+    <content type="text"><![CDATA[IntelliJ IDEA快捷键: Eclipse vs IDEA快捷键:]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>idea</tag>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用python写的一个简易的Http服务器]]></title>
+    <url>%2F2018%2F11%2F01%2FhttpServer-by-python%2F</url>
+    <content type="text"><![CDATA[昨天在看《Http权威指南》的时候，看到里面用Perl实现了一个最简单的Http的服务器。于是我参考着里面的逻辑写了一个python版本的。 创建服务器套接字（socket），把地址绑定到套接字上，并监听连接 服务器无限循环，接受客户端连接 客户端连接进来后，读取客户端发送的消息，并且打印Http请求报文 返回Http的响应报文 运行以下的python脚本后，使用浏览器访问http://localhost:8080/即可。 1234567891011121314151617181920212223242526272829303132333435#!/usr/bin/env pythonfrom socket import *HOST = ''PORT = 8080BUFSIZE = 1024ADDR = (HOST,PORT)tcpSerSock = socket(AF_INET,SOCK_STREAM)tcpSerSock.bind(ADDR)tcpSerSock.listen(5)responseStr = '''HTTP/1.0 200 OKConnection:closeContent-type;text:plainHi there!'''while True: print 'waiting for connection ...' tcpCliSock , addr = tcpSerSock.accept() print '...connected from:',addr while True: data = tcpCliSock.recv(BUFSIZE) if not data: break print data tcpCliSock.send(responseStr) break tcpCliSock.close()tcpSerSock.close()]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>http</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[万圣节]]></title>
+    <url>%2F2018%2F11%2F01%2F%E4%B8%87%E5%9C%A3%E8%8A%82%2F</url>
+    <content type="text"><![CDATA[万圣节今天是万圣节，11月1日，又是新的一个月的来临。 最近的一段时间过得很开心。 以后还是得继续更新日志才好。]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[正则表达式使用的特殊符号和字符]]></title>
+    <url>%2F2018%2F10%2F30%2FRE-Metacharacter%2F</url>
+    <content type="text"><![CDATA[正则表达式中最常见的符号和字符 记号 说明 正则表达式样例 literal 匹配字符串的值 foo re1&#124;rel2 匹配正则表达式re1或re2 foo&#124;bar . 匹配任何字符（换行符除外） b.b ^ 匹配字符串的开始 ^Dear $ 匹配字符串的结尾 /bin/*sh$ * 匹配前面出现的正则表达式零次或多次 [A-Za-z0-9]* + 匹配前面出现的正则表达式一次或多次 [a-z]+\.com ? 匹配前面出现的正则表达式零次或一次 goo? {N} 匹配前面出现的正则表达式N次 [0-9]{3} {M,N} 匹配重复出现M次到N次的正则表达式 [0-9]{5,9} […] 匹配字符组里出现的任意一个字符 [aeiou] [..x-y..] 匹配从字符x到y中任意一个字符 [0-9],[A-Za-z] [^…] 不匹配此字符组中出现的任何一个字符，包括某一范围的字符（如果在此字符集中出现） [^aeiou],[^A-Za-z] (*&#124;+&#124;?&#124;{})? 用于上面出现的任何“非贪婪”，版本重复匹配次数符号 .*?[a-z] (…) 匹配封闭括号中正则表达式（RE），并保存为子组 （[0-9]{3}）?,f(oo&#124;u)bar \d 匹配任何数字，和[0-9]一样，（\D是\d的反义：任何非数字） data\d+.txt \w 匹配任何数字和字符，即A-Za-z0-9 [A-Za-z_]\w+ \s 匹配任何空白符，和[\n\t\r\v\f]相同，（\S是\s的反义） of\sthe \b 匹配单词边界（\B是\b的反义） \bThe\b \nn 匹配已保存的子组(参考上面的正则表达式符合:（…））) price:\16 \c 逐一匹配特殊字符c（即取消它的特殊含义，按字面匹配） .,\,* \A(\Z) 匹配字符换的起始（结束） \ADear]]></content>
+      <categories>
+        <category>re</category>
+      </categories>
+      <tags>
+        <tag>re</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spring中的BeanPostProcessor简介]]></title>
+    <url>%2F2018%2F08%2F06%2FSpring%E4%B8%AD%E7%9A%84BeanPostProcessor%2F</url>
+    <content type="text"><![CDATA[BeanPostProcessor简介BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：1234567public interface BeanPostProcessor &#123; //bean初始化方法调用前被调用 Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException; //bean初始化方法调用后被调用 Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;&#125; BeanPostProcessor接口有2个回调方法，当一个BeanPostProcessor的实现类注册到Spring IOC容器后，对于该Spring IOC 容器所创造的每一个bean实例的初始化方法（如afterPropertiesSet和自定义init-method方法）调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法；而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法。 整个调用过程简单示意如下： Spring IOC容器实例化Bean 调用BeanPostProcessor的postProcessBeforeInitialization方法 调用bean实例的初始化方法 调用BeanPostProcessor的postProcessAfterInitialization方法 可以看到，Spring容器通过BeanPostProcessor给了我们一个机会对Spring管理的bean进行再加工。比如：我们可以修改bean的属性，可以给bean生成一个动态代理实例等等。 一些Spring AOP的底层处理也是通过实现BeanPostProcessor来执行代理包装逻辑的。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spring环境搭建]]></title>
+    <url>%2F2018%2F08%2F01%2FSpring%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%2F</url>
+    <content type="text"><![CDATA[Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads 下载后解压到指定目录，我放在了C:\Program Files\gradle-1.6 然后配置环境变量 根据对应目录创建GRADLE_HOME系统变量 将系统变量加入到path中 测试，打开命令窗口输入gradle -version,如果安装成功会出现Gradle对应的版本信息。 下载Spring例如要将下载的源码存储到g:\spring下，进入这个目录，输入一下命令12git clone git@github.com:spring-projects/spring-framework.gitcd spring-framework 等待一段时间后，完成下载。12345678$ git clone git@github.com:spring-projects/spring-framework.gitCloning into 'spring-framework'...remote: Counting objects: 438994, done.remote: Compressing objects: 100% (66/66), done.remote: Total 438994 (delta 6), reused 39 (delta 0), pack-reused 438914Receiving objects: 100% (438994/438994), 111.82 MiB | 2.83 MiB/s, done.Resolving deltas: 100% (211139/211139), done.Checking out files: 100% (8092/8092), done. 进入这个目录，会看到已经存在了相应的源码信息1234567891011121314151617181920212223242526272829303132333435363738$ cd Spring-framework/$ lltotal 53-rw-r--r-- 1 zhuhaijun 1049089 11072 8月 1 12:06 build.gradledrwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 buildSrc/-rw-r--r-- 1 zhuhaijun 1049089 2395 8月 1 12:06 CODE_OF_CONDUCT.adoc-rw-r--r-- 1 zhuhaijun 1049089 6401 8月 1 12:06 CONTRIBUTING.mddrwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 gradle/-rw-r--r-- 1 zhuhaijun 1049089 30 8月 1 12:06 gradle.properties-rwxr-xr-x 1 zhuhaijun 1049089 5533 8月 1 12:06 gradlew*-rw-r--r-- 1 zhuhaijun 1049089 2348 8月 1 12:06 gradlew.bat-rw-r--r-- 1 zhuhaijun 1049089 2486 8月 1 12:06 import-into-eclipse.md-rw-r--r-- 1 zhuhaijun 1049089 1868 8月 1 12:06 import-into-idea.md-rw-r--r-- 1 zhuhaijun 1049089 2290 8月 1 12:06 README.md-rw-r--r-- 1 zhuhaijun 1049089 831 8月 1 12:06 settings.gradledrwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-aop/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-aspects/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-beans/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-context/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-context-indexer/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-context-support/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-core/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-expression/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-framework-bom/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-instrument/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-jcl/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-jdbc/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-jms/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-messaging/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-orm/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-oxm/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-test/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-tx/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-web/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-webflux/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-webmvc/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 spring-websocket/drwxr-xr-x 1 zhuhaijun 1049089 0 8月 1 12:06 src/ 构建spring当前的源码并不可以直接导入到Eclipse中，我们还需要将源码转换为Eclipse可以读取的形式。 在每个目录下，一个个地执行 gradle cleanidea eclipse12345678910111213141516171819202122232425262728$ gradle cleanidea eclipseStarting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --statu s for detailsGenerating JAR file 'gradle-api-4.9.jar'&gt; Task :buildSrc:compileJava NO-SOURCE&gt; Task :buildSrc:compileGroovy&gt; Task :buildSrc:processResources&gt; Task :buildSrc:classes&gt; Task :buildSrc:jar&gt; Task :buildSrc:assemble&gt; Task :buildSrc:compileTestJava NO-SOURCE&gt; Task :buildSrc:compileTestGroovy NO-SOURCE&gt; Task :buildSrc:processTestResources NO-SOURCE&gt; Task :buildSrc:testClasses UP-TO-DATE&gt; Task :buildSrc:test NO-SOURCE&gt; Task :buildSrc:check UP-TO-DATE&gt; Task :buildSrc:build&gt; Task :spring-tx:cleanIdeaModule UP-TO-DATE&gt; Task :spring-tx:cleanIdea UP-TO-DATE&gt; Task :spring-tx:eclipseClasspath&gt; Task :spring-tx:eclipseJdtPrepare&gt; Task :spring-tx:eclipseJdt&gt; Task :spring-tx:eclipseProject&gt; Task :spring-tx:eclipseSettings&gt; Task :spring-tx:eclipseWstComponent&gt; Task :spring-tx:eclipseBUILD SUCCESSFUL in 36s8 actionable tasks: 6 executed, 2 up-to-date]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用pushy进行APNs消息推送]]></title>
+    <url>%2F2018%2F07%2F25%2F%E4%BD%BF%E7%94%A8pushy%E8%BF%9B%E8%A1%8CAPNs%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%2F</url>
+    <content type="text"><![CDATA[之前做了一个iOS消息推送的平台，主要是通过调用苹果提供的APNs接口进行消息的推送。最后采用了Pushy框架来进行推送。 pushy简介Pushy是用于发送APN（iOS、MacOS和Safari）推送通知的Java库，由Turo工程师编写和维护。 可以在github上获取源码和介绍：https://github.com/relayrides/pushy 官方文档：https://github.com/relayrides/pushy/wiki 使用pushy首先引入jar123456789101112131415&lt;dependency&gt; &lt;groupId&gt;com.turo&lt;/groupId&gt; &lt;artifactId&gt;pushy&lt;/artifactId&gt; &lt;version&gt;0.12.0&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;com.turo&lt;/groupId&gt; &lt;artifactId&gt;pushy-dropwizard-metrics-listener&lt;/artifactId&gt; &lt;version&gt;0.12.0&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;io.dropwizard.metrics&lt;/groupId&gt; &lt;artifactId&gt;metrics-servlets&lt;/artifactId&gt; &lt;version&gt;3.1.0&lt;/version&gt;&lt;/dependency&gt; 建立连接下面这段代码主要用户建立服务器与苹果服务器之间的链接，当我们每次执行推送消息的时候，会去检查这个链接是不是还存在，如果存在就直接使用，否则执行下面的代码建立链接。与苹果的服务器的链接长时间没有数据发送过去的话，苹果服务器会主动将它断掉。 同时也可以通过setApnsServer函数来指定是开发环境还是生产环境。 是基于Netty的，通过ApnsClientBuilder我们可以根据需要来修改ApnsClient的连接数和EventLoopGroups的线程数setConcurrentConnections：设置服务器与苹果服务器建立几个链接通道，这里是建立4个，非越多越好setEventLoopGroup：建立几个线程来处理，这里设置了4个。相当于16个线程同时处理关于连接数和EventLoopGroup线程数官不要配置EventLoopGroups的线程数超过APNs连接数。 setMetricsListener：可以设置监听器，来监听发送消息的结果setClientCredentials：证书和密码。 123456789101112131415if (apnsClient == null) &#123; try &#123; EventLoopGroup eventLoopGroup = new NioEventLoopGroup(4); String apnsServer = mode.equals("sandbox")?ApnsClientBuilder.DEVELOPMENT_APNS_HOST:ApnsClientBuilder.PRODUCTION_APNS_HOST; apnsClient = new ApnsClientBuilder().setApnsServer(apnsServer) .setClientCredentials( new FileInputStream(p12_path), password ) .setConcurrentConnections(4) .setEventLoopGroup(eventLoopGroup) .setMetricsListener( metricsListener ) .build(); &#125; catch (Exception e) &#123; System.err.println(_.f("[%s][ERROR]ios get pushy apns client failed!",format.print(System.currentTimeMillis()))); e.printStackTrace(); &#125;&#125; 发送推送关于消息的推送，注意一定要使用异步操作，Pushy发送消息会返回一个Netty Future对象，通过它可以拿到消息发送的情况。 APNs服务器可以保证同时发送1500条消息，当超过这个限制时，Pushy会缓存消息，所以我们不必担心异步操作发送的消息过多（当我们的消息非常多，达到上亿时，我们也得做一些控制，避免缓存过大，内存不足，Pushy给出了使用Semaphore的解决方法）。1234567891011121314151617181920212223final Future&lt;PushNotificationResponse&lt;SimpleApnsPushNotification&gt;&gt; future = apnsClient.sendNotification(pushNotification); future.addListener(new PushNotificationResponseListener&lt;SimpleApnsPushNotification&gt;() &#123; @Override public void operationComplete(final PushNotificationFuture&lt;SimpleApnsPushNotification, PushNotificationResponse&lt;SimpleApnsPushNotification&gt;&gt; future) throws Exception &#123; if (future.isSuccess()) &#123; final PushNotificationResponse&lt;SimpleApnsPushNotification&gt; pushNotificationResponse = future.getNow(); if (pushNotificationResponse.isAccepted()) &#123; successCnt.incrementAndGet(); &#125; else &#123; Date invalidTime = pushNotificationResponse.getTokenInvalidationTimestamp(); if (invalidTime != null) &#123; System.out.println(_.f("[%s][ERROR]Notification deviceToken="+token+" rejected by the APNs gateway:" + pushNotificationResponse.getRejectionReason()+"\t...and the token is invalid as of " + pushNotificationResponse.getTokenInvalidationTimestamp(),format.print(System.currentTimeMillis()))); &#125;else&#123; System.out.println(_.f("[%s][ERROR]Notification deviceToken="+token+" rejected by the APNs gateway:" + pushNotificationResponse.getRejectionReason(),format.print(System.currentTimeMillis()))); &#125; &#125; &#125;else &#123; System.out.println(_.f("[%s][ERROR]send notification device token="+token+" is failed:" + future.cause().getMessage(),format.print(System.currentTimeMillis()))); &#125; latch.countDown(); semaphore.release(); &#125; &#125;); 完整代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123import io.netty.channel.EventLoopGroup;import io.netty.channel.nio.NioEventLoopGroup;import io.netty.util.concurrent.Future;import java.io.FileInputStream;import java.util.Date;import java.util.List;import java.util.Map;import java.util.concurrent.CountDownLatch;import java.util.concurrent.Semaphore;import java.util.concurrent.TimeUnit;import java.util.concurrent.atomic.AtomicLong;import org.joda.time.format.DateTimeFormat;import org.joda.time.format.DateTimeFormatter;import com.alibaba.fastjson.JSONObject;import com.turo.pushy.apns.ApnsClient;import com.turo.pushy.apns.ApnsClientBuilder;import com.turo.pushy.apns.PushNotificationResponse;import com.turo.pushy.apns.metrics.dropwizard.DropwizardApnsClientMetricsListener;import com.turo.pushy.apns.util.ApnsPayloadBuilder;import com.turo.pushy.apns.util.SimpleApnsPushNotification;import com.turo.pushy.apns.util.TokenUtil;import com.turo.pushy.apns.util.concurrent.PushNotificationFuture;import com.turo.pushy.apns.util.concurrent.PushNotificationResponseListener;public class IOSPushClient &#123; private static ApnsClient apnsClient = null; //APNs服务器可以保证同时发送1500条消息，当超过这个限制时，Pushy会缓存消息，所以我们不必担心异步操作发送的消息过多 //通过Semaphore来进行流控，防止缓存过大，内存不足 private static final Semaphore semaphore = new Semaphore(6000); public static final DropwizardApnsClientMetricsListener metricsListener = new DropwizardApnsClientMetricsListener(); static final DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS"); public void push(String mode,String p12_path ,String password, final List&lt;String&gt; deviceTokens, String alertTitle , String alertBody,int badgeNumber,Map&lt;String,String&gt; extraMap) &#123; long startTime = System.currentTimeMillis(); if (apnsClient == null) &#123; try &#123; EventLoopGroup eventLoopGroup = new NioEventLoopGroup(4); String apnsServer = mode.equals("sandbox")?ApnsClientBuilder.DEVELOPMENT_APNS_HOST:ApnsClientBuilder.PRODUCTION_APNS_HOST; apnsClient = new ApnsClientBuilder().setApnsServer(apnsServer) .setClientCredentials( new FileInputStream(p12_path), password ) .setConcurrentConnections(4) .setEventLoopGroup(eventLoopGroup) .setMetricsListener( metricsListener ) .build(); &#125; catch (Exception e) &#123; System.err.println(_.f("[%s][ERROR]ios get pushy apns client failed!",format.print(System.currentTimeMillis()))); e.printStackTrace(); &#125; &#125; long total = deviceTokens.size(); //通过CountDownLatch来标记消息是否发送完成 final CountDownLatch latch = new CountDownLatch(deviceTokens.size()); final AtomicLong successCnt = new AtomicLong(0); long startPushTime = System.currentTimeMillis(); for (String deviceToken : deviceTokens) &#123; ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder(); payloadBuilder.setAlertBody(alertBody); payloadBuilder.setAlertTitle(alertTitle); payloadBuilder.setBadgeNumber(badgeNumber); payloadBuilder.setSoundFileName("default"); //自定义键值对，其中value是Object，可以支持多层的json字串，这个根据业务需求而定 if(extraMap != null &amp;&amp; extraMap.size() &gt; 0 )&#123; for(String key : extraMap.keySet())&#123; String value = extraMap.get(key); if("extraData".equals(key))&#123; payloadBuilder.addCustomProperty(key,JSONObject.parse(value)); &#125;else&#123; payloadBuilder.addCustomProperty(key,value); &#125; &#125; &#125; String payload = payloadBuilder.buildWithDefaultMaximumLength(); //最大4k final String token = TokenUtil.sanitizeTokenString(deviceToken); SimpleApnsPushNotification pushNotification = new SimpleApnsPushNotification(token, "com.sogou.sogoureader" , payload); try &#123; semaphore.acquire(); &#125; catch (InterruptedException e)&#123; System.out.println(_.f("[%s][ERROR]ios push get semaphore failed, deviceToken:"+deviceToken,format.print(System.currentTimeMillis()))); e.printStackTrace(); &#125; final Future&lt;PushNotificationResponse&lt;SimpleApnsPushNotification&gt;&gt; future = apnsClient.sendNotification(pushNotification); future.addListener(new PushNotificationResponseListener&lt;SimpleApnsPushNotification&gt;() &#123; @Override public void operationComplete(final PushNotificationFuture&lt;SimpleApnsPushNotification, PushNotificationResponse&lt;SimpleApnsPushNotification&gt;&gt; future) throws Exception &#123; if (future.isSuccess()) &#123; final PushNotificationResponse&lt;SimpleApnsPushNotification&gt; pushNotificationResponse = future.getNow(); if (pushNotificationResponse.isAccepted()) &#123; successCnt.incrementAndGet(); &#125; else &#123; Date invalidTime = pushNotificationResponse.getTokenInvalidationTimestamp(); if (invalidTime != null) &#123; System.out.println("[ERROR]Notification deviceToken="+token+" rejected by the APNs gateway."); &#125;else&#123; System.out.println("Notification deviceToken="+token+" rejected by the APNs gateway"); &#125; &#125; &#125;else &#123; System.out.println("[ERROR]send notification device token="+token+" is failed:"); &#125; latch.countDown(); semaphore.release(); &#125; &#125;); &#125; try &#123; latch.await(20, TimeUnit.SECONDS); &#125; catch (InterruptedException e) &#123; System.out.println("[ERROR]ios push latch await failed!"); e.printStackTrace(); &#125; long endPushTime = System.currentTimeMillis(); System.out.println("IOSPushClient pushMessage success. [total push=" + total + "][succ push=" + (successCnt.get()) + "], totalcost= " + (endPushTime - startTime) + ", pushCost=" + (endPushTime - startPushTime) , format.print(System.currentTimeMillis()))); &#125;&#125;]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>pushy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[kafka 生产者和消费者]]></title>
+    <url>%2F2018%2F07%2F25%2Fkafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85%2F</url>
+    <content type="text"><![CDATA[maven配置12345678910 &lt;dependency&gt; &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt; &lt;artifactId&gt;kafka_2.11&lt;/artifactId&gt; &lt;version&gt;0.11.0.2&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt; &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt; &lt;version&gt;0.11.0.2&lt;/version&gt;&lt;/dependency&gt; KafkaProducerKafkaProducer初始化1234567891011121314151617public static KafkaProducer&lt;String, String&gt; kafkaProducer = null ;static &#123; try &#123; Properties props = new Properties(); props.put("bootstrap.servers",QueueConstants.BROKER_LIST); props.put("acks", "all"); props.put("retries", 1); props.put("batch.size", 16384); props.put("linger.ms", 1); props.put("buffer.memory", 33554432); props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer"); props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer"); kafkaProducer = new KafkaProducer&lt;String,String&gt;(props); &#125; catch (Exception e) &#123; e.printStackTrace(); &#125; &#125; KafkaProducer send消息(异步方式)123456QueueConstants.kafkaProducer.send(new ProducerRecord&lt;String, String&gt;(topic, msg), new Callback() &#123; @Override public void onCompletion(RecordMetadata metadata, Exception exception) &#123; System.out.println("MessageProducer sended,metadata:"+metadata.toString()); &#125; &#125;); KafkaConsumer1234567891011private KafkaConsumer&lt;String, String&gt; createConsumer()&#123; Properties props = new Properties(); props.put("bootstrap.servers", QueueConstants.BROKER_LIST ); props.put("group.id", groupId); //必须要使用别的组名称， 如果生产者和消费者都在同一组，则不能访问同一组内的topic数据 props.put("enable.auto.commit", false); props.put("auto.commit.interval.ms", "1000");//自动确认offset的时间间隔 props.put("session.timeout.ms", "30000"); props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"); props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer"); return new KafkaConsumer&lt;&gt;(props); &#125; 消费消息1234567891011121314151617181920212223242526272829303132333435@SuppressWarnings("unchecked")@Override public void run() &#123; KafkaConsumer&lt;String, String&gt; consumer =createConsumer(); consumer.subscribe(Arrays.asList(topic)); try &#123; while (true) &#123; ConsumerRecords&lt;String, String&gt; records = consumer.poll(1000); for (ConsumerRecord&lt;String, String&gt; record : records) &#123; consumer.commitAsync(new OffsetCommitCallback() &#123; @Override public void onComplete(Map&lt;TopicPartition, OffsetAndMetadata&gt; offsets, Exception exception) &#123; if (null == exception) &#123; //表示偏移量成功提交 System.out.println("IosPushySender commit succ"); &#125; else &#123; //表示提交偏移量发生了异常，根据业务进行相关处理 System.out.println("IosPushySender commit exception ,"+exception.toString()); &#125; &#125; &#125;); if(_.nonEmpty(record.value()))&#123; String message = new String(record.value().getBytes(), "UTF-8"); //... //消费消息 &#125; &#125; &#125; &#125;catch (Exception e) &#123; e.printStackTrace(); &#125;finally&#123; consumer.close(); &#125; &#125;]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>kafka</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[spring在任意类中getBean]]></title>
+    <url>%2F2018%2F07%2F25%2Fspring%E5%9C%A8%E4%BB%BB%E6%84%8F%E7%B1%BB%E4%B8%ADgetBean%2F</url>
+    <content type="text"><![CDATA[ApplicationContextAware接口ApplicationContextAware接口的bean在被初始化之后，可以在任意类中拿到容器中的bean 实现这个接口的代码：12345678910111213141516171819202122232425262728293031323334353637package web.utils;import org.springframework.beans.BeansException;import org.springframework.context.ApplicationContext;import org.springframework.context.ApplicationContextAware;public class SpringContextUtil implements ApplicationContextAware &#123; private static ApplicationContext context = null; @Override public void setApplicationContext(ApplicationContext applicationContext) throws BeansException &#123; context = applicationContext; &#125; public static ApplicationContext getApplicationContext() &#123; assertApplicationContext(); return context; &#125; @SuppressWarnings("unchecked") public static &lt;T&gt; T getBean(String beanName) &#123; assertApplicationContext(); return (T) context.getBean(beanName); &#125; public static &lt;T&gt; T getBean(Class&lt;T&gt; requiredType) &#123; assertApplicationContext(); return context.getBean(requiredType); &#125; private static void assertApplicationContext() &#123; if (SpringContextUtil.context == null) &#123; throw new RuntimeException("applicaitonContext属性为null,请检查是否注入了SpringContextUtil!"); &#125; &#125;&#125; 在application.xml文件中定义对应的bean,或者通过注解@Component标注1&lt;bean class="web.utils.SpringContextUtil" lazy-init="false" &gt;&lt;/bean&gt; 配置web.xml123456789&lt;!-- 全局spring定义 --&gt;&lt;context-param&gt; &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt; &lt;param-value&gt;/WEB-INF/spring-mvc.xml&lt;/param-value&gt;&lt;/context-param&gt;&lt;!-- ContextLoaderListener载入 --&gt;&lt;listener&gt; &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;&lt;/listener&gt; 使用在任意类中，可以直接拿到bean了1LoggerDao loggerDao = (LoggerDao) SpringContextUtil.getBean( LoggerDao.class);]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[mongodb replica sets副本集集群搭建]]></title>
+    <url>%2F2018%2F07%2F13%2Fmongodb-replica-sets%2F</url>
+    <content type="text"><![CDATA[一、replica sets简介一个副本集是一组包含相同数据集的mongodb实例组成的集群系统。有一个primary节点，其他的节点为secondary节点。和主从复制的原理一样，副本集也是通过读取oplog来进行数据传输，oplog是一固定大小的表，创建的时候需要指定其大小，当oplog满的时候会删除旧的数据，所以设置其大小非常重要，如果oplog被primary节点覆盖而尚未被sencondary节点读取同步的话就要重新resync。一般的replica sets集群的架构如下图所示：一主一备和一个仲裁（Arbitry）节点，仲裁节点不存放数据。 同步方式采用异步同步的方式，成员节点每隔2s发送一次heartbeat（pings）。当主节点与其他成员节点通信超时10s后，一个sencondary节点将会被选举为primary节点。 二、环境搭建 在所有机器上安装mongodb，我安装在/usr/local/ 目录下。 创建数据目录，/search/odin/data 在每台机器的mongodb的bin目录下创建配置文件mongod.conf,内如如下 12345dbpath=/search/odin/mongodb/datalogpath=/search/odin/mongodb/logfork=trueport=27017oplogSize=2048 启动mongodb 1./mongod -f mongod.conf 三、创建replica sets下面是搭建一个一主一从一仲裁 三节点replica sets的具体步骤 添加replSet参数123456789dbpath=/search/odin/mongodb/datalogpath=/search/odin/mongodb/logfork=trueport=27017replSet=rs0 然后启动三台服务器。 初始化副本集连接其中一个节点，初始化命令只能执行一次。可以先配置一个配置文件,然后使用rs.initiate(rsconf)来初始化,例如:123456789101112rsconf = &#123; _id: "rs0", members: [ &#123; _id: 0, host: "10.143.40.142:27017" &#125; ]&#125;rs.initiate(rsconf) 检查初始化配置文件1rs.conf() 添加secondary和arbitry节点123456789# 添加一个节点rs.add("10.143.41.140:27017")#添加一个arbitary节点rs.add("10.143.55.191:27017"，true)#查看副本集的当前状态：rs.status() rs.remove删除一个结点12#rs.remove()就一个参数hostname:rs.remove("mongodb3:27017") rs.addArb添加投票节点rs.addArb()同样可以添加投票节点,也只有一个参数为hostname:1rs.remove("mongodb3:27017") 查看状态1db.printSlaveReplicationInfo(); 查看数据信息rs.isMaster()，是否为主节点 rs.secondary():是否为从节点 rs.primary():指出当前副本集中的主节点位于哪个进程 rs.config():查看详细的配置信息]]></content>
+      <categories>
+        <category>mongodb</category>
+      </categories>
+      <tags>
+        <tag>mongodb</tag>
+        <tag>replica sets</tag>
+        <tag>nosql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JVM垃圾收集器和内存分配策略]]></title>
+    <url>%2F2018%2F07%2F04%2FJVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5%2F</url>
+    <content type="text"><![CDATA[概述 程序计数器、虚拟机栈、本地方法栈 三个区域随线程而生，随线程而灭 栈中的栈帧随着方法的进入和退出而有条不紊地执行着出栈和入栈操作，每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知 方法区和堆中的内存使用是不确定的，垃圾收集器所关注的就是这部分内存。 栈帧（Stack Frame） 是用于虚拟机执行时方法调用和方法执行时的数据结构，它是虚拟栈数据区的组成元素。每一个方法从调用到方法返回都对应着一个栈帧入栈出栈的过程。一个线程中方法调用可能很长，很多方法都处于执行状态。对于执行引擎来说，只有处于栈顶的栈帧才是有效的，称为当前栈帧（Current Stack Frame），与之相关联的方法称为当前方法（Current Method）。概念模型上，典型的栈帧主要由 局部变量表（Local Stack Frame）、操作数栈（Operand Stack）、动态链接（Dynamic Linking）、返回地址（Return Address）组成。 对象存活判定算法引用计数算法给每个对象添加一个引用计数器，每当有一个地方引用它时，计数器值加1，当引用失效时，计数器减1。 但是主流的Java虚拟机里并没有选用这种方法来管理内存，因为它很难解决对象之间相互循环引用的问题。 可达性分析算法主流的实现中，是通过可达性分析（Reachability Analysis）来判断对象是否存活。 基本思路：通过一系列的成为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走的路径成为引用链（Reference Chain）。当一个对象到GC Roots没有任务引用链相连时，证明此对象不可用，就会被判定为可回收对象。 Java语言中，可作为GC Roots的对象包括下面几种： 虚拟机栈（栈帧中的本地变量表）中引用的对象 方法区中类静态属性引用的对象 方法区中常量引用的对象 本地方法栈中JNI（即一般说的Native方法）引用的对象 引用JDK1.2之后，引用分为4种，引用强度以此减弱： 强引用（Strong Reference）:只要强引用在，垃圾收集器永远不会回收掉被引用的对象 软引用（Soft Reference）：系统将要发生内存溢出之前，将会把这些对象列进回收范围之中进行第二次回收 弱引用（Weak Reference）:被弱引用关联的对象只能生存到下一次垃圾收集发生之前 虚引用（Phantom Reference）：唯一目的是能在这个对象被收集器回收时收到一个系统通知。 对象死亡的步骤可达性分析算法中不可达的对象，会至少经历两次标记的过程，才会死亡： 可达性分析后发现没有与GC Roots相连接的引用链，那么会被第一次标记并进行一次筛选 帅选：如果对象没有覆盖finalize()方法或finalize()已经被虚拟机调用过，虚拟机会将不会再执行finalize()方法 如果这个对象判断为有必要执行finalize()，那么这个对象会被放置在一个F-Queue队列中，稍后会由一个Finalizer线程去执行finalize()。finalize()方法是对象逃逸死亡命运的最后一次机会，稍后GC将对F-Queue中的对象进行第二次小规模标记。 第二次标记时它被移除出“即将回收”的集合，这时候还没逃脱，就真的被回收了。 回收方法区方法区在HotSpot虚拟机中的永久代，永久代的垃圾收集主要回收两部分内容： 废弃常量 无用的类 该类所有的实例都已经被回收，也就是Java堆中不存在该类的任何实例 加载该类的ClassLoader已经被回收 该类对应的java.lang.Class对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法 新生代、老年代、永久代新生代(堆中)主要是用来存放新生的对象。一般占据堆的1/3空间。由于频繁创建对象，所以新生代会频繁触发MinorGC进行垃圾回收。新生代又分为Eden区、Survivor（ServivorFrom、ServivorTo）三个区(默认比例是8:1:1),采用复制算法。 老年代（堆中）是存放那些在程序中经历了好几次回收仍然还活着或者特别大的对象（这个大就要看你是否设置了-XX：PretenureSizeThreshold 参数了）老年代采用的是标记-清除或者标记-整理算法，这两个算法主要看虚拟机采用的哪个收集器，两种算法的区别是：标记-清除可能会产生大量连续的内存碎片。在老年代中的GC则为Major GC。Major GC和Full GC会造成stop-the-world。 永久代JVM的方法区，也被称为永久代。在这里都是放着一些被虚拟机加载的类信息，静态变量，常量等数据。这个区中的东西比老年代和新生代更不容易回收 垃圾收集算法标记-清除算法（Mark-Sweep）分为“标记”和“清除”两个阶段。 不足：效率问题，标记和清除的效率都不高会产生大量的内存碎片 复制算法（Copying）将内存按容量分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次性清理掉。这样使得每次都是对整个半区进行内存回收，内存分配时也不用考虑内存碎片等复杂情况。 现在商业虚拟机都采用这种算法来回收新生代。不过是把内存分为一块较大的 Eden空间和两块较小的Survivor空间。 每次使用Eden和其中一块Survivor空间，当回收时，将Eden和Survivor中还存活的对象一次性复制到另外一块Surv空间上，最后清理掉Eden和刚才用过的Survivor空间。 如果另外一块Survivor空间没有足够的空间存放上一次新生代收集下来的存活对象，这些对象将直接通过分配担保机制进入老年代。 HotSpot虚拟机默认Eden和Survivor的大小比例是8:1。 标记-整理算法标记过程仍然和“标记-清除”算法一样，但是后续不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。 分代收集算法根据对象存活周期的不同将内存分为几块：一般把Java堆分为新生代和老年代。新生代中，每次垃圾收集时，都会发现有大量对象死去，只有少量存活，那就选用复制算法。老年代中，因为对象存活率高，没有额外空间对它进行分配担保，就必须使用“标记-清理”或”标记-整理”算法来进行回收。 HotSpot的算法实现枚举根节点GC进行的时候，需要进行可达性分析，枚举根节点，可达性分析需要Stop The World。可以作为GC Roots的节点主要在全局行的引用与执行上下文中。当执行系统停顿下来后，虚拟机并不需要一个不漏地检查完所有执行上下文和全局的引用位置。HotSpot的实现中，使用一组称为OopMap的数据结构来直接得知哪些地方存着对象的引用。 安全点在OopMap的协助下，HotSpot可以快速且准确地完成GC Roots枚举。HotSpot没有为每条指令都生成OopMap，只是在特定的位置记录下这些信息，这些位置称为安全点（Safepoint）。 程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停。 安全区域安全区域是指在一段代码片段之中，引用关系不会发生变化，在这个区域中的任意地方开始GC都是安全的。 线程要离开Safe Region时，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程）。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+        <tag>gc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[红黑二叉查找树]]></title>
+    <url>%2F2018%2F07%2F03%2FRedBlackBST%2F</url>
+    <content type="text"><![CDATA[2-3查找树定义：一棵2-3查找树或为一棵空树，或由以下结点组成： 2-结点，含有一个键（及其对应的值）和两条链接，左链接指向的2-3树中的键都小于该结点，右链接指向的2-3树中的键都大于该结点。 3-结点，还有两个键（及其对应的值）和三条链接，左链接指向的2-3树中的键都小于该结点，中链接指向的2-3树中的键都位于该结点的两个键之间，右链接指向的2-3树中的键都大于该结点。 我们将指向一棵空树的链接称为空链接。 红黑二叉查找树基本思想：我们将树中的链接分为两种类型： 红链接：将两个2-结点连接起来构成一个3-结点 黑链接：则是2-3树中的普通链接 我们将3-结点表示为由一条左斜的红色链接相连的2个结点 红黑二叉查找树既是二叉查找树，又是2-3查找树，所以我们可以将两个算法的有点结合起来，二叉查找树简洁高效的查找方法和2-3树中高效的平衡插入算法。 实现颜色表示为方便起见，每个结点都只会有一条指向自己的链接（从它的父节点指向它），我们将链接的颜色保存在表示结点的Node数据类型的布尔变量中，如果指向它的链接是红色的，那么该变量为true，黑色为false，我们约定空链接为黑色。 颜色表示的代码实现12345678910111213141516171819202122232425262728private static final boolean RED = true;private static final boolean BLACK = false;private Node root ;private boolean isRed(Node x )&#123; if (x == null) &#123; return false ; &#125; return x.color == RED;&#125;private class Node&#123; Key key ; Value val; Node left , right ; int N ; boolean color; public Node(Key key , Value val ; int N , boolean color)&#123; this.key = key; this.val = val ; this.N = N; this.color = color; &#125;&#125; 旋转与颜色转换左旋转假设我们有一条红色的右链接，需要被转化为左链接，这个操作叫做 左旋转。只是将用两个键中较小者作为根结点变为将较大者作为根结点。 12345678910private Node rotateLeft(Node h)&#123; assert isRed(h.right); Node x = h.right; x.left = h ; x.color = h.color; h.color = RED ; x.N = h.N; h.N = size( h.left ) + size( h.right ) + 1 ; return x ;&#125; 右旋转原理和左旋转一样 12345678910private Node rotateRight(Node h)&#123; assert isRed(h.left); Node x = h.left; x.right = h ; x.color = h.color; h.color = RED ; x.N = h.N; h.N = size( h.left ) + size( h.right ) + 1 ; return x ;&#125; 颜色转换当一个结点有两个红色结点的时候，除了需要将子结点的颜色由红变黑，还需要将父节点的颜色由黑变红 12345678private void flipColors(Node h)&#123; assert !isRed(h); assert isRed(h.left); assert isRed(h.right); h.color = RED; h.left.color = BLACK; h.right.color = BLACK;&#125; 根结点总是黑色颜色转换会使根结点变成红色，这时候我们将根结点设为黑色。注意，每当根结点由红变黑时，树的黑链接高度就会加1 插入新键插入新键总是用红色链接将新节点和它的父结点相连，然后需要的时候，再进行旋转，颜色变换操作。 向单个2-结点中插入新键（这个2-结点是根结点） 如果新插入的结点的键小于老键，直接新增一个红色的结点即可 如果新插入的结点的键大于老键，新增的红色结点会产生一条红色的右链接，执行左旋转即可。 树底部的2-结点插入新键同向单个2-结点中插入新键 向一棵双键树（即一个3-结点）中插入新键 新键小于树中的2个键 两者之间 新键大于树中的两个键 过程如图所示： 插入实现总之，只要谨慎地使用左旋转、右旋转和颜色转换这三种简单的操作即可。 如果右子结点是红色的，而左子结点是黑色的，进行左旋转 如果左子结点是红色的，且它的左子结点也是红色的，进行右旋转 如果左右子结点都是红色的，进行颜色转换 12345678910111213141516171819202122232425262728293031323334public void put(Key key , Value val)&#123; //查找key，找到则更新其值，否则为它新建一个结点。 root = put(root，key，val); root.color = BLACK; //根结点总是黑色&#125;private Node put(Node h , Key key , Value val)&#123; if (h == null) &#123; //标准的插入操作，和父节点用红链接相连 return new Node(key , val , 1, RED); &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0 ) &#123; h.left = put(h.left,key,val); &#125;else if (cmp &gt; 0 ) &#123; h.right = put(h.right , key ,val ); &#125;else&#123; h.val = val ; &#125; //除了这三条if语句，红黑树中put()的递归实现和二叉查找树中的put()的实现完全相同 if (isRed(h.right) &amp;&amp; !isRed(h.left)) &#123; h = rotateLeft(h); &#125; if (isRed(h.left) &amp;&amp; isRed(h.left.left) ) &#123; h = rotateRight(h); &#125; if (isRed(h.left) &amp;&amp; isRed(h.right)) &#123; flipColors(h); &#125; h.N = size(h .left)+ size (h.right ) + 1 ; return h;&#125;]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[二叉查找树 Binary Search Tree]]></title>
+    <url>%2F2018%2F07%2F03%2FBinary-Search-Tree%2F</url>
+    <content type="text"><![CDATA[定义一颗二叉查找树（BST）是一颗二叉树，其中每个结点都含有一个Comparable的键（以及相关联的的值），且每个结点的键都大于其左子树的结点的键而小于右子树的结点的键。 基本实现结点我们嵌套定义了一个私有类来表示二叉查找树的一个结点，每个结点都含有一个键、一个值、一条左链接、一条右链接、和一个结点计数器 12345678910111213private class Node&#123; private Key key;//键 private Value val;//值 private Node left,right;//指向左右子树的链接 private int N ;//以该结点为根结点的子树中的结点总数 public Node(Key key , Value val , int N)&#123; this.key = key ; this.val = val ; this.N = N ; &#125;&#125; 私有方法size()会将空链接的值当做0；这样我们通过以下公式来计算结点x的N值size(x) = size(x.left) + size(x.right) + 1 ;1234567891011public int size()&#123; return size(root);&#125;private int size(Node x)&#123; if (x == null) &#123; return 0 ; &#125;else&#123; return x.N; &#125;&#125; 查找一般来说，在符号表（二叉查找树是一个符号表）中查找一个键，可能有两种结果：如果含有该键的结点存在于表中，我们的查找命中，返回结点的值；否则未命中，返回null。 在二叉查找树中查找一个键的递归算法： 如果树是空的，则查找未命中 如果被查找的键和根结点的键相等，查找命中 否则我们就递归地在适当的子树中查找 12345678910111213141516171819public Value get(Key key)&#123; return get(root,key);&#125;private Value get(Node x , Key key)&#123; //在以x结点为根结点的子树中查找并返回key所对应的值 //如果找不到则返回null if (x == null) &#123; return null ; &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0 ) &#123; return get(x.left,key); &#125;else if (cmp &gt; 0 ) &#123; return get(x.right,key); &#125;else&#123; return x.val; &#125;&#125; 插入在二叉查找树中递归插入一个结点的算法： 如果树是空的，就安徽一个含有该键值对的新节点 如果被查找的键小于根结点的键，我们会继续在左子树中插入该键 否则在右子树中插入该键 12345678910111213141516171819public void put(Key key , Value val)&#123; put(root,key,val);&#125;private Node put(Node x , Key key,Value val)&#123; if (x == null) &#123; return new Node(Key,val,1); &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0 ) &#123; x = put(x.left,key,val); &#125;else if (cmp &gt; 0 ) &#123; x = put(x.right,key,val); &#125;else&#123; x.val = val; &#125; x.N = size(x.left) + size(x.right) + 1 ; return x ;&#125; 有序性相关的方法二叉查找树可以保持键的有序性 最小键和最大键最小键： 如果根结点的左链接为空，那么一棵二叉查找树中最小的键就是根结点； 如果左链接非空，那么树中最小的键就是左子树中的最小键 最大键： 如果根结点的右链接为空，那么一棵二叉查找树中最大的键就是根结点； 如果右链接非空，那么树中最大的键就是右子树中的最大键 递归实现查找最小键、最大键：123456789101112131415161718192021public Key min()&#123; return min(root).key;&#125;private Node min(Node x)&#123; if (x.left == null) return x; else return min(x.left);&#125;public Key max()&#123; return max(root).key;&#125;private Node max(Node x)&#123; if (x.right == null) return x; else return max(x.right);&#125; 向上取整和向下取整向上取整： 如果给定的key小于二叉查找树的根结点的键，那么小于等于key的最大键floor(key)一定在根结点的左子树中 如果给定的键key大于二叉查找树的根结点，那么只有当根结点右子树中存在小于等于key的结点时，小于等于key的最大结点才会出现在右子树中，否则根结点就是小于等于key的最大键。 1234567891011121314151617181920212223242526public Key floor(Key key)&#123; Node x = floot(root,key); if (x == null) &#123; return null ; &#125; return x.key;&#125;public Node floor(Node x , key)&#123; if (x == null) &#123; return null ; &#125; int cmp = key.compareTo(x.key); if (cmp == 0 ) &#123; return x ; &#125; if (cmp &lt; 0 ) &#123; return floor(x.left,key); &#125; Node t = floor(x.right,key); if (t != null) &#123; //当根结点右子树中存在小于等于key的结点时 return t ; &#125;else&#123; return x ; &#125;&#125; 向下取整：12345678910111213141516171819202122public Key ceiling(Key key)&#123; Node x = ceiling(root,key); if (x == null ) return null; else return x.key;&#125;private Node ceiling(Node x ,Key key)&#123; if (x == null) return null; int cmp = key.compareTo(x.key); if (cmp == 0 ) return x; if (cmp &gt; 0 ) return ceiling(x.right,key); Node t = ceiling(x.left,key); if (t != null) return t ; else return x;&#125; 排名 select(int k)、rank(Key key)假设我们要找排名为k的键（即树中正好有k个小于它的键）： 如果左子树中的结点树t大于k，那么我们就递归地在左子树中查找排名为k的键 如果t=k,我们就返回根结点键（根结点就是排名k） 如果t&lt;k,我们递归地在右子树中查找排名为 (k-t-1)的键 123456789101112131415161718public Key select(k)&#123; return select(root,k).key;&#125;private Node select(Node x,int k)&#123; //返回排名为k的结点 if (x==null) &#123; return null; &#125; int t = size(x.left); if (t &gt; k) &#123; return select(x.left,k); &#125;else if (t &lt; k ) &#123; return select(x.right,k-t-1); &#125;else&#123; return x; &#125;&#125; 返回给定Key的排名： 如果给定的key和根结点的键相等，我们返回左子树的结点总数t； 如果给定的键小于根结点，我们会返回该键在左子树中的排名（递归计算）； 如果给定的键大于根结点，我们返回 t+1 + 它在右子树中的排名（递归计算）。 12345678910111213141516public int rank(Key key)&#123; return rank(root,key);&#125;private int rank(Node x , Key key)&#123; if (x == null ) &#123; return 0 ; &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0) &#123; return rank(x.left,key); &#125;else if ( cmp &gt; 0) &#123; return size(x.left) + 1 + rank(x.right,key); &#125;else&#123; return x ; &#125;&#125; 删除操作删除最大键和删除最小键删除最小键： 我们需要不断深入根结点的左子树，直到遇见一个空链接，然后将指向该结点的链接指向该结点的右子树 1234567891011public void deleteMin()&#123; deleteMin(root);&#125;private Node deleteMin(Node x )&#123; if (x.left == null ) &#123; return x.right; &#125; x.left = deleteMin(x.left); x.N = size(x.left) + size(x.right) + 1 ; return x ;&#125; 删除最大键： 不断深入根结点的右子树，直到遇见一个空链接，然后将指向该结点的链接指向该结点的左子树 1234567891011public void deleteMax()&#123; deleteMax(root);&#125;private Node deleteMax(Node x)&#123; if (x.right == null) &#123; return x.left; &#125; x.right = deleteMax(x.right); x.N = size(x.left) + size(x.right) + 1 ; return x ;&#125; 删除操作删除一个结点t：1、找到以这个结点t为根结点的子树的最小结点x=min(t),x替换该结点t2、x的左子树指向 被删结点t的左子树3、x的右子树指向 删除了最小结点的原来的t的右子树（deleteMin(t.right)） 123456789101112131415161718192021222324252627282930public void delete(Key key)&#123; root = delete(root,key);&#125;private Node delete(Node x , Key key)&#123; if (x == null) &#123; return null ; &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0 ) &#123; x.left = delete(x.left,key); &#125;else if (cmp &gt; 0 ) &#123; x.right = delete(x.right,key); &#125;else&#123; //找到这个结点t if (x.right == null ) &#123; return x.left ; &#125; if (x.left == null ) &#123; return x.right ; &#125; Node t = x ; x = min(t.right); x.right = deleteMin(t.right); x.left = t.left; x.N = size(x.left) + size(x.right) + 1 ; return x ; &#125;&#125; 中序遍历将二叉排序树中的所有结点的键按顺序打印出来12345678private void print(Node x)&#123; if (x == null) &#123; return ; &#125; print(x.left); System.out.println(x.key); print(x.right);&#125; 范围查找返回指定范围内的键的keys()方法将所有落在指定范围以内的键加入一个队列Queue，并跳过哪些不可能含有所查找键的子树1234567891011121314151617181920212223242526public Iterable&lt;Key&gt; keys()&#123; return keys(min(),max());&#125;public Iterable&lt;Key&gt; keys(Key lo , Key hi)&#123; Queue&lt;Key&gt; queue = new Queue&lt;Key&gt;(); keys(root,queue,lo,hi); return queue;&#125;private void keys(Node x , Queue queue ,Key lo , Key hi )&#123; if (x == null) &#123; return ; &#125; int cmplo = lo.compareTo(x.key); int cmphi = hi.compareTo(x.key); if (cmplo &lt; 0 ) &#123; keys(x.left,queue,lo , hi); &#125; if (cmplo &lt;= 0 &amp;&amp; cmphi &gt;= 0 ) &#123; queue.enqueue(x.key); &#125; if (cmphi &gt; 0 ) &#123; keys(x.right , queue,lo ,hi); &#125;&#125; 性能分析在一棵二叉查找树中，所有操作在最坏情况下所需的时间都和树的高度成正比。 完整实现代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223224225226227228229230231232233234235236237238239240241242243244245246247248249250251252253254255256257258259260261262263264265266267268269270271272273274275276277278279280281282283284285286287288289290291292293294295296297package com.practice.algorithms;import edu.princeton.cs.algs4.StdOut;import edu.princeton.cs.algs4.StdRandom;public class BinarySearchTree&lt;Key extends Comparable&lt;Key&gt;,Value&gt;&#123; private Node root ; //二叉查找树的根节点 private class Node&#123; private Key key; private Value val; private Node left,right; private int N; public Node(Key key, Value val,int n) &#123; this.key = key; this.val = val; N = n; &#125; &#125; public int size()&#123; return size(root); &#125; private int size(Node x)&#123; if (x == null)&#123; return 0 ; &#125;else&#123; return x.N; &#125; &#125; public Value get(Key key)&#123; return get(root,key); &#125; private Value get(Node x , Key key)&#123; //在以x为根节点的子树中查找并返回key所对应的值 //如果找不到，则返回null if (x == null)&#123; return null; &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0 )&#123; return get(x.left,key); &#125;else if (cmp &gt; 0 )&#123; return get(x.right,key); &#125;else&#123; return x.val; &#125; &#125; public void put(Key key ,Value val)&#123; //查找可key，找到则更新它的值，否则为它创建一个新的节点 root = put(root,key,val); &#125; /** * 递归实现 */ private Node put(Node x , Key key , Value val)&#123; //如果key存在与以x为根节点的子树中，则更新它的值 //否则将以key和val为键值对的新节点插入到该子树中 if (x == null) &#123; return new Node(key, val, 1); &#125; int cmp = key.compareTo(x.key); if (cmp &lt; 0 )&#123; x.left = put(x.left,key,val); &#125;else if (cmp &gt; 0 )&#123; x.right = put(x.right,key,val); &#125;else&#123; x.val = val ; &#125; x.N = size(x.left) + size(x.right) + 1; return x; &#125; public Key min()&#123; return min(root).key; &#125; private Node min(Node x)&#123; if (x.left == null) return x; else return min(x.left); &#125; public Key max()&#123; return max(root).key; &#125; private Node max(Node x)&#123; if (x.right == null) return x; else return max(x.right); &#125; public Key floor(Key key)&#123; Node x = floor(root,key); if (x == null ) return null; else return x.key; &#125; private Node floor(Node x ,Key key)&#123; if (x == null) return null; int cmp = key.compareTo(x.key); if (cmp == 0 ) return x; if (cmp &lt; 0 ) return floor(x.left,key); Node t = floor(x.right,key); if (t != null) return t ; else return x; &#125; public Key ceiling(Key key)&#123; Node x = ceiling(root,key); if (x == null ) return null; else return x.key; &#125; private Node ceiling(Node x ,Key key)&#123; if (x == null) return null; int cmp = key.compareTo(x.key); if (cmp == 0 ) return x; if (cmp &gt; 0 ) return ceiling(x.right,key); Node t = ceiling(x.left,key); if (t != null) return t ; else return x; &#125; public Key select(int k)&#123; return select(root,k).key; &#125; /** * 以x为根节点，查找排名为k的节点 * 如果左子树中的结点树t大于k，继续递归地在左子树中查找排名为k的键 * 如果t=k，返回根节点中的键 * 如果t&lt;k。那么我们就递归地在右子树中查找排名为（k-t-1）的键 */ private Node select(Node x,int k)&#123; if (x == null) return null; int t = size(x.left); if ( t &gt; k ) &#123; return select(x.left, k); &#125;else if (t &lt; k )&#123; return select(x.right,k-t-1); &#125;else &#123; return x; &#125; &#125; public int rank(Key key)&#123; return rank(root,key); &#125; private int rank(Node x,Key key)&#123; //返回以x为根节点的子树中小于x.key的键的数量 if (x== null ) return 0 ; int cmp = key.compareTo(x.key); if (cmp &lt; 0 )&#123; return rank(x.left,key); &#125;else if (cmp &gt; 0)&#123; return rank(x.right,key); &#125;else&#123; return size(x.left); &#125; &#125; /** * 不断深入根节点的左子树，直至遇见一个空链接 * 然后将指向该节点的链接指向该节点的右子树（只要在递归调用中返回它的右链接即可） */ public void deleteMin()&#123; root = deleteMin(root); &#125; private Node deleteMin(Node x)&#123; if (x.left == null) return x.right; x.left = deleteMin(x.left); x.N = size(x.left) + size(x.right) + 1; return x ; &#125; public void deleteMax()&#123; root = deleteMax(root); &#125; private Node deleteMax(Node x)&#123; if (x.right == null) return x.left; x.right = deleteMin(x.right); x.N = size(x.left) + size(x.right) + 1; return x ; &#125; public void delete(Key key)&#123; root = delete(root,key); &#125; private Node delete(Node x ,Key key)&#123; if (x == null) return null; int cmp = key.compareTo(x.key); if (cmp &lt; 0 ) x.left = delete(x.left,key); else if (cmp &gt; 0) x.right = delete(x.right,key); else&#123; //找到了这个要删除的节点了 x if (x.right == null) return x.right; if (x.left == null ) return x.right; Node t = x ; x = min(t.right); x.right = deleteMin(t.right); //将x的右子树最小节点删除 x.left = t.left; &#125; x.N = size(x.left) + size(x.right) + 1; return x ; &#125; private void print(Node x)&#123; if ( x == null) return ; print(x.left); StdOut.println(x.key); print(x.right); &#125; public Iterable&lt;Key&gt; keys()&#123; return keys(min(),max()); &#125; public Iterable&lt;Key&gt; keys(Key lo , Key hi)&#123; Queue&lt;Key&gt; queue = new Queue&lt;Key&gt;(); keys(root,queue,lo,hi); return queue; &#125; private void keys(Node x,Queue&lt;Key&gt; queue,Key lo , Key hi)&#123; if (x == null ) return ; int cmplo = lo.compareTo(x.key); int cmphi = hi.compareTo(x.key); if (cmplo &lt; 0) keys(x.left,queue,lo,hi); if (cmplo &lt;= 0 &amp;&amp; cmphi &gt;= 0 )&#123; queue.enqueue(x.key); &#125; if (cmphi &gt; 0 ) keys(x.right,queue,lo,hi); &#125; public static void main(String[] args) &#123; BinarySearchTree&lt;String,Integer&gt; bst = new BinarySearchTree&lt;String,Integer&gt;(); for (int i = 0; i &lt; 1000000; i++) &#123; String key = StdRandom.uniform(0,1000)+""; int val = 0 ; if (bst.get(key)!=null)&#123; val = bst.get(key) + 1; &#125; bst.put(key,val); &#125; for (String key:bst.keys()) &#123; System.out.println("key="+key+",value="+bst.get(key)); &#125; System.out.println(bst.size()); System.out.println(bst.min()); System.out.println(bst.max()); System.out.println(bst.floor("50")); &#125;&#125;]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>Tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[java运行时数据区域]]></title>
+    <url>%2F2018%2F07%2F03%2Fjava%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%2F</url>
+    <content type="text"><![CDATA[运行时数据区域Java虚拟机所管理的内存将会包括一下几个运行时数据区域，如图所示： 程序计数器（线程私有）程序计数器是一块较小的内存空间，它可以看成是当前线程所执行的字节码的行号指示器。每条线程都需要一个独立的程序计数器，各条线程之间计数器相互不影响，独立存储，我们称这类内存区为“线程私有”的内存。 如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令地址；如果正在执行的是Native方法，这个计数器的值为空（Undefined）。 此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。 Java虚拟机栈Java虚拟机栈（Java VM Stacks）也是线程私有的，它的生命周期和线程相同。 虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧（Stack Frame），用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机中入栈到出栈的过程。 经常有人把Java内存区分为堆内存（heap）和栈内存（stack），这里所指的“栈”就是现在讲的虚拟机栈，或者说是虚拟机栈中局部变量表部分。 局部变量表存放了编译期可知的各种基本数据类型、对象引用类型（不同于对象本身），局部变量表所需的内存空间在编译期间完成分配，在方法运行期间不会改变局部变量表的大小。 这个区域规定了两种异常：StackOverflowError，线程请求的栈深度大于虚拟机所允许的深度；OutOfMemoryError,虚拟机栈扩展时无法申请到足够的内存。 本地方法栈（为Native方法服务）虚拟机使用到的Native方法服务的。本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。 Java堆（所有线程共享，存放对象实例）Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域唯一的目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配空间。 Java堆是垃圾收集器管理的主要区域。 从内存回收的角度来看，由于现在收集器基本都采用分代收集算法，所以Java堆中还细分为：新生代和老生代。再细致一点的有：Eden空间，From Survivor空间、To Survivor空间等。 当前主流的虚拟机都是按照可扩展来实现的（-Xmx和-Xms控制）。如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，会抛出OutOfMemoryError。 方法区也是各个线程共享的内存区域。用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。 很多习惯在HotSpot虚拟机上开发部署的程序开发者习惯把方法区称为“永生代（Permanent Generation）”。本质上并不等价。仅仅是因为HotSpot虚拟机设计团队选择把GC分代收集扩展至方法区，或者说使用永生代来实现方法区而已。 使用永生代来实现方法区，容易遇到内存溢出的问题，因为永生代有-XX:MaxPermSize的上限。 这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。当方法区无法满足内存分配的需求时，会抛出OutOfMemoryError异常。 运行时常量池运行时常量池（Runtime Constant Pool）是方法区的一部分。 Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池（Constant Pool Table）,用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。 当常量池无法再申请到内存时，会抛出OutOfMemoryError异常。 直接内存（堆外内存）不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域，但是这部分内存也会被频繁地使用，而且也可能导致OutOfMemoryError异常。 NIO，就可以使用堆外内存。 受到本机总内存大小以及处理器寻址空间的限制。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo发布博文，添加图片]]></title>
+    <url>%2F2018%2F07%2F03%2Fhexo-add-image%2F</url>
+    <content type="text"><![CDATA[方法一这个方法并不是很满意，采用的是方法二 以下是具体步骤： 1.修改hexo博客项目根目录_config.yml配置文件post_asset_folder项为true。 2、安装插件，在博客项目根目录下执行npm install https://github.com/CodeFalling/hexo-asset-image --save 2.hexo new “new blog”,新建一篇博客。 3.在source/_post文件夹里面就会出现一个“new-blog.md”的文件和一个“new-blog”的文件夹。 4、将图片复制到这个文件夹下，例如test.png 5.引用图片： 方法二在github上建立一个仓库，专门用来存放图片。将需要的图片上传到这个仓库 用以下的方式引入图片1![Alt text](/path/to/img.jpg &quot;Optional title&quot;)]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git submodule foreach git pull的问题]]></title>
+    <url>%2F2018%2F07%2F03%2Fgit%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[git 执行 git submodule foreach git pull的时候，总是报下面的问题 123456789 $ git submodule foreach git pullEntering 'themes/next'You are not currently on a branch.Please specify which branch you want to merge with.See git-pull(1) for details. git pull &lt;remote&gt; &lt;branch&gt;Stopping at 'themes/next'; script returned non-zero status. 后来进到子模块的目录下，执行 git status发现123$ git statusHEAD detached from 395bcfcnothing to commit, working tree clean 貌似生成了一个临时的branch，执行git branch -v1234zhuhaijun@ZhuHaijun-PC MINGW64 /f/myblog/themes/next ((63a1dd2...))$ git branch -v* (HEAD detached from 395bcfc) 63a1dd2 modified master 395bcfc [behind 2] Update ISSUE_TEMPLATE.md 发现现在那个63a1dd2分支上。 解决办法：直接用git checkout master切回master br吧，然后别忘了用git reset --hard 63a1dd2 命令切到最新的hash啊。]]></content>
+      <categories>
+        <category>bug</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[堆排序]]></title>
+    <url>%2F2018%2F07%2F02%2FHeap-sort%2F</url>
+    <content type="text"><![CDATA[二叉堆定义定义：当一颗二叉树的每个几节点都大于等于它的子节点时，它被称为堆有序。 定义：二叉堆是一组能够用堆有序的完全二叉树排序的元素，并在数组中按照层级存储（a[0]不使用。）在位置k的节点的父节点位置为k/2 ；位置k的节点的左右子节点分别是 2k,2k+1; 插入元素、删除元素比较大小 交换123456789private boolean less (int i , int j)&#123; return pq[i].compareTo(pq[j]) &lt; 0 ;&#125;private void exch(int i , int j)&#123; T t =pq[i]; pq[i] = pq[j]; pq[j] = t ;&#125; 插入元素将新元素添加到数组的尾，增加堆的大小，并让这个元素上浮到合适的位置 上浮算法：123456private void swim(int k)&#123; while( k &gt; 1 &amp;&amp; less( k/2 , k ))&#123; exch(k/2,k); k = k/2 ; &#125;&#125; 删除最大元素我们删除a[0],并将数组的最后一个元素放到顶端，减小堆的大小，并将这个元素下沉到合适的位置 下沉算法：1234567891011121314private void sink(int k)&#123; while ( 2*k &lt;= N )&#123;//N为数组长度 int j = 2*k ; //比较左右子节点哪个大，取大的那个 if (j &lt; N &amp;&amp; less(j , j +1 )) &#123; j++; &#125; if (!less(k,j)) &#123; break; &#125; exch(k, j); k = j ; &#125;&#125; 堆排序12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970public class HeapSort &#123; public static void main(String[] args) &#123; String a [] = &#123;"S","O","R","T","E","X","A","M","P","L","E"&#125;; sort(a); System.out.println(isSorted(a)); show(a); &#125; public static void sort(Comparable[] a)&#123; int N = a.length; for ( int k = N / 2 ; k &gt;= 1 ; k-- )&#123; //从最后一个子树开始 sink( a ,k , N ); &#125; //此时，最大的元素在根节点 //从根节点开始，将最大的元素依次交换到最后 while (N &gt; 1 )&#123; exch(a,1,N--); sink(a,1,N); &#125; &#125; /** * 将a[i] 到 a[j] 之间的元素排序 */ private static void sink(Comparable[] a , int k , int n )&#123; while( 2 * k &lt;= n )&#123; int j = 2 * k ; if (j &lt; n &amp;&amp; less(a,j , j +1))&#123; j++; //寻找两个子几点中大的那个 &#125; if (!less(a,k,j))&#123; //如果父结点比大的那个子结点大。循环结束 break; &#125; exch(a,k ,j); //交换 k = j ; //下沉一级 &#125; &#125; private static void exch(Comparable[] a ,int i,int j)&#123; Comparable t = a[i-1]; a[i-1] = a[j-1]; a[j-1] = t; &#125; private static boolean less(Comparable[] a,int i,int j)&#123; return a[i-1].compareTo(a[j-1]) &lt; 0 ; &#125; private static void show(Comparable[] a)&#123; //单行中打印数组 for (int i = 0; i &lt; a.length; i++) &#123; System.out.println(a[i] + " "); &#125; System.out.println(); &#125; public static boolean isSorted(Comparable[] a)&#123; for (int i = 1 ; i &lt; a.length; i++) &#123; if (less(a,i+1 ,i)) return false; &#125; return true; &#125;&#125;]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>sort</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法分析]]></title>
+    <url>%2F2018%2F06%2F27%2Falgorithm-analysis-math%2F</url>
+    <content type="text"><![CDATA[数学基础四个定义定义1 如果存在正常数c和n0使得当N&gt;n0时T(N)≤cf(N),则记为T(N)=O(f(N))。 定义2 如果存在正常数c和n0使得当N&gt;n0时T(N)≥cf(N),则记为T(N)=Ω(f(N))。 定义3 T(N)=Θ(h(N))当且仅当T(N)=O(h(N))和T(N)=Ω(h(N))。 定义4 如果对每一正常数c都存在常数n0使得当N&gt;n0时T(N)&lt;cp(N),则T(N)=o(p(N))。有时候也可以说，如果T(N)=O(p(N))且T(N)≠Θ(p(N)),则T(N)=o(p(N))。 这些定义的目的是要在函数间建立一种相对的级别，来比较它们的相对增长率（relative rate of growth） 定义1 T(N)=O(f(N))是说T(N)的增长率小于或等于f(N)的增长率，大O标记法 定义2 T(N)=Ω(f(N))是说T(N)的增长率大于或等于f(N)的增长率 定义3 T(N)=Θ(h(N))是说T(N)的增长率等于h(N)的增长率。 定义4 T(N)=o(p(N))是说T(N)的增长率大于或等于p(N)的增长率，小o标记法 重要法则法则1 如果T1(N)=O(f(N))且T2(N)=O(g(N))，那么 (a): T1(N) + T2(N) = O( f(N)+g(N) )(直观地和非正式地可以写成max( O(f(N), O(g(N)) ) ) 。 (b): T1(N) T2(N) = O( f(N)g(N) ) 。 法则2 如果T(N)是一个k次多项式，则T(N)=Θ(Nk) 法则3 对任意常数k，logkN = O(N),它告诉我们对数增长得非常缓慢 注意：1、不要将常数或低阶项放进大O。2、我们总能够通过计算极限 $$ limN-&gt;∞f(N)/g(N)来确定两个函数的相对增长率。 运行时间计算要做的就是计算大O运行时间。大O是一个上界。 一般法则法则1——for循环一个for循环的运行时间至多是该for循环内部那些语句的运行时间乘以迭代的次数。 法则2——嵌套for循环在一组嵌套循环内部的一条语句总的运行时间为该语句的运行时间乘以该组所有for循环的大小的乘积。 法则3——顺序语句将各个语句的运行时间求和即可。 法则4——if/else语句一个if/else语句的运行时间从不超过判断的运行时间再加上if和else中运行时间长者的总的运行时间。]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[volatile and synchronized]]></title>
+    <url>%2F2018%2F06%2F22%2Fvolatile-and-synchronized%2F</url>
+    <content type="text"><![CDATA[volatile概述volatile是轻量级的synchronized,在多处理器开发中保证了共享变量的可见性。可见性：当一个线程修改一个共享变量时，另一个线程能够读到这个修改的值。volatile不会引起线程的上下文切换和调度。 如果一个字段被声明为volatile,Java线程内存模型确保所有线程看到这个变量的值是一致的。 CPU术语定义 内存屏障（memory barriers）：是一组处理器命令，用于实现对内存操作的顺序限制 缓冲行（cache line）：CPU高速缓存中可以分配的最小存储单位 。处理器填写缓存行时会加载整个缓存行，现代CPU需要执行几百次CPU指令 原子操作(atomic operations):不可中断的一个活或一些列操作 缓存行填充(cache line fill):当处理器识别到从内存中读取操作数是可缓存的，处理器读取整个高速缓存行到适当的缓存（L1、L2、L3的或所有） 缓存命中（cache hit）:如果进行高速缓存行填充的内存位置仍然是下次处理器访问的地址时，处理器从缓存中读取操作数，而不是从内存中读取 写命中（write hit）：当处理器将操作数写回到一个内存缓存的区域时，它首先会检查这个缓存的内存地址是否在缓存中，如果存在一个有效的缓存行，则处理器将这个操作数写回到缓存，而不是写回到内存，这个操作被称为写命中 写缺失（write misses the cache）：一个有效的缓存行被写入到不存在的内存区域 volatile实现原理有volatile修饰的共享变量进行写操作的时候，会多出有Lock前缀的指令： Lock前缀指令会引起处理器缓存写回到内容 执行指令期间，声言处理器的LOCK#信号，LOCK#信号确保在声言该信号期间，处理器可以独占任何共享内存 一个处理器的缓存写回到内存会导致其他处理器的缓存无效 处理器使用嗅探技术保证它的内部缓存、系统内存和其他处理器的缓存的数据在总线上保持一致 synchronizedsynchronized实现同步的基础：Java中每一个对象都可以作为锁，具体表现为以下3种形式： 对于普通同步方法，锁是当前实例对象 对于静态同步方法，锁是当前类的Class对象 对于同步方法块，锁是synchronized括号里配置的对象 synchronized在JVM里的实现原理是， JVM基于进入和退出Monitor对象来实现方法同步和代码块同步。monitorenter指令在编译后插入到同步代码块的开始位置，monitorexit是插入到方法结束和异常处。线程执行到monitorexter指令时，将会尝试获取对象所对应的monitor的所有权，即尝试获得对象的锁。 Java对象头synchronized用的锁是存在Java对象头里的Mark Word。Java对象头的长度 长度 内容 说明 32/64bit Mark Word 存储对象的hashCode或锁信息等 32/64bit Class Metadata Addredd 存储到对象类型数据的指针 32/64bit Array length 数组的长度（如果当前对象是数组） 锁的升级与对比锁一共4种状态，级别从低到高依次是： 无锁状态 偏向锁状态 轻量级锁状态 重量级锁状态 偏向锁对于经常由同一线程多次获得锁的情况，为了让线程获得锁的代价更低，引入偏向锁。偏向锁会在对象头和栈帧中的锁记录存储锁偏向的线程ID，以后该线程在进入和退出同步块时不需要进行CAS操作来加锁和解锁偏向锁使用了一种等到竞争出现才释放锁的机制，所以当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>volatile synchronized concurrency</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Markdown 语法]]></title>
+    <url>%2F2018%2F06%2F22%2Fmarkdown-grammar%2F</url>
+    <content type="text"><![CDATA[Headers标题12345678910111213# H1## H2### H3#### H4##### H5###### H6另外，H1和H2还能用以下方式显示：一级标题===二级标题--- Emphasis 文本强调123*斜体* or _强调_**加粗** or __加粗__***粗斜体*** or ___粗斜体__ Lists 列表12345678910111213141516171819202122232425262728293031323334353637Unordered 无序列表：* 无序列表* 子项* 子项+ 无序列表+ 子项+ 子项- 无序列表- 子项- 子项Ordered 有序列表：1. 第一行2. 第二行3. 第三行1. 第一行- 第二行- 第三行组合：* 产品介绍（子项无项目符号） 此时子项，要以一个制表符或者4个空格缩进* 产品特点 1. 特点1 - 特点2 - 特点3* 产品功能 1. 功能1 - 功能2 - 功能3可有时我们会出现这样的情况，首行内容是以日期或数字开头：2013. 公司年度目标。为了避免也被转化成有序列表，我们可以在&quot;.&quot;前加上反斜杠（转义符）：2013\. 公司年度目标。 Links 连接（title为可选项）12345678910111213141516Inline-style 内嵌方式：[link text](https://www.google.com &quot;title text&quot;)Reference-style 引用方式：[link text][id][id]: https://www.mozilla.org &quot;title text&quot;Relative reference to a repository file 引用存储文件：[link text](../path/file/readme.text &quot;title text&quot;)还能这样使用：[link text][][link text]: http://www.reddit.comEmail 邮件：&lt;example@example.com&gt; Images 图片123456Inline-style 内嵌方式：![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;title text&quot;)Reference-style 引用方式：![alt text][logo][logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;title text&quot; 代码使用反引号(esc键下面的按钮)将代码包裹起来 分割线 如果我们想用分割线对内容进行分割，我们可以在单独一行里输入3个或以上的短横线、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。 引用如果我们在文章中引用了资料，那么我们可以通过一个右尖括号”&gt;”来表示这是一段引用内容。我们可以在开头加一个，也可以在每一行的前面都加一个。我们还可以在引用里面嵌套其他的引用 换行在需要换行的地方输入至少两个空格，然后回车即可 反斜杠Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 &lt;em> 标签），你可以在星号的前面加上反斜杠：\*literal asterisks\*Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：123456789101112\ 反斜线` 反引号* 星号_ 底线&#123;&#125; 花括号[] 方括号() 括弧# 井字号+ 加号- 减号. 英文句点! 惊叹号]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[什么是协程]]></title>
+    <url>%2F2018%2F06%2F22%2F%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%8D%8F%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[什么是进程和线程进程是应用程序的启动实例，进程拥有代码和打开的文件资源、数据资源、独立的内存空间。线程从属于进程，是程序的实际执行者，一个进程至少包含一个主线程，也可以有多个子线程。线程有自己的栈空间。 对操作系统来说，线程是最小的执行单元，进程是最小的资源管理单元。 Java中线程具有五种状态 初始化 可运行 运行中 阻塞 销毁 JVM需要通过操作系统内核中的TCB（Thread Control Block）模块来改变线程状态，这一过程需要消耗一定的CPU资源。 什么是协程协程，英文Coroutines，是一种比线程更加轻量级的存在。一个线程可以拥有多个协程。协程不是被操作系统内核所管理，而完全由程序所控制（也就是用户态执行）。 协程的暂停和线程的阻塞是有本质的区别的。协程的暂停完全是由程序控制，线程的阻塞状态是由操作系统内核来进行切换。 因此，协程的开销远远小于线程的开销。 协程的应用Java语言并没有对协程的原生支持，不过某些开源框架模拟出协程的功能。例如Kilim ， https://github.com/kilim/kilim Python可以通过yield/send的方式实现协程，在python3.5以后，async/await成为了更好的替代方案 Go语言支持]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java 并发 线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[到底部上滑加载更多]]></title>
+    <url>%2F2018%2F06%2F21%2Floadmore%2F</url>
+    <content type="text"><![CDATA[到底部，上滑加载更多123456789101112131415161718192021var loading = false ;$(window).on('scroll',function()&#123; if(scrollTop() + windowHeight() &gt;= documentHeight())&#123; loadMore(); &#125;&#125;);//上滑加载$(window).bind("scroll", $.debounce(200, function() &#123; loadMore()&#125;));function loadMore() &#123; if (document.body.scrollTop + $(window).height() &gt; $(document).height() - 200) &#123; if (isloading) return; isloading = true; //loadMore的逻辑 &#125; &#125;]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js loadmore</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js timestamp 转化为时间字符串]]></title>
+    <url>%2F2018%2F06%2F21%2Fjs-timestamp-to-datestring%2F</url>
+    <content type="text"><![CDATA[js的时间戳转化为时间字符串123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990/** * 时间格式方法 * @param &#123;any&#125; timeStamp 时间戳，秒级/毫秒级 * @param &#123;any&#125; type 格式化时间类型，默认 Y-M-D H:I:S * @returns &#123;string&#125; formatTime 格式化后的时间 例如： 2017-05-05 12:09:22 */function formatDate(timeStamp, type = 'Y-M-D H:I:S zh', auto = false) &#123; let time = (timeStamp + '').length === 10 ? new Date(parseInt(timeStamp) * 1000) : new Date(parseInt(timeStamp)); let _year = time.getFullYear(); let _month = (time.getMonth() + 1) &lt; 10 ? '0' + (time.getMonth() + 1) : (time.getMonth() + 1); let _date = time.getDate() &lt; 10 ? '0' + time.getDate() : time.getDate(); let _hours = time.getHours() &lt; 10 ? '0' + time.getHours() : time.getHours(); let _minutes = time.getMinutes() &lt; 10 ? '0' + time.getMinutes() : time.getMinutes(); let _secconds = time.getSeconds() &lt; 10 ? '0' + time.getSeconds() : time.getSeconds(); let formatTime = ''; let distinctTime = new Date().getTime() - time.getTime(); if (auto) &#123; if (distinctTime &lt;= (1 * 60 * 1000)) &#123; // console.log('一分钟以内，以秒数计算'); let _s = Math.floor((distinctTime / 1000) % 60); formatTime = _s + '秒前'; &#125; else if (distinctTime &lt;= (1 * 3600 * 1000)) &#123; // console.log('一小时以内,以分钟计算'); let _m = Math.floor((distinctTime / (60 * 1000)) % 60); formatTime = _m + '分钟前'; &#125; else if (distinctTime &lt;= (24 * 3600 * 1000)) &#123; // console.log('一天以内，以小时计算'); let _h = Math.floor((distinctTime / (60 * 60 * 1000)) % 24); formatTime = _h + '小时前'; &#125; else if (distinctTime &lt;= (30 * 24 * 3600 * 1000)) &#123; let _d = Math.floor((distinctTime / (24 * 60 * 60 * 1000)) % 30); formatTime = _d + '天前'; // console.log('30天以内,以天数计算'); &#125; else &#123; // 30天以外只显示年月日 formatTime = _year + '-' + _month + '-' + _date; &#125; &#125; else &#123; switch (type) &#123; case 'Y-M-D H:I:S': formatTime = _year + '-' + _month + '-' + _date + ' ' + _hours + ':' + _minutes + ':' + _secconds; break; case 'Y-M-D H:I:S zh': formatTime = _year + '年' + _month + '月' + _date + '日 ' + _hours + ':' + _minutes + ':' + _secconds; break; case 'Y-M-D H:I': formatTime = _year + '-' + _month + '-' + _date + ' ' + _hours + ':' + _minutes; break; case 'Y-M-D H': formatTime = _year + '-' + _month + '-' + _date + ' ' + _hours; break; case 'Y-M-D': formatTime = _year + '-' + _month + '-' + _date; break; case 'Y-M-D zh': formatTime = _year + '年' + _month + '月' + _date + '日'; break; case 'Y-M': formatTime = _year + '-' + _month; break; case 'Y': formatTime = _year; break; case 'M': formatTime = _month; break; case 'D': formatTime = _date; break; case 'H': formatTime = _hours; break; case 'I': formatTime = _minutes; break; case 'S': formatTime = _secconds; break; default: formatTime = _year + '-' + _month + '-' + _date + ' ' + _hours + ':' + _minutes + ':' + _secconds; break; &#125; &#125; // 返回格式化的日期字符串 return formatTime;&#125;]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux文件内容查阅]]></title>
+    <url>%2F2018%2F05%2F14%2Flinux-view-file%2F</url>
+    <content type="text"><![CDATA[文件内容查看cat由第一行开始显示文件内容cat [-AbEntv]-A：相当于-vET，可以列出一些特殊字符，而不是空白而已-b：列出行号，仅针对非空白行做行号显示，空白行不标行号-E：将结尾的断行字符$显示出来-n：打印出行号，空白行也打印-T：将Tab按键以^I 显示出来-v：列出一些看不见的特殊字符 tac将cat反向显示，由最后一行到第一行反向在屏幕上显示出来 nl添加行号打印nl [-bnw] 文件-b：指定行号指定的方式，只要有2种 -b a：不论是否为空行，也同样列出行号 -b t： 如果有空行，空的那行不列出（默认）-n：列出行号的方法 -n ln：行号在屏幕的最左方显示 -n rn：行号在自己字段的最右方显示，且不加0 -n rz：行号在自己字段的最右方显示，加0-w：行号字段占用的位数 more一页一页翻动+n：从第n行开始显示-n：定义屏幕大小为n行-c：顶部清屏，然后显示+/字符串：先搜索字符串，然后从字符串之后开始显示 常用操作：空格键Space： 向下翻动一页Enter： 向下滚动一行/字符串： 向下查询“字符串”这个关键字:f： 立即显示出文件名以及目前显示的行数q： 立即离开moreb或ctrl+b：代表往回翻页，只对文件有效，对管道无效ctrl+f：向下翻页=：输出当前行的行号V：调用vi编辑器 less一页一页翻动，可以往前往后翻动-i：搜索的时候忽略大小写-m：显示百分比 常用操作：y：向上翻动一行Enter： 向下滚动一行空格键： 向下翻动一页PageDown：向下翻动一页PageUp：向上翻动一页/字符串：向下查询?字符换：向上查询n：重复前一个查询（与/或?有关）N：反复重复前一个查询 （与/或?有关）q：离开less这个程序 head取出前面几行-n number：取出前面number 行+number：从第几行开始列出 tail取出后面几行-n number：取出后面几行-f：表示持续检测后面所街的文件名 od读取执行文件，通常是二进制文件od [-t TYPE] 文件-t ：后面可以接各种“类型”的输出 a：利用默认的字符来输出 c：利用ASCII字符输出 d[size]：利用十进制来输出，每个整数占用size bytes f[size]：利用浮点数来 输出 o[size]：利用八进制来输出 x[size]：利用十六进制来输出 修改文件时间或创建新文件touch修改文件时间或创建新文件modification time（mtime）当文件内容改变了，会更新这个时间 （默认显示）status time（ctime）当文件的状态（权限、属性）改变了，会更新这个时间access time（atime）当文件的内容被取用，会更新这个读取时间例如：ls -l –time=atime /etc/man.config 查看这个文件的读取时间touch [-acdmt] 文件-a：仅修改访问时间-c：仅修改文件的时间，若文件不存在则不创建新文件-d：后面可以接欲修改的日期而不用当前的日期，-m：仅修改mtime-t：后面可以接欲修改的时间，而不用当前的时间，格式为YYMMDDhhmm 文件查找which寻找“执行文件”-a：将所有由PATH目录中可以找到的命令均列出，而不只第一个被找到的命令名称。which并不能找到cd命令，因为cd是bash内置的命令，但是which默认是查找PATH内所规范的目录。 whereis寻找特定文件whereis [-bmsu] 文件或目录名-b：只找二进制格式的文件-m：只找在说明文件manual路径下的文件-s：只找source源文件-u：查找不在上述三个选项当中的其他特性文件 Linux系统会将系统内的所有文件都记录在一个数据库文件里面，而当使用whereis或者locate命令时，都会以此数据库文件的内容为准。locate寻找的数据是由已创建的数据库/var/lib/mlocate里面的数据所查找到的，所以很快速。更新locate数据库的方式，“updatedb” updatedb根据/etc/updatedb.conf的设置去查找系统硬盘内的文件名，并更新/var/lib/mlocate内的数据库文件]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux，cat</tag>
+        <tag>more</tag>
+        <tag>less</tag>
+        <tag>touch</tag>
+        <tag>which</tag>
+        <tag>whereis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[RPM、SRPM与YUM 常用命令]]></title>
+    <url>%2F2018%2F05%2F14%2Flinux-rpm-srpm-yum%2F</url>
+    <content type="text"><![CDATA[rpmrpm 安装（install）rpm -ivh package-name 参数： -i：install的意思 -v：查看更详细的安装信息画面 -h：以安装信息栏显示安装进度 rpm 升级与更新（upgrade/freshen）以-Uvh 或 -Fvh 来升级 -Uvh：后面接的软件即使没有安装过，则系统将予直接安装，若安装过，则系统自动更新到新版 -Fvh：后面接的软件并未安装到你的Linux系统上，则该软件不会被安装。 rpm 查询（query）RPM在查询的时候，其实查询的地方是/var/lib/rpm这个目录下的数据库文件 rpm -qa &lt;==已安装软件 rpm -q[licdR] 已安装软件的名称 &lt;== 已安装软件 rpm -qf 存在于系统上面的某个文件名 &lt;==已安装软件 rpm -qp[licdR] 未安装的某个文件名称 &lt;== 查阅RPM文件 参数：查询已安装软件的信息 -q：仅查询，后面接的软件名称是否有安装 -qa：列出所有的已经安装在本机Linux系统上面的所有软件名称 -qi：列出该软件的详细信息，包含开发商，版本与说明等 -ql：列出该软件所有的文件与目录所在的完整文件名（list） -qc：列出该软件的所有设置文件（找出在/etc/下面的文件名而已） -qd：列出该软件的所有帮助文档（找出与man有关的文件而已） -qR：列出与该软件有关的依赖软件所含的文件名（Required的意思） -qf：由后面接的文件名称找出该文件属于哪一个已安装的软件 -qp[licdR]：后面接的所有的参数以上面的说明一致，但用途仅在于找出某个RPM文件内的信息 rpm 验证与数字证书（Verify/Signature）rpm -Va rpm -V 已安装的软件名称 rpm -Vp 某个RPM文件的文件名 rpm -Vf 在系统上面的某个文件 参数： -V：后面加的是软件名称，若该软件所含的文件被改动过，才会列出来 -Va：列出目前系统上面所有可能被改动过的文件 -Vp：后面接的是文件名称，列出该软件内可能被改动过的文件 -Vf：列出某个文件是否被改动过 rpm 卸载rpm -e 软件名称 重建数据库rpm –rebuilddb srpm文件的安装rpmrebuild --rebuild src-package-name —–&gt; 将后面的SRPM进行编译与打包，最后产生RPM的文件（仅编译并打包） rpmrebuild --recompile src-package-name —–&gt; 直接编译、打包并且安装（不仅进行编译打包，还进行安装） yumyum查询功能 yum [ list | info | search | provides | whatprovides ] 参数yum [option] [查询工作项目] [相关参数] 参数: [option]：主要的参数，包括有： -y：当yum要等待用户输入时，这个选项可以自动提供yes的响应 –installroot=/some/path ： 将该软件安装在 /some/path 中而不适用默认路径 [查询工作目录] [相关参数] ：这方面的参数有： search：搜索某个软件名称或者是描述（description）的重要关键字 list：列出目前yum所管理的所有的软件名称与版本，有点类似于rpm -qa info：同上，类似于rpm -qai 的运行结果 provides：从文件中去搜索软件，类似于 rpm -qf的功能 例子： yum search raid：搜索磁盘阵列（raid）相关的软件有哪些 yum info mdadm ： 找出mdadm这个软件的功能为何 yum list updates ： 列出目前服务器上可供本机进行升级的软件有哪些 yum provides passwd：列出提供passwd这个文件的软件有哪些 yum安装/升级功能：yum [install | update] 软件yum [option] [查询工作项目] [相关参数]参数：install：后面接要安装的软件update：后面接要升级的软件，若要整个系统都更新，就直接 update 即可 yum删除功能：yum [ remove ] 软件yum的设置文件vi /etc/yum.repos.d/CentOS-Base.repo 列出目前 yum server 所使用的容器有哪些yum repolist all yum的软件组功能yum [组功能] [软件组] 参数： grouplist：列出所有可使用的组列表，例如Development Tools之类的 groupinfo：后面接group name，则可了解该group内含的所有组名称 groupinstall：可以安装一整组软件 groupremove：移除某个组 例如： yum groupinstall “Development Tools” 安装开发软件]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linix</tag>
+        <tag>rpm</tag>
+        <tag>srpm</tag>
+        <tag>yum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux vim操作说明]]></title>
+    <url>%2F2018%2F05%2F14%2Flinux-vim%2F</url>
+    <content type="text"><![CDATA[vi与vimvi分为3个模式： 一般模式：默认模式，可以上下左右按键移动光标，可以删除字符或删除整行，可以复制、粘贴编辑模式：按下“i,I,o,O,a,A,r,R”等任一字母进入编辑模式，按Esc退出到一般模式命令行模式：一般模式下，输入“：、/、?”三个中任一个按钮 移动光标的方法 按键 描述 h或左箭头键 向左移动一个字符 j或下 向下移动一个字符 k或上 向上移动一个字符 l或右 向右移动一个字符 先按数字，再按上下左右 移动多个字符 Ctrl+f 屏幕下移一页 相当于 PgDn键 Ctrl+b 屏幕上移一页，相当于PgUp键 Ctrl+d 屏幕向下移动半页 Ctrl+u 屏幕向上移动半页 + 光标移动到非空格符的下一行 - 光标移动到非空格符的上一行 n space 按下数字，再按空格，光标会向右移动这一行的n个字符 0 或 Home 移动到这一行最前面 $ 或 End 移动到这一行最后面 H 光标移动到这个屏幕最上方那一行的第一个字符 M 光标移动到这个屏幕的中央的那一行的第一个字符 L 光标移动到这个屏幕最下方第一行的第一个字符 G 移动到这个文件的最后一行 nG 移动到这个文件的第n行 gg 移动到这个文件的第一行，1G n Enter 向下移动n行 查找和替换 按键 描述 /word 向下查找一个word字符串 ?word 下上查找一个word字符串 n n是英文按键，代表重复前一个查找 N “反向”进行前一个查找操作 :n1,n2s/word1/word2/g n1、n2为数字，在第n1和n2行之间查找word1，并替换为word2 :1,$s/word1/word2/g 第一行到最后一行之间，查找并替换 :1,$s/word1/word2/gc 替换之前，显示提示符，让用户确认 删除、复制与粘贴 按键 描述 x,X 在一行中，x为向后删除一个字符，X为向前删除一个常用字符 nx n为数字，连续向后删除n个字符 dd 删除光标所在行 ndd 删除光标所在的向下n行 d1G 删除光标所在行到第一行的所有数据 dG 删除光标所在行到最后一行的所有数组 d$ 删除从光标所在处到该行的最后一个字符 d0 删除从光标所在处到该行的第一个字符 yy 复制光标所在行 nyy 复制光标所在的向下n行 y1G 复制光标所在行到第一行的数据 yG 复制光标所在行到最后一行 y$ 复制光标所在处到行尾的所有数据 y0 复制光标所在处到行首的所有数据 p，P p为将已复制的数据在光标的下一行粘贴P为将已复制的数据在光标的上一行粘贴 J 将光标所在行与下一行的数据结合成同一行 c 重复删除多个数据，例如向下删除10行，【10cj】 u 复原前一个操作 Ctrl+r 重做上一个操作 . 小数点，重复上一个操作 一般模式切换到编辑模式的可用按钮说明 按键 描述 i,I 进入插入模式i为从目前光标所在处插入，I为在目前光标所在行的一个非空格符处开始插入 a，A 进入插入模式a为从目前光标所在的下一个字符出开始插入，A为从光标所在行的最后一个字符处开始插入 o，O 进入插入模式o为在光标所在行的下一行插入新的一行O为在目前光标所在行的上一行插入一行 r，R 进入替换模式r只会替换光标所在的字符一次R会一直替换光标所在的字符，只要按下Esc 一般模式切换到命令行模式的可用按钮说明 按键 描述 :w 保存，将编辑的数据写入硬盘中 :w! 强行保存，是否可以写入与权限有关 :q 离开vi :q! 强制离开不保存 :wq 保存后离开，：wq!则为强行保存后离开 ZZ 若文件没有更改，则不保存离开，若文件更改了，则保存后离开 :w [filename] 将编辑的数据保存为另一个文件（类似于另存为文件） :r [filename] 将“filename”这个文件内容加到光标所在行后面 :n1.n2 w [filename] 将n1到n2之间的内容保存为filename这个文件 :! command 暂时离开vi到命令行模式下执行cammand的显示结果 :set nu 显示行号 :set nonu 与set nu相反，取消行号 vim块选择 按键 描述 v 字符选择，会将光标经过的地方反白选择 V 行选择，会将光标经过的行反白选择则 ctrl+v 块选择，可以用长方形的方式选择数据 y 将反白的地方复制 d 将反白的地方删除 多文件编辑 按键 描述 :n 编辑下一个文件 :N 编辑上一个文件 :files 列出目前这个vim打开的所有文件 多窗口功能在命令行模式，输入:sp {filename},filename可有可无如果想在新窗口启动另一个文件，就加入另一个文件的文件名，否则仅输入:sp，出现的是同一个文件在两个窗口打开 按键 描述 :sp {filename} 打开一个新口 Ctrl+w+j，Ctrl+w+下 按键的按法是：先按住Ctrl不放，再按下w后放开所有的键然后在按下j或下，则光标可以移动到下方窗口 Ctrl+w+k,Ctrl+w+上 同上，不过光标移动到上方窗口 Ctrl+w+q 其实就是:q结束离开，关闭下方窗口 vim环境设置在一般模式时，输入“:set all”可以显示环境设置参数 按键 描述 :set nu ， :set nonu 设置与取消行号 :set hlsearch ，:set nohlsearch hlsearch 就是high light search 高亮度查找这个设置就是是否将查找的字符串反白的设置。默认是hlsearch :set autoindent,:set noautoindet 表示是否自动缩排 :set backup 是否自动保存备份文件，一般是nobackup否则，改动任何文件，原文件会另存为一个文件名为filename~的文件 :set ruler 显示或不显示右下角的一些状态 :set showmode 是否要显示 –INSERT–之类的字眼 :set all 显示目前所有的环境参数设置值 :set 显示与系统默认值不同的设置参数 整体vim的设置值一般是放置在/etc/vimrc这个文件中，不过不建议修改它。你可以修改~/.vimrc这个文件（默认不存在，请你自行手动创建）]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linix</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[通过添加git子模块的方式来下载hexo next主题]]></title>
+    <url>%2F2018%2F05%2F12%2Fadd-themes-next-by-submodule%2F</url>
+    <content type="text"><![CDATA[Fork当我们使用hexo的时候，一般都会使用各种主题，大多数的文档都是叫我们直接clone主题到themes目录下，然后再配置-config.yml。 但是，当我们将我们的博客上传到我们自己的github上的时候，主题无法与博客数据一起同步。 原因是我们使用了clone将主题下载到本地，所以它自己本身也是一个git仓库。因此它上层的博客仓库就无法对其进行管理。 更好的方法是fork一份主题到自己的github上，再将自己的github里的主题当作子模块加载进来。 fork的目的在于，我们可以对主题进行各种个性化的定制以及修改，并对这些定制进行版本控制。同时，我们还能随时与原主题的更新进行合并。 1、fork `git@github.com:iissnan/hexo-theme-next.git` 到自己的github 通过git submodule add 添加为子模块12$ cd your-hexo-site$ git submodule add https://github.com/someone/hexo-theme-next themes/next 运行 git status，会看到1234567$ git statusOn branch masterYour branch is up to date with 'origin/master'.Changes to be committed: (use "git reset HEAD &lt;file&gt;..." to unstage) new file: .gitmodules new file: themes/next 首先你注意到有一个.gitmodules文件。1234$ cat .gitmodules[submodule "themes/next"] path = themes/next url = https://github.com/iissnan/hexo-theme-next 修改themes/next主题修改了themes/next里面的内容后，git status查看12345678910111213$ git statusOn branch masterYour branch is up to date with 'origin/master'.Changes to be committed: (use "git reset HEAD &lt;file&gt;..." to unstage) new file: .gitmodules new file: themes/nextChanges not staged for commit: (use "git add &lt;file&gt;..." to update what will be committed) (use "git checkout -- &lt;file&gt;..." to discard changes in working directory) (commit or discard the untracked or modified content in submodules) modified: .gitmodules modified: themes/next (modified content, untracked content) 更新submodulesubmodule里面做了修改操作后，要在submodule和主目录下分别提交 submodule push 到远端仓库将添加的子模块push到远端submodule的仓库，分别执行123git add .git commit -m '提交信息'git push 主目录内push然后再回到父目录,提交Submodule在父项目中的变动123git add .git commit -m ' update submodule'git push clone Submodule 方法一：一种是采用递归的方式clone整个项目 1git clone git@github.com:***/***.git --recursive 方法二：一种是clone父项目，再更新子项目clone我的博客项目后,执行下面更新命令 123cd your-hexo-sitegit submodule initgit submodule update 更新submodule方法一：在父目录直接执行1git submodule foreach git pull 方法二：在submodule目录下执行1git pull]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>submodule</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo多终端同步管理博客]]></title>
+    <url>%2F2018%2F05%2F12%2Fhexo-many-computer%2F</url>
+    <content type="text"><![CDATA[A电脑备份博客到github 进入博客根目录。确认.gitignore文件的存在。内容如下： 1234567.DS_StoreThumbs.dbdb.json*.lognode_modules/public/.deploy*/ 在博客根目录下，在git bash下依次执行 12git initgit remote add origin &lt;server&gt; 同步到远程git仓库，在git bash下以此执行 123git add . #添加目录下所有文件git commit -m “更新说明” #提交并添加更新说明git push -u origin master #推送更新到远程仓库 B电脑拉下远程仓库文件在B电脑上先安装好nodejs、git、hexo，执行123$ hexo init &lt;folder&gt;$ cd &lt;folder&gt;$ npm install 建好hexo文件夹，再执行以下命令：1234git initgit remote add origin &lt;server&gt; #添加远程仓库git fetch --all #从远程仓库抓取数据到本地git reset --hard origin/master #彻底回退到某个版本，本地的源码也会变为上一个版本的内容 然后同步submodule，更新themes下的主题123cd you-hexo-sitegit submodule initgit submodule update B电脑发布博客后同步在B电脑发布完博客之后，将博客备份同步到远程仓库。执行以下命令：123git add #可以用git master 查看更改内容git commit -m "更新信息"git push -u origin master #以后每次提交可以直接git pu 每次写博客时同步管理每次写博客之前，先执行12git pullgit submodule foreach git pull 进行同步更新。发布完文章后同样按照上面的发布博客后同步。 同步到远程仓库。 常用命令整理12345678git pull #同步更新github仓库hexo new "文章名" #简写形式 hexo n "文章名"hexo clean #清除旧的public文件夹hexo generate #生成静态文件 简写形式 hexo ghexo deploy #发布到github上 简写形式 hexo dgit add . #添加更改文件到缓存区git commit -m "更新说明" #提交到本地仓库git push -u origin master #推送到远程仓库进行备份]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>git</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[安装并使用hexo]]></title>
+    <url>%2F2018%2F05%2F12%2Finstall-hexo%2F</url>
+    <content type="text"><![CDATA[安装HexoHexo是一个快速、简洁、高效的博客框架。Hexo使用Markdown解析文章。可以快速生成靓丽的主题的静态网页。 Hexo参考文档：https://hexo.io/zh-cn/docs/ 安装前提安装Hexo前，确保您的电脑里已经安装了 node.js git 如果你的电脑已经安装了上述必备程序，那么接下来只需要使用npm即可完成hexo的安装。1$ npm install -g hexo-cli 安装gitgit参考文档：https://git-scm.com/book/zh/v2 由于我们写博客一般都在windows系统上面，这里只写一下windows环境安装过程。 Linux下安装参考上面的文档。 点击https://git-scm.com/download/win,会自动下载安装程序，点下一步下一步就可以了。 安装node.jswindows下64位下载地址：http://nodejs.cn/download/ 下载后 一直点下一步下一步即可。 安装完成后，cmd中输入path。我们可以看到环境变量中已经包含了C:\Program Files\nodejs\ 安装hexo1$ npm install -g hexo-cli 建站安装后，执行下面的命令，Hexo将会在指定的文件夹中新建所需的文件。123$ hexo init &lt;folder&gt;$ cd &lt;folder&gt;$ npm install 如果没有输入folder，则是在当前目录中新建。 新建完成后，目录结构如下所示12345678.├── _config.yml├── package.json├── scaffolds├── source| ├── _drafts| └── _posts└── themes 使用hexo新建文章1$ hexo new "My New Post" #可以简写成hexo n 生成静态网页12$ hexo generate$ hexo g #可以简写成hexo g 启动服务123$ hexo server$ hexo s #可以简写成hexo #!/bin/sh$ hexo s --debug 启动完以后，可以通过 127.0.0.1:4000 访问 部署到远程服务器上12$ hexo deploy$ hexo d #可以简写成hexo d 注：通过配置github pages的地址到_config.yml中，执行这条命令后，可以一键部署到github pages。 部署到github上需要安装 hexo-deployer-git1$ npm install hexo-deployer-git --save 清理1$ hexo clean]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>git</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用Atom编辑Markdown]]></title>
+    <url>%2F2018%2F05%2F10%2Fatom%2F</url>
+    <content type="text"><![CDATA[atom工欲善其事必先利其器，找到一款好用的编辑器Atom。通过下载插件，可以用来编辑Markdown文本 1、安装Atom下载地址：https://atom.io/ Ctrl + Shift + P 可以调出快捷键 2、安装插件File –&gt; Setting –&gt; Install –&gt; Search for package输入插件名，即可安装 markdown 好用的插件1、增强预览插件（markdown-preview-plus）atom自带的Markdown预览插件markdown-preview功能比较简单，markdown-preview-plus做了功能扩展和增加。 支持预览实时渲染（ Ctrl + Shift + M ） 支持Latex公式（ Ctrl + Shift + X ） 2、粘贴图片 markdown-image-paste 截图到剪切板 在Markdown新起一行输入文件名 Ctrl+V 会自动把图片保存到Markdown文件的相同目录下 3、表格编辑插件markdown-table-editor使用方法： 先输入一个 | 和一些内容，按tab键，即可移动到下一列 按enter键，移动到下一行 按esc键，结束编辑表格 Commands: Commands Description Keybinding Next Cell Move to next cell tab Previous Cell Move to previous cell shfit+ tab Next Row Move to next row enter Escape Escape from the table esc 如果你添加一些快捷键到你的 keymap.cson1234567891011121314151617'atom-text-editor:not(.mini):not(.autocomplete-active).markdown-table-editor-active': 'ctrl-left' : 'markdown-table-editor:move-left' 'ctrl-right' : 'markdown-table-editor:move-right' 'ctrl-up' : 'markdown-table-editor:move-up' 'ctrl-down' : 'markdown-table-editor:move-down' 'shift-ctrl-left' : 'markdown-table-editor:align-left' 'shift-ctrl-right' : 'markdown-table-editor:align-right' 'shift-ctrl-up' : 'markdown-table-editor:align-center' 'shift-ctrl-down' : 'markdown-table-editor:align-none' 'alt-shift-ctrl-left' : 'markdown-table-editor:move-column-left' 'alt-shift-ctrl-right': 'markdown-table-editor:move-column-right' 'alt-shift-ctrl-up' : 'markdown-table-editor:move-row-up' 'alt-shift-ctrl-down' : 'markdown-table-editor:move-row-down' 'ctrl-k ctrl-i' : 'markdown-table-editor:insert-row' 'ctrl-k alt-ctrl-i' : 'markdown-table-editor:delete-row' 'ctrl-k ctrl-j' : 'markdown-table-editor:insert-column' 'ctrl-k alt-ctrl-j' : 'markdown-table-editor:delete-column' 4、代码增强language-markdown打开一个 Markdown 文件，按ctrl+shift+L选择“Markdown” 5、Markdown Maker]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>atom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[memcached启动与查看状态]]></title>
+    <url>%2F2018%2F05%2F10%2Fmemcached-stats%2F</url>
+    <content type="text"><![CDATA[##启动memcached1memcached -d -p 11311 -u odin -m 512 -c 1024 -p 设置TCP端口号，默认为11211-U 设置UDP端口号-u 指定用于运行进程的用户-m 允许的最大内存量，单位是M，默认是64M-c 最大连接数,默认为1024 连接memcached 和退出12telnet 127.0.0.1 11211quit stats查看状态示例如下1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253STAT pid 22459 进程IDSTAT uptime 1027046 服务器运行秒数STAT time 1273043062 服务器当前unix时间戳STAT version 1.4.4 服务器版本STAT libevent 2.0.21-stableSTAT pointer_size 64 操作系统字大小(这台服务器是64位的)STAT rusage_user 0.040000 进程累计用户时间STAT rusage_system 0.260000 进程累计系统时间STAT curr_connections 10 当前打开连接数STAT total_connections 82 曾打开的连接总数STAT connection_structures 13 服务器分配的连接结构数STAT reserved_fds 20STAT cmd_get 54 执行get命令总数STAT cmd_set 34 执行set命令总数STAT cmd_flush 3 指向flush_all命令总数STAT get_hits 9 get命中次数STAT get_misses 45 get未命中次数STAT delete_misses 5 delete未命中次数STAT delete_hits 1 delete命中次数STAT incr_misses 0 incr未命中次数STAT incr_hits 0 incr命中次数STAT decr_misses 0 decr未命中次数STAT decr_hits 0 decr命中次数STAT cas_misses 0 cas未命中次数STAT cas_hits 0 cas命中次数STAT cas_badval 0 使用擦拭次数STAT touch_hits 0STAT touch_misses 0STAT auth_cmds 0STAT auth_errors 0STAT bytes_read 15785 读取字节总数STAT bytes_written 15222 写入字节总数STAT limit_maxbytes 67108864 分配的内存数（字节）STAT accepting_conns 1 目前接受的链接数STAT listen_disabled_num 0STAT time_in_listen_disabled_us 0STAT threads 4 线程数STAT conn_yields 0STAT hash_power_level 16STAT hash_bytes 524288STAT hash_is_expanding 0STAT malloc_fails 0STAT conn_yields 0STAT bytes 0 存储item字节数STAT curr_items 0 item个数STAT total_items 34 item总数STAT expired_unfetched 0STAT evicted_unfetched 0STAT evictions 0 为获取空间删除item的总数STAT reclaimed 0STAT crawler_reclaimed 0STAT crawler_items_checked 0STAT lrutail_reflocked 0 获取运行状态1echo stats | nc 127.0.0.1 11211 也可以查看到 stats 查看memcached的连接数1netstat -nat | fgrep 11211 |awk '&#123;print $4&#125;' | fgrep 11211 | wc -l]]></content>
+      <categories>
+        <category>memcached</category>
+      </categories>
+      <tags>
+        <tag>memcached</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[获取hadoop权威指南第四版中的NCDC数据]]></title>
+    <url>%2F2018%2F05%2F08%2Fget-hadoop-ncdc-data%2F</url>
+    <content type="text"><![CDATA[美国国家气候数据NCDC的FTP地址为:ftp://ftp.ncdc.noaa.gov/pub/data/gsod/2013/ 可以通过以下shell脚本来获得1vim getNcdcBigData.sh 内容如下：123456#!/bin/bashfor i in &#123;1901..2014&#125;docd /home/xxxx/hapood/ncdcwget --execute robots=off -r -np -nH --cut-dirs=4 -R index.html* ftp://ftp.ncdc.noaa.gov/pub/data/gsod/$i/done]]></content>
+      <categories>
+        <category>hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+        <tag>ncdc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[eclipse中svn “out of date”解决办法]]></title>
+    <url>%2F2018%2F05%2F03%2Fsvn-out-of-date%2F</url>
+    <content type="text"><![CDATA[svn出现out of date的错误，通过以下三步，即可解决。 team -&gt; update team -&gt; Show Tree Confict team -&gt; commit]]></content>
+      <categories>
+        <category>bug</category>
+      </categories>
+      <tags>
+        <tag>svn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[开始]]></title>
+    <url>%2F2018%2F04%2F28%2Fstart%2F</url>
+    <content type="text"><![CDATA[经过了一天的摸索，终于通过hexo+github搭建好了我的个人博客，并且下载了next主题，并且做了一些优化。希望以后可以将自己的所见所想，学习的总结记录于此。业精于勤！]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>
