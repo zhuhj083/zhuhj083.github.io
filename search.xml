@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python制作微信好友照片墙]]></title>
+    <url>%2F2018%2F12%2F24%2Fpython%E5%88%B6%E4%BD%9C%E5%BE%AE%E4%BF%A1%E5%A5%BD%E5%8F%8B%E7%85%A7%E7%89%87%E5%A2%99%2F</url>
+    <content type="text"><![CDATA[安装itchat和pillow库12sudo pip install itchatsudo pip install pillow 代码如下wechat_head_img.py1234567891011121314151617181920212223242526272829303132333435363738394041424344import itchatimport mathimport osfrom PIL import Imageitchat.auto_login(hotReload=True)friends = itchat.get_friends(update=True)num = 0if not os.path.exists("headImg"): os.mkdir("headImg")for friend in friends: img = itchat.get_head_img(userName=friend["UserName"]) if len(img) == 0: print("skip %d,friend=%s" % (num,friend["NickName"]) ) continue print("%d,friend=%s" % (num,friend["NickName"])) fileImage = open('headImg' + "/" + str(num) + ".jpg",'web') fileImage.write(img) fileImage.close() num += 1all_image = os.listdir('headImg')print("There %d images" % len(all_image))each_size = int(math.sqrt(float(640*640)/len(all_image)))lines = int(640 / each_size)image = Image.new('RGBA',(640,640))x = 0y = 0for i in range(0,len(all_image)): imagePath = 'headImg'+"/"+str(i) + ".jpg" if not os.path.isfile(imagePath): continue img = Image.open(imagePath) img = img.resize((each_size,each_size),Image.ANTIALIAS) image.paste( img , (x*each_size,y*each_size) ) x += 1 if x == lines: x = 0 y += 1image = image.convert('RGB')image.save('headImg'+"/"+"all.jpg")itchat.send_image('headImg'+"/"+"all.jpg" , 'filehelper') 直接执行1234# 添加执行权限sudo chmod +x wechat_head_img.py# 执行python wechat_head_img.py]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>wechat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[# 安装itchat和pillow库]]></title>
+    <url>%2F2018%2F12%2F24%2Fpython%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8CAI%E6%99%BA%E8%83%BD%E5%9B%9E%E5%A4%8D%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[Mac teminal ssh 免密码]]></title>
     <url>%2F2018%2F12%2F21%2FMac-teminal-ssh-%E5%85%8D%E5%AF%86%E7%A0%81%2F</url>
     <content type="text"><![CDATA[一、创建expect脚本 在/usr/local/bin目录下创建item2ssh.sh脚本 123456789101112131415#!/usr/bin/expectset timeout 15set port [lindex $argv 0]set username [lindex $argv 1]set host [lindex $argv 2]set passwd [lindex $argv 3]spawn ssh -p $port $username@$hostexpect &#123; "(yes/no)?" &#123;send "yes\n";exp_continue&#125; "password:" &#123;send "$passwd\n"&#125;&#125;interact 赋予可执行权限 12cd /usr/local/binsudo chmod +x item2ssh.sh 二、创建alias 创建alias在~目录下，创建.bash_alies文件，内容如下 1alias ssh2std='item2login.sh 22 username ip passwd' 修改.bash_profile添加以下几行 123if [ -f ~/.bash_aliases ]; then source ~/.bash_aliasesfi 5.source使之生效1source ~/.bash_profile 这样以后，直接敲ssd2std 就可以免密码ssh登录到std机器上了。 三、item2中使用在item2软件中，comand+, 弹出Preferences，然后可以添加Profiles,如下图所示]]></content>
@@ -413,17 +430,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[使用Atom编辑Markdown]]></title>
-    <url>%2F2018%2F05%2F10%2Fatom%2F</url>
-    <content type="text"><![CDATA[atom工欲善其事必先利其器，找到一款好用的编辑器Atom。通过下载插件，可以用来编辑Markdown文本 1、安装Atom下载地址：https://atom.io/ Ctrl + Shift + P 可以调出快捷键 2、安装插件File –&gt; Setting –&gt; Install –&gt; Search for package输入插件名，即可安装 markdown 好用的插件1、增强预览插件（markdown-preview-plus）atom自带的Markdown预览插件markdown-preview功能比较简单，markdown-preview-plus做了功能扩展和增加。 支持预览实时渲染（ Ctrl + Shift + M ） 支持Latex公式（ Ctrl + Shift + X ） 2、粘贴图片 markdown-image-paste 截图到剪切板 在Markdown新起一行输入文件名 Ctrl+V 会自动把图片保存到Markdown文件的相同目录下 3、表格编辑插件markdown-table-editor使用方法： 先输入一个 | 和一些内容，按tab键，即可移动到下一列 按enter键，移动到下一行 按esc键，结束编辑表格 Commands: Commands Description Keybinding Next Cell Move to next cell tab Previous Cell Move to previous cell shfit+ tab Next Row Move to next row enter Escape Escape from the table esc 如果你添加一些快捷键到你的 keymap.cson1234567891011121314151617'atom-text-editor:not(.mini):not(.autocomplete-active).markdown-table-editor-active': 'ctrl-left' : 'markdown-table-editor:move-left' 'ctrl-right' : 'markdown-table-editor:move-right' 'ctrl-up' : 'markdown-table-editor:move-up' 'ctrl-down' : 'markdown-table-editor:move-down' 'shift-ctrl-left' : 'markdown-table-editor:align-left' 'shift-ctrl-right' : 'markdown-table-editor:align-right' 'shift-ctrl-up' : 'markdown-table-editor:align-center' 'shift-ctrl-down' : 'markdown-table-editor:align-none' 'alt-shift-ctrl-left' : 'markdown-table-editor:move-column-left' 'alt-shift-ctrl-right': 'markdown-table-editor:move-column-right' 'alt-shift-ctrl-up' : 'markdown-table-editor:move-row-up' 'alt-shift-ctrl-down' : 'markdown-table-editor:move-row-down' 'ctrl-k ctrl-i' : 'markdown-table-editor:insert-row' 'ctrl-k alt-ctrl-i' : 'markdown-table-editor:delete-row' 'ctrl-k ctrl-j' : 'markdown-table-editor:insert-column' 'ctrl-k alt-ctrl-j' : 'markdown-table-editor:delete-column' 4、代码增强language-markdown打开一个 Markdown 文件，按ctrl+shift+L选择“Markdown” 5、Markdown Maker]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>atom</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[memcached启动与查看状态]]></title>
     <url>%2F2018%2F05%2F10%2Fmemcached-stats%2F</url>
     <content type="text"><![CDATA[##启动memcached1memcached -d -p 11311 -u odin -m 512 -c 1024 -p 设置TCP端口号，默认为11211-U 设置UDP端口号-u 指定用于运行进程的用户-m 允许的最大内存量，单位是M，默认是64M-c 最大连接数,默认为1024 连接memcached 和退出12telnet 127.0.0.1 11211quit stats查看状态示例如下1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253STAT pid 22459 进程IDSTAT uptime 1027046 服务器运行秒数STAT time 1273043062 服务器当前unix时间戳STAT version 1.4.4 服务器版本STAT libevent 2.0.21-stableSTAT pointer_size 64 操作系统字大小(这台服务器是64位的)STAT rusage_user 0.040000 进程累计用户时间STAT rusage_system 0.260000 进程累计系统时间STAT curr_connections 10 当前打开连接数STAT total_connections 82 曾打开的连接总数STAT connection_structures 13 服务器分配的连接结构数STAT reserved_fds 20STAT cmd_get 54 执行get命令总数STAT cmd_set 34 执行set命令总数STAT cmd_flush 3 指向flush_all命令总数STAT get_hits 9 get命中次数STAT get_misses 45 get未命中次数STAT delete_misses 5 delete未命中次数STAT delete_hits 1 delete命中次数STAT incr_misses 0 incr未命中次数STAT incr_hits 0 incr命中次数STAT decr_misses 0 decr未命中次数STAT decr_hits 0 decr命中次数STAT cas_misses 0 cas未命中次数STAT cas_hits 0 cas命中次数STAT cas_badval 0 使用擦拭次数STAT touch_hits 0STAT touch_misses 0STAT auth_cmds 0STAT auth_errors 0STAT bytes_read 15785 读取字节总数STAT bytes_written 15222 写入字节总数STAT limit_maxbytes 67108864 分配的内存数（字节）STAT accepting_conns 1 目前接受的链接数STAT listen_disabled_num 0STAT time_in_listen_disabled_us 0STAT threads 4 线程数STAT conn_yields 0STAT hash_power_level 16STAT hash_bytes 524288STAT hash_is_expanding 0STAT malloc_fails 0STAT conn_yields 0STAT bytes 0 存储item字节数STAT curr_items 0 item个数STAT total_items 34 item总数STAT expired_unfetched 0STAT evicted_unfetched 0STAT evictions 0 为获取空间删除item的总数STAT reclaimed 0STAT crawler_reclaimed 0STAT crawler_items_checked 0STAT lrutail_reflocked 0 获取运行状态1echo stats | nc 127.0.0.1 11211 也可以查看到 stats 查看memcached的连接数1netstat -nat | fgrep 11211 |awk '&#123;print $4&#125;' | fgrep 11211 | wc -l]]></content>
@@ -432,6 +438,17 @@
       </categories>
       <tags>
         <tag>memcached</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用Atom编辑Markdown]]></title>
+    <url>%2F2018%2F05%2F10%2Fatom%2F</url>
+    <content type="text"><![CDATA[atom工欲善其事必先利其器，找到一款好用的编辑器Atom。通过下载插件，可以用来编辑Markdown文本 1、安装Atom下载地址：https://atom.io/ Ctrl + Shift + P 可以调出快捷键 2、安装插件File –&gt; Setting –&gt; Install –&gt; Search for package输入插件名，即可安装 markdown 好用的插件1、增强预览插件（markdown-preview-plus）atom自带的Markdown预览插件markdown-preview功能比较简单，markdown-preview-plus做了功能扩展和增加。 支持预览实时渲染（ Ctrl + Shift + M ） 支持Latex公式（ Ctrl + Shift + X ） 2、粘贴图片 markdown-image-paste 截图到剪切板 在Markdown新起一行输入文件名 Ctrl+V 会自动把图片保存到Markdown文件的相同目录下 3、表格编辑插件markdown-table-editor使用方法： 先输入一个 | 和一些内容，按tab键，即可移动到下一列 按enter键，移动到下一行 按esc键，结束编辑表格 Commands: Commands Description Keybinding Next Cell Move to next cell tab Previous Cell Move to previous cell shfit+ tab Next Row Move to next row enter Escape Escape from the table esc 如果你添加一些快捷键到你的 keymap.cson1234567891011121314151617'atom-text-editor:not(.mini):not(.autocomplete-active).markdown-table-editor-active': 'ctrl-left' : 'markdown-table-editor:move-left' 'ctrl-right' : 'markdown-table-editor:move-right' 'ctrl-up' : 'markdown-table-editor:move-up' 'ctrl-down' : 'markdown-table-editor:move-down' 'shift-ctrl-left' : 'markdown-table-editor:align-left' 'shift-ctrl-right' : 'markdown-table-editor:align-right' 'shift-ctrl-up' : 'markdown-table-editor:align-center' 'shift-ctrl-down' : 'markdown-table-editor:align-none' 'alt-shift-ctrl-left' : 'markdown-table-editor:move-column-left' 'alt-shift-ctrl-right': 'markdown-table-editor:move-column-right' 'alt-shift-ctrl-up' : 'markdown-table-editor:move-row-up' 'alt-shift-ctrl-down' : 'markdown-table-editor:move-row-down' 'ctrl-k ctrl-i' : 'markdown-table-editor:insert-row' 'ctrl-k alt-ctrl-i' : 'markdown-table-editor:delete-row' 'ctrl-k ctrl-j' : 'markdown-table-editor:insert-column' 'ctrl-k alt-ctrl-j' : 'markdown-table-editor:delete-column' 4、代码增强language-markdown打开一个 Markdown 文件，按ctrl+shift+L选择“Markdown” 5、Markdown Maker]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>atom</tag>
       </tags>
   </entry>
   <entry>

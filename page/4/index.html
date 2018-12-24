@@ -325,6 +325,426 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/06/21/js-timestamp-to-datestring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/21/js-timestamp-to-datestring/" itemprop="url">js timestamp 转化为时间字符串</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T16:32:37+08:00">
+                2018-06-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/21/js-timestamp-to-datestring/" class="leancloud_visitors" data-flag-title="js timestamp 转化为时间字符串">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  530
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="js的时间戳转化为时间字符串"><a href="#js的时间戳转化为时间字符串" class="headerlink" title="js的时间戳转化为时间字符串"></a>js的时间戳转化为时间字符串</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 时间格式方法</span></span><br><span class="line"><span class="comment"> * @param &#123;any&#125; timeStamp  时间戳，秒级/毫秒级</span></span><br><span class="line"><span class="comment"> * @param &#123;any&#125; type 格式化时间类型，默认  Y-M-D H:I:S</span></span><br><span class="line"><span class="comment"> * @returns &#123;string&#125; formatTime 格式化后的时间 例如： 2017-05-05 12:09:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formatDate</span>(<span class="params">timeStamp, type = <span class="string">'Y-M-D H:I:S zh'</span>, auto = false</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> time = (timeStamp + <span class="string">''</span>).length === <span class="number">10</span> ?</span><br><span class="line">				<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">parseInt</span>(timeStamp) * <span class="number">1000</span>) : <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">parseInt</span>(timeStamp));</span><br><span class="line">    <span class="keyword">let</span> _year = time.getFullYear();</span><br><span class="line">    <span class="keyword">let</span> _month = (time.getMonth() + <span class="number">1</span>) &lt; <span class="number">10</span> ?</span><br><span class="line">				<span class="string">'0'</span> + (time.getMonth() + <span class="number">1</span>) : (time.getMonth() + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> _date = time.getDate() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getDate() : time.getDate();</span><br><span class="line">    <span class="keyword">let</span> _hours = time.getHours() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getHours() : time.getHours();</span><br><span class="line">    <span class="keyword">let</span> _minutes = time.getMinutes() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getMinutes() : time.getMinutes();</span><br><span class="line">    <span class="keyword">let</span> _secconds = time.getSeconds() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getSeconds() : time.getSeconds();</span><br><span class="line">    <span class="keyword">let</span> formatTime = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">let</span> distinctTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - time.getTime();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (auto) &#123;</span><br><span class="line">        <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">1</span> * <span class="number">60</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="comment">// console.log('一分钟以内，以秒数计算');</span></span><br><span class="line">            <span class="keyword">let</span> _s = <span class="built_in">Math</span>.floor((distinctTime / <span class="number">1000</span>) % <span class="number">60</span>);</span><br><span class="line">            formatTime = _s + <span class="string">'秒前'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">1</span> * <span class="number">3600</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="comment">// console.log('一小时以内,以分钟计算');</span></span><br><span class="line">            <span class="keyword">let</span> _m = <span class="built_in">Math</span>.floor((distinctTime / (<span class="number">60</span> * <span class="number">1000</span>)) % <span class="number">60</span>);</span><br><span class="line">            formatTime = _m + <span class="string">'分钟前'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">24</span> * <span class="number">3600</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="comment">// console.log('一天以内，以小时计算');</span></span><br><span class="line">            <span class="keyword">let</span> _h = <span class="built_in">Math</span>.floor((distinctTime / (<span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)) % <span class="number">24</span>);</span><br><span class="line">            formatTime = _h + <span class="string">'小时前'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">30</span> * <span class="number">24</span> * <span class="number">3600</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="keyword">let</span> _d = <span class="built_in">Math</span>.floor((distinctTime / (<span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)) % <span class="number">30</span>);</span><br><span class="line">            formatTime = _d + <span class="string">'天前'</span>;</span><br><span class="line">            <span class="comment">// console.log('30天以内,以天数计算');</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 30天以外只显示年月日</span></span><br><span class="line">            formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H:I:S'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours + <span class="string">':'</span> + _minutes + <span class="string">':'</span> + _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H:I:S zh'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'年'</span> + _month + <span class="string">'月'</span> + _date + <span class="string">'日  '</span> + _hours + <span class="string">':'</span> + _minutes + <span class="string">':'</span> + _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H:I'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours + <span class="string">':'</span> + _minutes;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D zh'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'年'</span> + _month + <span class="string">'月'</span> + _date + <span class="string">'日'</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y'</span>:</span><br><span class="line">                formatTime = _year;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'M'</span>:</span><br><span class="line">                formatTime = _month;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'D'</span>:</span><br><span class="line">                formatTime = _date;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'H'</span>:</span><br><span class="line">                formatTime = _hours;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'I'</span>:</span><br><span class="line">                formatTime = _minutes;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'S'</span>:</span><br><span class="line">                formatTime = _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours + <span class="string">':'</span> + _minutes + <span class="string">':'</span> + _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回格式化的日期字符串</span></span><br><span class="line">    <span class="keyword">return</span> formatTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/14/linux-view-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/14/linux-view-file/" itemprop="url">linux文件内容查阅</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T16:35:19+08:00">
+                2018-05-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/14/linux-view-file/" class="leancloud_visitors" data-flag-title="linux文件内容查阅">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,165
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="文件内容查看"><a href="#文件内容查看" class="headerlink" title="文件内容查看"></a>文件内容查看</h1><h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h2><p>由第一行开始显示文件内容<br>cat [-AbEntv]<br>-A：相当于-vET，可以列出一些特殊字符，而不是空白而已<br>-b：列出行号，仅针对非空白行做行号显示，空白行不标行号<br>-E：将结尾的断行字符$显示出来<br>-n：打印出行号，空白行也打印<br>-T：将Tab按键以^I 显示出来<br>-v：列出一些看不见的特殊字符</p>
+<h2 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h2><p>将cat反向显示，由最后一行到第一行反向在屏幕上显示出来</p>
+<h2 id="nl"><a href="#nl" class="headerlink" title="nl"></a>nl</h2><p>添加行号打印<br>nl [-bnw] 文件<br>-b：指定行号指定的方式，只要有2种<br>    -b a：不论是否为空行，也同样列出行号<br>    -b t： 如果有空行，空的那行不列出（默认）<br>-n：列出行号的方法<br>    -n ln：行号在屏幕的最左方显示<br>    -n rn：行号在自己字段的最右方显示，且不加0<br>    -n rz：行号在自己字段的最右方显示，加0<br>-w：行号字段占用的位数</p>
+<h2 id="more"><a href="#more" class="headerlink" title="more"></a>more</h2><p>一页一页翻动<br>+n：从第n行开始显示<br>-n：定义屏幕大小为n行<br>-c：顶部清屏，然后显示<br>+/字符串：先搜索字符串，然后从字符串之后开始显示</p>
+<p>常用操作：<br>空格键Space：    向下翻动一页<br>Enter：    向下滚动一行<br>/字符串：    向下查询“字符串”这个关键字<br>:f：    立即显示出文件名以及目前显示的行数<br>q：    立即离开more<br>b或ctrl+b：代表往回翻页，只对文件有效，对管道无效<br>ctrl+f：向下翻页<br>=：输出当前行的行号<br>V：调用vi编辑器</p>
+<h2 id="less"><a href="#less" class="headerlink" title="less"></a>less</h2><p>一页一页翻动，可以往前往后翻动<br>-i：搜索的时候忽略大小写<br>-m：显示百分比</p>
+<p>常用操作：<br>y：向上翻动一行<br>Enter：    向下滚动一行<br>空格键：    向下翻动一页<br>PageDown：向下翻动一页<br>PageUp：向上翻动一页<br>/字符串：向下查询<br>?字符换：向上查询<br>n：重复前一个查询（与/或?有关）<br>N：反复重复前一个查询 （与/或?有关）<br>q：离开less这个程序</p>
+<h2 id="head"><a href="#head" class="headerlink" title="head"></a>head</h2><p>取出前面几行<br>-n number：取出前面number 行<br>+number：从第几行开始列出</p>
+<h2 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h2><p>取出后面几行<br>-n number：取出后面几行<br>-f：表示持续检测后面所街的文件名</p>
+<h2 id="od"><a href="#od" class="headerlink" title="od"></a>od</h2><p>读取执行文件，通常是二进制文件<br>od [-t TYPE] 文件<br>-t ：后面可以接各种“类型”的输出<br>    a：利用默认的字符来输出<br>    c：利用ASCII字符输出<br>    d[size]：利用十进制来输出，每个整数占用size bytes<br>    f[size]：利用浮点数来 输出<br>    o[size]：利用八进制来输出<br>    x[size]：利用十六进制来输出</p>
+<h1 id="修改文件时间或创建新文件"><a href="#修改文件时间或创建新文件" class="headerlink" title="修改文件时间或创建新文件"></a>修改文件时间或创建新文件</h1><h2 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h2><p>修改文件时间或创建新文件<br>modification time（mtime）当文件内容改变了，会更新这个时间 （默认显示）<br>status time（ctime）当文件的状态（权限、属性）改变了，会更新这个时间<br>access time（atime）当文件的内容被取用，会更新这个读取时间<br>例如：ls -l –time=atime /etc/man.config 查看这个文件的读取时间<br>touch [-acdmt] 文件<br>-a：仅修改访问时间<br>-c：仅修改文件的时间，若文件不存在则不创建新文件<br>-d：后面可以接欲修改的日期而不用当前的日期，<br>-m：仅修改mtime<br>-t：后面可以接欲修改的时间，而不用当前的时间，格式为YYMMDDhhmm</p>
+<h1 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h1><h2 id="which"><a href="#which" class="headerlink" title="which"></a>which</h2><p>寻找“执行文件”<br>-a：将所有由PATH目录中可以找到的命令均列出，而不只第一个被找到的命令名称。<br>which并不能找到cd命令，因为cd是bash内置的命令，但是which默认是查找PATH内所规范的目录。</p>
+<h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><p>寻找特定文件<br>whereis [-bmsu] 文件或目录名<br>-b：只找二进制格式的文件<br>-m：只找在说明文件manual路径下的文件<br>-s：只找source源文件<br>-u：查找不在上述三个选项当中的其他特性文件</p>
+<p>Linux系统会将系统内的所有文件都记录在一个数据库文件里面，而当使用whereis或者locate命令时，都会以此数据库文件的内容为准。<br>locate寻找的数据是由已创建的数据库/var/lib/mlocate里面的数据所查找到的，所以很快速。<br>更新locate数据库的方式，“updatedb”</p>
+<h2 id="updatedb"><a href="#updatedb" class="headerlink" title="updatedb"></a>updatedb</h2><p>根据/etc/updatedb.conf的设置去查找系统硬盘内的文件名，并更新/var/lib/mlocate内的数据库文件</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1923,6 +2343,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/10/memcached-stats/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/10/memcached-stats/" itemprop="url">memcached启动与查看状态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T14:58:49+08:00">
+                2018-05-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/memcached/" itemprop="url" rel="index">
+                    <span itemprop="name">memcached</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/10/memcached-stats/" class="leancloud_visitors" data-flag-title="memcached启动与查看状态">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  573
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##启动memcached<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">memcached -d -p 11311 -u odin -m 512 -c 1024</span><br></pre></td></tr></table></figure></p>
+<p>-p <num>  设置TCP端口号，默认为11211<br>-U <num>  设置UDP端口号<br>-u <username> 指定用于运行进程的用户<br>-m  允许的最大内存量，单位是M，默认是64M<br>-c  最大连接数,默认为1024</username></num></num></p>
+<h2 id="连接memcached-和退出"><a href="#连接memcached-和退出" class="headerlink" title="连接memcached 和退出"></a>连接memcached 和退出</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telnet 127.0.0.1 11211</span><br><span class="line">quit</span><br></pre></td></tr></table></figure>
+<h2 id="stats查看状态"><a href="#stats查看状态" class="headerlink" title="stats查看状态"></a>stats查看状态</h2><p>示例如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">STAT pid 22459                             进程ID</span><br><span class="line">STAT uptime 1027046                        服务器运行秒数</span><br><span class="line">STAT time 1273043062                       服务器当前unix时间戳</span><br><span class="line">STAT version 1.4.4                         服务器版本</span><br><span class="line">STAT libevent 2.0.21-stable</span><br><span class="line">STAT pointer_size 64                       操作系统字大小(这台服务器是64位的)</span><br><span class="line">STAT rusage_user 0.040000                  进程累计用户时间</span><br><span class="line">STAT rusage_system 0.260000                进程累计系统时间</span><br><span class="line">STAT curr_connections 10                   当前打开连接数</span><br><span class="line">STAT total_connections 82                  曾打开的连接总数</span><br><span class="line">STAT connection_structures 13              服务器分配的连接结构数</span><br><span class="line">STAT reserved_fds 20</span><br><span class="line">STAT cmd_get 54                            执行get命令总数</span><br><span class="line">STAT cmd_set 34                            执行<span class="built_in">set</span>命令总数</span><br><span class="line">STAT cmd_flush 3                           指向flush_all命令总数</span><br><span class="line">STAT get_hits 9                            get命中次数</span><br><span class="line">STAT get_misses 45                         get未命中次数</span><br><span class="line">STAT delete_misses 5                       delete未命中次数</span><br><span class="line">STAT delete_hits 1                         delete命中次数</span><br><span class="line">STAT incr_misses 0                         incr未命中次数</span><br><span class="line">STAT incr_hits 0                           incr命中次数</span><br><span class="line">STAT decr_misses 0                         decr未命中次数</span><br><span class="line">STAT decr_hits 0                           decr命中次数</span><br><span class="line">STAT cas_misses 0                          cas未命中次数</span><br><span class="line">STAT cas_hits 0                            cas命中次数</span><br><span class="line">STAT cas_badval 0                          使用擦拭次数</span><br><span class="line">STAT touch_hits 0</span><br><span class="line">STAT touch_misses 0</span><br><span class="line">STAT auth_cmds 0</span><br><span class="line">STAT auth_errors 0</span><br><span class="line">STAT bytes_read 15785                      读取字节总数</span><br><span class="line">STAT bytes_written 15222                   写入字节总数</span><br><span class="line">STAT limit_maxbytes 67108864               分配的内存数（字节）</span><br><span class="line">STAT accepting_conns 1                     目前接受的链接数</span><br><span class="line">STAT listen_disabled_num 0</span><br><span class="line">STAT time_in_listen_disabled_us 0</span><br><span class="line">STAT threads 4                             线程数</span><br><span class="line">STAT conn_yields 0</span><br><span class="line">STAT hash_power_level 16</span><br><span class="line">STAT hash_bytes 524288</span><br><span class="line">STAT hash_is_expanding 0</span><br><span class="line">STAT malloc_fails 0</span><br><span class="line">STAT conn_yields 0</span><br><span class="line">STAT bytes 0                               存储item字节数</span><br><span class="line">STAT curr_items 0                          item个数</span><br><span class="line">STAT total_items 34                        item总数</span><br><span class="line">STAT expired_unfetched 0</span><br><span class="line">STAT evicted_unfetched 0</span><br><span class="line">STAT evictions 0                           为获取空间删除item的总数</span><br><span class="line">STAT reclaimed 0</span><br><span class="line">STAT crawler_reclaimed 0</span><br><span class="line">STAT crawler_items_checked 0</span><br><span class="line">STAT lrutail_reflocked 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取运行状态"><a href="#获取运行状态" class="headerlink" title="获取运行状态"></a>获取运行状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> stats | nc 127.0.0.1 11211</span><br></pre></td></tr></table></figure>
+<p>也可以查看到 stats</p>
+<h2 id="查看memcached的连接数"><a href="#查看memcached的连接数" class="headerlink" title="查看memcached的连接数"></a>查看memcached的连接数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nat | fgrep 11211 |awk <span class="string">'&#123;print $4&#125;'</span> | fgrep 11211 | wc -l</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/10/atom/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2179,215 +2808,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/10/memcached-stats/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/10/memcached-stats/" itemprop="url">memcached启动与查看状态</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T14:58:49+08:00">
-                2018-05-10
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/memcached/" itemprop="url" rel="index">
-                    <span itemprop="name">memcached</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/10/memcached-stats/" class="leancloud_visitors" data-flag-title="memcached启动与查看状态">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  573
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##启动memcached<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">memcached -d -p 11311 -u odin -m 512 -c 1024</span><br></pre></td></tr></table></figure></p>
-<p>-p <num>  设置TCP端口号，默认为11211<br>-U <num>  设置UDP端口号<br>-u <username> 指定用于运行进程的用户<br>-m  允许的最大内存量，单位是M，默认是64M<br>-c  最大连接数,默认为1024</username></num></num></p>
-<h2 id="连接memcached-和退出"><a href="#连接memcached-和退出" class="headerlink" title="连接memcached 和退出"></a>连接memcached 和退出</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telnet 127.0.0.1 11211</span><br><span class="line">quit</span><br></pre></td></tr></table></figure>
-<h2 id="stats查看状态"><a href="#stats查看状态" class="headerlink" title="stats查看状态"></a>stats查看状态</h2><p>示例如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">STAT pid 22459                             进程ID</span><br><span class="line">STAT uptime 1027046                        服务器运行秒数</span><br><span class="line">STAT time 1273043062                       服务器当前unix时间戳</span><br><span class="line">STAT version 1.4.4                         服务器版本</span><br><span class="line">STAT libevent 2.0.21-stable</span><br><span class="line">STAT pointer_size 64                       操作系统字大小(这台服务器是64位的)</span><br><span class="line">STAT rusage_user 0.040000                  进程累计用户时间</span><br><span class="line">STAT rusage_system 0.260000                进程累计系统时间</span><br><span class="line">STAT curr_connections 10                   当前打开连接数</span><br><span class="line">STAT total_connections 82                  曾打开的连接总数</span><br><span class="line">STAT connection_structures 13              服务器分配的连接结构数</span><br><span class="line">STAT reserved_fds 20</span><br><span class="line">STAT cmd_get 54                            执行get命令总数</span><br><span class="line">STAT cmd_set 34                            执行<span class="built_in">set</span>命令总数</span><br><span class="line">STAT cmd_flush 3                           指向flush_all命令总数</span><br><span class="line">STAT get_hits 9                            get命中次数</span><br><span class="line">STAT get_misses 45                         get未命中次数</span><br><span class="line">STAT delete_misses 5                       delete未命中次数</span><br><span class="line">STAT delete_hits 1                         delete命中次数</span><br><span class="line">STAT incr_misses 0                         incr未命中次数</span><br><span class="line">STAT incr_hits 0                           incr命中次数</span><br><span class="line">STAT decr_misses 0                         decr未命中次数</span><br><span class="line">STAT decr_hits 0                           decr命中次数</span><br><span class="line">STAT cas_misses 0                          cas未命中次数</span><br><span class="line">STAT cas_hits 0                            cas命中次数</span><br><span class="line">STAT cas_badval 0                          使用擦拭次数</span><br><span class="line">STAT touch_hits 0</span><br><span class="line">STAT touch_misses 0</span><br><span class="line">STAT auth_cmds 0</span><br><span class="line">STAT auth_errors 0</span><br><span class="line">STAT bytes_read 15785                      读取字节总数</span><br><span class="line">STAT bytes_written 15222                   写入字节总数</span><br><span class="line">STAT limit_maxbytes 67108864               分配的内存数（字节）</span><br><span class="line">STAT accepting_conns 1                     目前接受的链接数</span><br><span class="line">STAT listen_disabled_num 0</span><br><span class="line">STAT time_in_listen_disabled_us 0</span><br><span class="line">STAT threads 4                             线程数</span><br><span class="line">STAT conn_yields 0</span><br><span class="line">STAT hash_power_level 16</span><br><span class="line">STAT hash_bytes 524288</span><br><span class="line">STAT hash_is_expanding 0</span><br><span class="line">STAT malloc_fails 0</span><br><span class="line">STAT conn_yields 0</span><br><span class="line">STAT bytes 0                               存储item字节数</span><br><span class="line">STAT curr_items 0                          item个数</span><br><span class="line">STAT total_items 34                        item总数</span><br><span class="line">STAT expired_unfetched 0</span><br><span class="line">STAT evicted_unfetched 0</span><br><span class="line">STAT evictions 0                           为获取空间删除item的总数</span><br><span class="line">STAT reclaimed 0</span><br><span class="line">STAT crawler_reclaimed 0</span><br><span class="line">STAT crawler_items_checked 0</span><br><span class="line">STAT lrutail_reflocked 0</span><br></pre></td></tr></table></figure></p>
-<h2 id="获取运行状态"><a href="#获取运行状态" class="headerlink" title="获取运行状态"></a>获取运行状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> stats | nc 127.0.0.1 11211</span><br></pre></td></tr></table></figure>
-<p>也可以查看到 stats</p>
-<h2 id="查看memcached的连接数"><a href="#查看memcached的连接数" class="headerlink" title="查看memcached的连接数"></a>查看memcached的连接数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nat | fgrep 11211 |awk <span class="string">'&#123;print $4&#125;'</span> | fgrep 11211 | wc -l</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/08/get-hadoop-ncdc-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2580,426 +3000,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/03/svn-out-of-date/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/03/svn-out-of-date/" itemprop="url">eclipse中svn “out of date”解决办法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T16:00:41+08:00">
-                2018-05-03
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/bug/" itemprop="url" rel="index">
-                    <span itemprop="name">bug</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/03/svn-out-of-date/" class="leancloud_visitors" data-flag-title="eclipse中svn “out of date”解决办法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  29
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>svn</strong>出现<code>out of date</code>的错误，通过以下三步，即可解决。</p>
-<ol>
-<li>team -&gt; update</li>
-<li>team -&gt; Show Tree Confict</li>
-<li>team -&gt; commit</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/04/28/start/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/28/start/" itemprop="url">开始</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-28T21:05:22+08:00">
-                2018-04-28
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/04/28/start/" class="leancloud_visitors" data-flag-title="开始">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  67
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          万事开头难。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/28/start/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3051,7 +3056,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3073,7 +3078,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3177,7 +3182,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">26.2k</span>
+    <span title="Site words total count">26.4k</span>
   
 </div>
 
@@ -3194,7 +3199,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共26.2k字</span>
+  <span class="post-count">博客全站共26.4k字</span>
 </div>
 -->
 

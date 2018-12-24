@@ -325,6 +325,442 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/07/03/Binary-Search-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/03/Binary-Search-Tree/" itemprop="url">二叉查找树 Binary Search Tree</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T12:06:57+08:00">
+                2018-07-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/03/Binary-Search-Tree/" class="leancloud_visitors" data-flag-title="二叉查找树 Binary Search Tree">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,664
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>一颗二叉查找树（BST）是一颗二叉树，其中每个结点都含有一个Comparable的键（以及相关联的的值），且每个结点的键都大于其左子树的结点的键而小于右子树的结点的键。</p>
+<h1 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h1><h2 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h2><p>我们嵌套定义了一个<em>私有类</em>来表示二叉查找树的一个结点，每个结点都含有一个键、一个值、一条左链接、一条右链接、和一个结点计数器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Key key;<span class="comment">//键</span></span><br><span class="line">  <span class="keyword">private</span> Value val;<span class="comment">//值</span></span><br><span class="line">  <span class="keyword">private</span> Node left,right;<span class="comment">//指向左右子树的链接</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> N ;<span class="comment">//以该结点为根结点的子树中的结点总数</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Key key , Value val , <span class="keyword">int</span> N)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.key = key ;</span><br><span class="line">    <span class="keyword">this</span>.val = val ;</span><br><span class="line">    <span class="keyword">this</span>.N = N ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>私有方法size()会将空链接的值当做0；这样我们通过以下公式来计算结点x的N值<br>size(x) = size(x.left) + size(x.right) + 1 ;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> size(root);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">(Node x)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.N;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/03/Binary-Search-Tree/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/07/03/java内存区域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/03/java内存区域/" itemprop="url">java运行时数据区域</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T01:43:12+08:00">
+                2018-07-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/03/java内存区域/" class="leancloud_visitors" data-flag-title="java运行时数据区域">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,216
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h1><p>Java虚拟机所管理的内存将会包括一下几个运行时数据区域，如图所示：<br><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.PNG" alt="图1" title="图1"></p>
+<h2 id="程序计数器（线程私有）"><a href="#程序计数器（线程私有）" class="headerlink" title="程序计数器（线程私有）"></a>程序计数器（线程私有）</h2><p>程序计数器是一块较小的内存空间，它可以看成是当前线程所执行的字节码的行号指示器。<br>每条线程都需要一个独立的程序计数器，各条线程之间计数器相互不影响，独立存储，我们称这类内存区为“线程私有”的内存。</p>
+<p>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令地址；<br>如果正在执行的是Native方法，这个计数器的值为空（Undefined）。</p>
+<p>此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>Java虚拟机栈（Java VM Stacks）也是线程私有的，它的生命周期和线程相同。</p>
+<p>虚拟机栈描述的是Java方法执行的内存模型：<br>每个方法在执行的同时都会创建一个<strong>栈帧（Stack Frame）</strong>，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机中入栈到出栈的过程。</p>
+<p>经常有人把Java内存区分为堆内存（heap）和栈内存（stack），这里所指的“栈”就是现在讲的虚拟机栈，或者说是虚拟机栈中局部变量表部分。</p>
+<p>局部变量表存放了编译期可知的各种基本数据类型、对象引用类型（不同于对象本身），局部变量表所需的内存空间在编译期间完成分配，在方法运行期间不会改变局部变量表的大小。</p>
+<p>这个区域规定了两种异常：<br>StackOverflowError，线程请求的栈深度大于虚拟机所允许的深度；<br>OutOfMemoryError,虚拟机栈扩展时无法申请到足够的内存。</p>
+<h2 id="本地方法栈（为Native方法服务）"><a href="#本地方法栈（为Native方法服务）" class="headerlink" title="本地方法栈（为Native方法服务）"></a>本地方法栈（为Native方法服务）</h2><p>虚拟机使用到的Native方法服务的。本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。</p>
+<h2 id="Java堆（所有线程共享，存放对象实例）"><a href="#Java堆（所有线程共享，存放对象实例）" class="headerlink" title="Java堆（所有线程共享，存放对象实例）"></a>Java堆（所有线程共享，存放对象实例）</h2><p>Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。<br>此内存区域唯一的目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配空间。</p>
+<p>Java堆是垃圾收集器管理的主要区域。</p>
+<p>从内存回收的角度来看，由于现在收集器基本都采用分代收集算法，所以Java堆中还细分为：<br>新生代和老生代。<br>再细致一点的有：Eden空间，From Survivor空间、To Survivor空间等。</p>
+<p>当前主流的虚拟机都是按照可扩展来实现的（-Xmx和-Xms控制）。如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，会抛出OutOfMemoryError。</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>也是各个线程共享的内存区域。用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+<p>很多习惯在HotSpot虚拟机上开发部署的程序开发者习惯把方法区称为“永生代（Permanent Generation）”。本质上并不等价。仅仅是因为HotSpot虚拟机设计团队选择把GC分代收集扩展至方法区，或者说使用永生代来实现方法区而已。</p>
+<p>使用永生代来实现方法区，容易遇到内存溢出的问题，因为永生代有-XX:MaxPermSize的上限。</p>
+<p>这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。当方法区无法满足内存分配的需求时，会抛出OutOfMemoryError异常。</p>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池（Runtime Constant Pool）是方法区的一部分。</p>
+<p>Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池（Constant Pool Table）,用于存放编译期生成的各种<code>字面量</code>和<code>符号引用</code>，这部分内容将在类加载后进入方法区的运行时常量池中存放。</p>
+<p>当常量池无法再申请到内存时，会抛出OutOfMemoryError异常。</p>
+<h2 id="直接内存（堆外内存）"><a href="#直接内存（堆外内存）" class="headerlink" title="直接内存（堆外内存）"></a>直接内存（堆外内存）</h2><p>不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域，但是这部分内存也会被频繁地使用，而且也可能导致OutOfMemoryError异常。</p>
+<p>NIO，就可以使用堆外内存。</p>
+<p>受到本机总内存大小以及处理器寻址空间的限制。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/07/03/hexo-add-image/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2028,431 +2464,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/06/21/js-timestamp-to-datestring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/js-timestamp-to-datestring/" itemprop="url">js timestamp 转化为时间字符串</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T16:32:37+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/06/21/js-timestamp-to-datestring/" class="leancloud_visitors" data-flag-title="js timestamp 转化为时间字符串">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  530
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="js的时间戳转化为时间字符串"><a href="#js的时间戳转化为时间字符串" class="headerlink" title="js的时间戳转化为时间字符串"></a>js的时间戳转化为时间字符串</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 时间格式方法</span></span><br><span class="line"><span class="comment"> * @param &#123;any&#125; timeStamp  时间戳，秒级/毫秒级</span></span><br><span class="line"><span class="comment"> * @param &#123;any&#125; type 格式化时间类型，默认  Y-M-D H:I:S</span></span><br><span class="line"><span class="comment"> * @returns &#123;string&#125; formatTime 格式化后的时间 例如： 2017-05-05 12:09:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formatDate</span>(<span class="params">timeStamp, type = <span class="string">'Y-M-D H:I:S zh'</span>, auto = false</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> time = (timeStamp + <span class="string">''</span>).length === <span class="number">10</span> ?</span><br><span class="line">				<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">parseInt</span>(timeStamp) * <span class="number">1000</span>) : <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">parseInt</span>(timeStamp));</span><br><span class="line">    <span class="keyword">let</span> _year = time.getFullYear();</span><br><span class="line">    <span class="keyword">let</span> _month = (time.getMonth() + <span class="number">1</span>) &lt; <span class="number">10</span> ?</span><br><span class="line">				<span class="string">'0'</span> + (time.getMonth() + <span class="number">1</span>) : (time.getMonth() + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> _date = time.getDate() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getDate() : time.getDate();</span><br><span class="line">    <span class="keyword">let</span> _hours = time.getHours() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getHours() : time.getHours();</span><br><span class="line">    <span class="keyword">let</span> _minutes = time.getMinutes() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getMinutes() : time.getMinutes();</span><br><span class="line">    <span class="keyword">let</span> _secconds = time.getSeconds() &lt; <span class="number">10</span> ? <span class="string">'0'</span> + time.getSeconds() : time.getSeconds();</span><br><span class="line">    <span class="keyword">let</span> formatTime = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">let</span> distinctTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - time.getTime();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (auto) &#123;</span><br><span class="line">        <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">1</span> * <span class="number">60</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="comment">// console.log('一分钟以内，以秒数计算');</span></span><br><span class="line">            <span class="keyword">let</span> _s = <span class="built_in">Math</span>.floor((distinctTime / <span class="number">1000</span>) % <span class="number">60</span>);</span><br><span class="line">            formatTime = _s + <span class="string">'秒前'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">1</span> * <span class="number">3600</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="comment">// console.log('一小时以内,以分钟计算');</span></span><br><span class="line">            <span class="keyword">let</span> _m = <span class="built_in">Math</span>.floor((distinctTime / (<span class="number">60</span> * <span class="number">1000</span>)) % <span class="number">60</span>);</span><br><span class="line">            formatTime = _m + <span class="string">'分钟前'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">24</span> * <span class="number">3600</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="comment">// console.log('一天以内，以小时计算');</span></span><br><span class="line">            <span class="keyword">let</span> _h = <span class="built_in">Math</span>.floor((distinctTime / (<span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)) % <span class="number">24</span>);</span><br><span class="line">            formatTime = _h + <span class="string">'小时前'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (distinctTime &lt;= (<span class="number">30</span> * <span class="number">24</span> * <span class="number">3600</span> * <span class="number">1000</span>)) &#123;</span><br><span class="line">            <span class="keyword">let</span> _d = <span class="built_in">Math</span>.floor((distinctTime / (<span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>)) % <span class="number">30</span>);</span><br><span class="line">            formatTime = _d + <span class="string">'天前'</span>;</span><br><span class="line">            <span class="comment">// console.log('30天以内,以天数计算');</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 30天以外只显示年月日</span></span><br><span class="line">            formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H:I:S'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours + <span class="string">':'</span> + _minutes + <span class="string">':'</span> + _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H:I:S zh'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'年'</span> + _month + <span class="string">'月'</span> + _date + <span class="string">'日  '</span> + _hours + <span class="string">':'</span> + _minutes + <span class="string">':'</span> + _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H:I'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours + <span class="string">':'</span> + _minutes;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D H'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M-D zh'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'年'</span> + _month + <span class="string">'月'</span> + _date + <span class="string">'日'</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y-M'</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'Y'</span>:</span><br><span class="line">                formatTime = _year;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'M'</span>:</span><br><span class="line">                formatTime = _month;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'D'</span>:</span><br><span class="line">                formatTime = _date;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'H'</span>:</span><br><span class="line">                formatTime = _hours;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'I'</span>:</span><br><span class="line">                formatTime = _minutes;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'S'</span>:</span><br><span class="line">                formatTime = _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                formatTime = _year + <span class="string">'-'</span> + _month + <span class="string">'-'</span> + _date + <span class="string">' '</span> + _hours + <span class="string">':'</span> + _minutes + <span class="string">':'</span> + _secconds;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回格式化的日期字符串</span></span><br><span class="line">    <span class="keyword">return</span> formatTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/14/linux-view-file/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/14/linux-view-file/" itemprop="url">linux文件内容查阅</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T16:35:19+08:00">
-                2018-05-14
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/14/linux-view-file/" class="leancloud_visitors" data-flag-title="linux文件内容查阅">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,165
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="文件内容查看"><a href="#文件内容查看" class="headerlink" title="文件内容查看"></a>文件内容查看</h1><h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h2><p>由第一行开始显示文件内容<br>cat [-AbEntv]<br>-A：相当于-vET，可以列出一些特殊字符，而不是空白而已<br>-b：列出行号，仅针对非空白行做行号显示，空白行不标行号<br>-E：将结尾的断行字符$显示出来<br>-n：打印出行号，空白行也打印<br>-T：将Tab按键以^I 显示出来<br>-v：列出一些看不见的特殊字符</p>
-<h2 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h2><p>将cat反向显示，由最后一行到第一行反向在屏幕上显示出来</p>
-<h2 id="nl"><a href="#nl" class="headerlink" title="nl"></a>nl</h2><p>添加行号打印<br>nl [-bnw] 文件<br>-b：指定行号指定的方式，只要有2种<br>    -b a：不论是否为空行，也同样列出行号<br>    -b t： 如果有空行，空的那行不列出（默认）<br>-n：列出行号的方法<br>    -n ln：行号在屏幕的最左方显示<br>    -n rn：行号在自己字段的最右方显示，且不加0<br>    -n rz：行号在自己字段的最右方显示，加0<br>-w：行号字段占用的位数</p>
-<h2 id="more"><a href="#more" class="headerlink" title="more"></a>more</h2><p>一页一页翻动<br>+n：从第n行开始显示<br>-n：定义屏幕大小为n行<br>-c：顶部清屏，然后显示<br>+/字符串：先搜索字符串，然后从字符串之后开始显示</p>
-<p>常用操作：<br>空格键Space：    向下翻动一页<br>Enter：    向下滚动一行<br>/字符串：    向下查询“字符串”这个关键字<br>:f：    立即显示出文件名以及目前显示的行数<br>q：    立即离开more<br>b或ctrl+b：代表往回翻页，只对文件有效，对管道无效<br>ctrl+f：向下翻页<br>=：输出当前行的行号<br>V：调用vi编辑器</p>
-<h2 id="less"><a href="#less" class="headerlink" title="less"></a>less</h2><p>一页一页翻动，可以往前往后翻动<br>-i：搜索的时候忽略大小写<br>-m：显示百分比</p>
-<p>常用操作：<br>y：向上翻动一行<br>Enter：    向下滚动一行<br>空格键：    向下翻动一页<br>PageDown：向下翻动一页<br>PageUp：向上翻动一页<br>/字符串：向下查询<br>?字符换：向上查询<br>n：重复前一个查询（与/或?有关）<br>N：反复重复前一个查询 （与/或?有关）<br>q：离开less这个程序</p>
-<h2 id="head"><a href="#head" class="headerlink" title="head"></a>head</h2><p>取出前面几行<br>-n number：取出前面number 行<br>+number：从第几行开始列出</p>
-<h2 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h2><p>取出后面几行<br>-n number：取出后面几行<br>-f：表示持续检测后面所街的文件名</p>
-<h2 id="od"><a href="#od" class="headerlink" title="od"></a>od</h2><p>读取执行文件，通常是二进制文件<br>od [-t TYPE] 文件<br>-t ：后面可以接各种“类型”的输出<br>    a：利用默认的字符来输出<br>    c：利用ASCII字符输出<br>    d[size]：利用十进制来输出，每个整数占用size bytes<br>    f[size]：利用浮点数来 输出<br>    o[size]：利用八进制来输出<br>    x[size]：利用十六进制来输出</p>
-<h1 id="修改文件时间或创建新文件"><a href="#修改文件时间或创建新文件" class="headerlink" title="修改文件时间或创建新文件"></a>修改文件时间或创建新文件</h1><h2 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h2><p>修改文件时间或创建新文件<br>modification time（mtime）当文件内容改变了，会更新这个时间 （默认显示）<br>status time（ctime）当文件的状态（权限、属性）改变了，会更新这个时间<br>access time（atime）当文件的内容被取用，会更新这个读取时间<br>例如：ls -l –time=atime /etc/man.config 查看这个文件的读取时间<br>touch [-acdmt] 文件<br>-a：仅修改访问时间<br>-c：仅修改文件的时间，若文件不存在则不创建新文件<br>-d：后面可以接欲修改的日期而不用当前的日期，<br>-m：仅修改mtime<br>-t：后面可以接欲修改的时间，而不用当前的时间，格式为YYMMDDhhmm</p>
-<h1 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h1><h2 id="which"><a href="#which" class="headerlink" title="which"></a>which</h2><p>寻找“执行文件”<br>-a：将所有由PATH目录中可以找到的命令均列出，而不只第一个被找到的命令名称。<br>which并不能找到cd命令，因为cd是bash内置的命令，但是which默认是查找PATH内所规范的目录。</p>
-<h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><p>寻找特定文件<br>whereis [-bmsu] 文件或目录名<br>-b：只找二进制格式的文件<br>-m：只找在说明文件manual路径下的文件<br>-s：只找source源文件<br>-u：查找不在上述三个选项当中的其他特性文件</p>
-<p>Linux系统会将系统内的所有文件都记录在一个数据库文件里面，而当使用whereis或者locate命令时，都会以此数据库文件的内容为准。<br>locate寻找的数据是由已创建的数据库/var/lib/mlocate里面的数据所查找到的，所以很快速。<br>更新locate数据库的方式，“updatedb”</p>
-<h2 id="updatedb"><a href="#updatedb" class="headerlink" title="updatedb"></a>updatedb</h2><p>根据/etc/updatedb.conf的设置去查找系统硬盘内的文件名，并更新/var/lib/mlocate内的数据库文件</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2504,7 +2520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2526,7 +2542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2630,7 +2646,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">26.2k</span>
+    <span title="Site words total count">26.4k</span>
   
 </div>
 
@@ -2647,7 +2663,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共26.2k字</span>
+  <span class="post-count">博客全站共26.4k字</span>
 </div>
 -->
 
