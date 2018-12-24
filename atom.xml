@@ -44,16 +44,29 @@
   </entry>
   
   <entry>
-    <title># 安装itchat和pillow库</title>
-    <link href="http:zhuhaijun.cn/2018/12/24/python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8CAI%E6%99%BA%E8%83%BD%E5%9B%9E%E5%A4%8D/"/>
-    <id>http:zhuhaijun.cn/2018/12/24/python实现微信机器人，AI智能回复/</id>
+    <title>python实现微信机器人AI智能回复</title>
+    <link href="http:zhuhaijun.cn/2018/12/24/python%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BAAI%E6%99%BA%E8%83%BD%E5%9B%9E%E5%A4%8D/"/>
+    <id>http:zhuhaijun.cn/2018/12/24/python实现微信机器人AI智能回复/</id>
     <published>2018-12-24T11:08:06.000Z</published>
-    <updated>2018-12-24T11:08:07.011Z</updated>
+    <updated>2018-12-24T11:24:57.576Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="注册图灵机器人网站的账号"><a href="#注册图灵机器人网站的账号" class="headerlink" title="注册图灵机器人网站的账号"></a>注册图灵机器人网站的账号</h1><p>链接：<a href="http://www.tuling123.com/" target="_blank" rel="noopener">http://www.tuling123.com/</a><br>你可以获取自己的图灵机器人apikey</p><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def get_response(_info):</span><br><span class="line">    <span class="built_in">print</span>(_info)</span><br><span class="line">    api_url = <span class="string">'http://www.tuling123.com/openapi/api'</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">'key'</span>: <span class="string">'your_tuling_apikey'</span>, <span class="comment"># 上一步注册的apikey</span></span><br><span class="line">        <span class="string">'info'</span>: _info,</span><br><span class="line">        <span class="string">'userid'</span>: <span class="string">'robot'</span>,          <span class="comment"># 随意填</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()</span><br><span class="line">    <span class="built_in">print</span>(r.get(<span class="string">'text'</span>))</span><br><span class="line">    <span class="built_in">return</span> r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@itchat.msg_register(itchat.content.TEXT)</span><br><span class="line">def text_reply(msg):</span><br><span class="line">    <span class="built_in">return</span> r<span class="string">"[Bao]"</span> + get_response(msg[<span class="string">"Text"</span>])[<span class="string">"text"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"start"</span>)</span><br><span class="line">    itchat.auto_login(hotReload=True)</span><br><span class="line">    itchat.run()</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;h1 id=&quot;注册图灵机器人网站的账号&quot;&gt;&lt;a href=&quot;#注册图灵机器人网站的账号&quot; class=&quot;headerlink&quot; title=&quot;注册图灵机器人网站的账号&quot;&gt;&lt;/a&gt;注册图灵机器人网站的账号&lt;/h1&gt;&lt;p&gt;链接：&lt;a href=&quot;http://www.tuling1
+      
+    
     </summary>
     
+      <category term="python" scheme="http:zhuhaijun.cn/categories/python/"/>
+    
+    
+      <category term="python" scheme="http:zhuhaijun.cn/tags/python/"/>
+    
+      <category term="wechat" scheme="http:zhuhaijun.cn/tags/wechat/"/>
     
   </entry>
   

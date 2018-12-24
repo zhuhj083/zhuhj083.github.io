@@ -13,9 +13,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[# 安装itchat和pillow库]]></title>
-    <url>%2F2018%2F12%2F24%2Fpython%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8CAI%E6%99%BA%E8%83%BD%E5%9B%9E%E5%A4%8D%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[python实现微信机器人AI智能回复]]></title>
+    <url>%2F2018%2F12%2F24%2Fpython%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BAAI%E6%99%BA%E8%83%BD%E5%9B%9E%E5%A4%8D%2F</url>
+    <content type="text"><![CDATA[注册图灵机器人网站的账号链接：http://www.tuling123.com/你可以获取自己的图灵机器人apikey 代码123456789101112131415161718192021222324import itchatimport requestsdef get_response(_info): print(_info) api_url = 'http://www.tuling123.com/openapi/api' data = &#123; 'key': 'your_tuling_apikey', # 上一步注册的apikey 'info': _info, 'userid': 'robot', # 随意填 &#125; r = requests.post(api_url, data=data).json() print(r.get('text')) return r@itchat.msg_register(itchat.content.TEXT)def text_reply(msg): return r"[Bao]" + get_response(msg["Text"])["text"]if __name__ == '__main__': print("start") itchat.auto_login(hotReload=True) itchat.run()]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>wechat</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Mac teminal ssh 免密码]]></title>
