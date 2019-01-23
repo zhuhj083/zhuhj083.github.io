@@ -325,6 +325,702 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/install-hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/12/install-hexo/" itemprop="url">安装并使用hexo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:28:29+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/12/install-hexo/" class="leancloud_visitors" data-flag-title="安装并使用hexo">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  505
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>Hexo是一个快速、简洁、高效的博客框架。Hexo使用<a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>解析文章。可以快速生成靓丽的主题的静态网页。</p>
+<p>Hexo参考文档：<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/</a></p>
+<h3 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h3><p>安装Hexo前，确保您的电脑里已经安装了</p>
+<blockquote>
+<p>node.js</p>
+</blockquote>
+<blockquote>
+<p>git</p>
+</blockquote>
+<p>如果你的电脑已经安装了上述必备程序，那么接下来只需要使用npm即可完成hexo的安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>git参考文档：<a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2</a></p>
+<p>由于我们写博客一般都在windows系统上面，这里只写一下windows环境安装过程。</p>
+<p>Linux下安装参考上面的文档。</p>
+<p>点击<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a>,会自动下载安装程序，点下一步下一步就可以了。</p>
+<h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>windows下64位下载地址：<br><a href="http://nodejs.cn/download/" target="_blank" rel="noopener">http://nodejs.cn/download/</a></p>
+<p>下载后 一直点下一步下一步即可。</p>
+<p>安装完成后，cmd中输入path。<br>我们可以看到环境变量中已经包含了C:\Program Files\nodejs\</p>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><p>安装后，执行下面的命令，Hexo将会在指定的文件夹中新建所需的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
+<p>如果没有输入folder，则是在当前目录中新建。</p>
+<p>新建完成后，目录结构如下所示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用hexo"><a href="#使用hexo" class="headerlink" title="使用hexo"></a>使用hexo</h2><h3 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span>    <span class="comment">#可以简写成hexo n</span></span><br></pre></td></tr></table></figure>
+<h3 id="生成静态网页"><a href="#生成静态网页" class="headerlink" title="生成静态网页"></a>生成静态网页</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo g          <span class="comment">#可以简写成hexo g</span></span><br></pre></td></tr></table></figure>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s          <span class="comment">#可以简写成hexo #!/bin/sh</span></span><br><span class="line">$ hexo s --debug</span><br></pre></td></tr></table></figure>
+<p>启动完以后，可以通过 127.0.0.1:4000 访问</p>
+<h3 id="部署到远程服务器上"><a href="#部署到远程服务器上" class="headerlink" title="部署到远程服务器上"></a>部署到远程服务器上</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d         <span class="comment">#可以简写成hexo d</span></span><br></pre></td></tr></table></figure>
+<p>注：通过配置github pages的地址到_config.yml中，执行这条命令后，可以一键部署到github pages。</p>
+<p>部署到github上需要安装 hexo-deployer-git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<h3 id="清理"><a href="#清理" class="headerlink" title="清理"></a>清理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/10/atom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/10/atom/" itemprop="url">使用Atom编辑Markdown</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T14:58:49+08:00">
+                2018-05-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index">
+                    <span itemprop="name">tool</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/10/atom/" class="leancloud_visitors" data-flag-title="使用Atom编辑Markdown">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  462
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="atom"><a href="#atom" class="headerlink" title="atom"></a>atom</h2><p>工欲善其事必先利其器，找到一款好用的编辑器Atom。通过下载插件，可以用来编辑Markdown文本</p>
+<h3 id="1、安装Atom"><a href="#1、安装Atom" class="headerlink" title="1、安装Atom"></a>1、安装Atom</h3><p>下载地址：<a href="https://atom.io/" target="_blank" rel="noopener">https://atom.io/</a></p>
+<p><code>Ctrl + Shift + P</code> 可以调出快捷键</p>
+<h3 id="2、安装插件"><a href="#2、安装插件" class="headerlink" title="2、安装插件"></a>2、安装插件</h3><p><code>File</code> –&gt;  <code>Setting</code> –&gt; <code>Install</code> –&gt; Search for package<br>输入插件名，即可安装</p>
+<h2 id="markdown-好用的插件"><a href="#markdown-好用的插件" class="headerlink" title="markdown 好用的插件"></a>markdown 好用的插件</h2><h3 id="1、增强预览插件（markdown-preview-plus）"><a href="#1、增强预览插件（markdown-preview-plus）" class="headerlink" title="1、增强预览插件（markdown-preview-plus）"></a>1、增强预览插件（markdown-preview-plus）</h3><p>atom自带的Markdown预览插件markdown-preview功能比较简单，markdown-preview-plus做了功能扩展和增加。</p>
+<ul>
+<li>支持预览实时渲染（ <code>Ctrl + Shift + M</code> ）</li>
+<li>支持Latex公式（ <code>Ctrl + Shift + X</code> ）</li>
+</ul>
+<h3 id="2、粘贴图片-markdown-image-paste"><a href="#2、粘贴图片-markdown-image-paste" class="headerlink" title="2、粘贴图片 markdown-image-paste"></a>2、粘贴图片 markdown-image-paste</h3><ul>
+<li>截图到剪切板</li>
+<li>在Markdown新起一行输入文件名</li>
+<li>Ctrl+V 会自动把图片保存到Markdown文件的相同目录下</li>
+</ul>
+<h3 id="3、表格编辑插件markdown-table-editor"><a href="#3、表格编辑插件markdown-table-editor" class="headerlink" title="3、表格编辑插件markdown-table-editor"></a>3、表格编辑插件markdown-table-editor</h3><p>使用方法：</p>
+<ul>
+<li>先输入一个 | 和一些内容，按<code>tab</code>键，即可移动到下一列</li>
+<li>按<code>enter</code>键，移动到下一行</li>
+<li>按<code>esc</code>键，结束编辑表格</li>
+</ul>
+<p>Commands:</p>
+<table>
+<thead>
+<tr>
+<th>Commands</th>
+<th>Description</th>
+<th>Keybinding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Next Cell</td>
+<td>Move to next cell</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>Previous Cell</td>
+<td>Move to previous cell</td>
+<td>shfit+ tab</td>
+</tr>
+<tr>
+<td>Next Row</td>
+<td>Move to next row</td>
+<td>enter</td>
+</tr>
+<tr>
+<td>Escape</td>
+<td>Escape from the table</td>
+<td>esc</td>
+</tr>
+</tbody>
+</table>
+<p>如果你添加一些快捷键到你的 keymap.cson<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'atom-text-editor:not(.mini):not(.autocomplete-active).markdown-table-editor-active'</span>:</span><br><span class="line">  <span class="string">'ctrl-left'</span>           : <span class="string">'markdown-table-editor:move-left'</span></span><br><span class="line">  <span class="string">'ctrl-right'</span>          : <span class="string">'markdown-table-editor:move-right'</span></span><br><span class="line">  <span class="string">'ctrl-up'</span>             : <span class="string">'markdown-table-editor:move-up'</span></span><br><span class="line">  <span class="string">'ctrl-down'</span>           : <span class="string">'markdown-table-editor:move-down'</span></span><br><span class="line">  <span class="string">'shift-ctrl-left'</span>     : <span class="string">'markdown-table-editor:align-left'</span></span><br><span class="line">  <span class="string">'shift-ctrl-right'</span>    : <span class="string">'markdown-table-editor:align-right'</span></span><br><span class="line">  <span class="string">'shift-ctrl-up'</span>       : <span class="string">'markdown-table-editor:align-center'</span></span><br><span class="line">  <span class="string">'shift-ctrl-down'</span>     : <span class="string">'markdown-table-editor:align-none'</span></span><br><span class="line">  <span class="string">'alt-shift-ctrl-left'</span> : <span class="string">'markdown-table-editor:move-column-left'</span></span><br><span class="line">  <span class="string">'alt-shift-ctrl-right'</span>: <span class="string">'markdown-table-editor:move-column-right'</span></span><br><span class="line">  <span class="string">'alt-shift-ctrl-up'</span>   : <span class="string">'markdown-table-editor:move-row-up'</span></span><br><span class="line">  <span class="string">'alt-shift-ctrl-down'</span> : <span class="string">'markdown-table-editor:move-row-down'</span></span><br><span class="line">  <span class="string">'ctrl-k ctrl-i'</span>       : <span class="string">'markdown-table-editor:insert-row'</span></span><br><span class="line">  <span class="string">'ctrl-k alt-ctrl-i'</span>   : <span class="string">'markdown-table-editor:delete-row'</span></span><br><span class="line">  <span class="string">'ctrl-k ctrl-j'</span>       : <span class="string">'markdown-table-editor:insert-column'</span></span><br><span class="line">  <span class="string">'ctrl-k alt-ctrl-j'</span>   : <span class="string">'markdown-table-editor:delete-column'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4、代码增强language-markdown"><a href="#4、代码增强language-markdown" class="headerlink" title="4、代码增强language-markdown"></a>4、代码增强language-markdown</h3><p>打开一个 Markdown 文件，按<code>ctrl+shift+L</code>选择“Markdown”</p>
+<h3 id="5、Markdown-Maker"><a href="#5、Markdown-Maker" class="headerlink" title="5、Markdown Maker"></a>5、Markdown Maker</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/10/memcached-stats/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/10/memcached-stats/" itemprop="url">memcached启动与查看状态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T14:58:49+08:00">
+                2018-05-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/memcached/" itemprop="url" rel="index">
+                    <span itemprop="name">memcached</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/10/memcached-stats/" class="leancloud_visitors" data-flag-title="memcached启动与查看状态">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  573
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##启动memcached<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">memcached -d -p 11311 -u odin -m 512 -c 1024</span><br></pre></td></tr></table></figure></p>
+<p>-p <num>  设置TCP端口号，默认为11211<br>-U <num>  设置UDP端口号<br>-u <username> 指定用于运行进程的用户<br>-m  允许的最大内存量，单位是M，默认是64M<br>-c  最大连接数,默认为1024</username></num></num></p>
+<h2 id="连接memcached-和退出"><a href="#连接memcached-和退出" class="headerlink" title="连接memcached 和退出"></a>连接memcached 和退出</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telnet 127.0.0.1 11211</span><br><span class="line">quit</span><br></pre></td></tr></table></figure>
+<h2 id="stats查看状态"><a href="#stats查看状态" class="headerlink" title="stats查看状态"></a>stats查看状态</h2><p>示例如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">STAT pid 22459                             进程ID</span><br><span class="line">STAT uptime 1027046                        服务器运行秒数</span><br><span class="line">STAT time 1273043062                       服务器当前unix时间戳</span><br><span class="line">STAT version 1.4.4                         服务器版本</span><br><span class="line">STAT libevent 2.0.21-stable</span><br><span class="line">STAT pointer_size 64                       操作系统字大小(这台服务器是64位的)</span><br><span class="line">STAT rusage_user 0.040000                  进程累计用户时间</span><br><span class="line">STAT rusage_system 0.260000                进程累计系统时间</span><br><span class="line">STAT curr_connections 10                   当前打开连接数</span><br><span class="line">STAT total_connections 82                  曾打开的连接总数</span><br><span class="line">STAT connection_structures 13              服务器分配的连接结构数</span><br><span class="line">STAT reserved_fds 20</span><br><span class="line">STAT cmd_get 54                            执行get命令总数</span><br><span class="line">STAT cmd_set 34                            执行<span class="built_in">set</span>命令总数</span><br><span class="line">STAT cmd_flush 3                           指向flush_all命令总数</span><br><span class="line">STAT get_hits 9                            get命中次数</span><br><span class="line">STAT get_misses 45                         get未命中次数</span><br><span class="line">STAT delete_misses 5                       delete未命中次数</span><br><span class="line">STAT delete_hits 1                         delete命中次数</span><br><span class="line">STAT incr_misses 0                         incr未命中次数</span><br><span class="line">STAT incr_hits 0                           incr命中次数</span><br><span class="line">STAT decr_misses 0                         decr未命中次数</span><br><span class="line">STAT decr_hits 0                           decr命中次数</span><br><span class="line">STAT cas_misses 0                          cas未命中次数</span><br><span class="line">STAT cas_hits 0                            cas命中次数</span><br><span class="line">STAT cas_badval 0                          使用擦拭次数</span><br><span class="line">STAT touch_hits 0</span><br><span class="line">STAT touch_misses 0</span><br><span class="line">STAT auth_cmds 0</span><br><span class="line">STAT auth_errors 0</span><br><span class="line">STAT bytes_read 15785                      读取字节总数</span><br><span class="line">STAT bytes_written 15222                   写入字节总数</span><br><span class="line">STAT limit_maxbytes 67108864               分配的内存数（字节）</span><br><span class="line">STAT accepting_conns 1                     目前接受的链接数</span><br><span class="line">STAT listen_disabled_num 0</span><br><span class="line">STAT time_in_listen_disabled_us 0</span><br><span class="line">STAT threads 4                             线程数</span><br><span class="line">STAT conn_yields 0</span><br><span class="line">STAT hash_power_level 16</span><br><span class="line">STAT hash_bytes 524288</span><br><span class="line">STAT hash_is_expanding 0</span><br><span class="line">STAT malloc_fails 0</span><br><span class="line">STAT conn_yields 0</span><br><span class="line">STAT bytes 0                               存储item字节数</span><br><span class="line">STAT curr_items 0                          item个数</span><br><span class="line">STAT total_items 34                        item总数</span><br><span class="line">STAT expired_unfetched 0</span><br><span class="line">STAT evicted_unfetched 0</span><br><span class="line">STAT evictions 0                           为获取空间删除item的总数</span><br><span class="line">STAT reclaimed 0</span><br><span class="line">STAT crawler_reclaimed 0</span><br><span class="line">STAT crawler_items_checked 0</span><br><span class="line">STAT lrutail_reflocked 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取运行状态"><a href="#获取运行状态" class="headerlink" title="获取运行状态"></a>获取运行状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> stats | nc 127.0.0.1 11211</span><br></pre></td></tr></table></figure>
+<p>也可以查看到 stats</p>
+<h2 id="查看memcached的连接数"><a href="#查看memcached的连接数" class="headerlink" title="查看memcached的连接数"></a>查看memcached的连接数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nat | fgrep 11211 |awk <span class="string">'&#123;print $4&#125;'</span> | fgrep 11211 | wc -l</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/08/get-hadoop-ncdc-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -988,7 +1684,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1114,7 +1810,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">27.0k</span>
+    <span title="Site words total count">28.6k</span>
   
 </div>
 
@@ -1131,7 +1827,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共27.0k字</span>
+  <span class="post-count">博客全站共28.6k字</span>
 </div>
 -->
 
