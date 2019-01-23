@@ -325,6 +325,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/11/01/httpServer-by-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/01/httpServer-by-python/" itemprop="url">用python写的一个简易的Http服务器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T11:37:30+08:00">
+                2018-11-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/01/httpServer-by-python/" class="leancloud_visitors" data-flag-title="用python写的一个简易的Http服务器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  256
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>昨天在看《Http权威指南》的时候，看到里面用Perl实现了一个最简单的Http的服务器。<br>于是我参考着里面的逻辑写了一个python版本的。</p>
+<ol>
+<li>创建服务器套接字（socket），把地址绑定到套接字上，并监听连接</li>
+<li>服务器无限循环，接受客户端连接</li>
+<li>客户端连接进来后，读取客户端发送的消息，并且打印Http请求报文</li>
+<li>返回Http的响应报文</li>
+</ol>
+<p>运行以下的python脚本后，使用浏览器访问<a href="http://localhost:8080/即可。" target="_blank" rel="noopener">http://localhost:8080/即可。</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">''</span></span><br><span class="line">PORT = <span class="number">8080</span></span><br><span class="line">BUFSIZE = <span class="number">1024</span></span><br><span class="line">ADDR = (HOST,PORT)</span><br><span class="line"></span><br><span class="line">tcpSerSock = socket(AF_INET,SOCK_STREAM)</span><br><span class="line">tcpSerSock.bind(ADDR)</span><br><span class="line">tcpSerSock.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">responseStr = <span class="string">'''</span></span><br><span class="line"><span class="string">HTTP/1.0 200 OK</span></span><br><span class="line"><span class="string">Connection:close</span></span><br><span class="line"><span class="string">Content-type;text:plain</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Hi there!</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'waiting for connection ...'</span></span><br><span class="line">    tcpCliSock , addr = tcpSerSock.accept()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'...connected from:'</span>,addr</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        data = tcpCliSock.recv(BUFSIZE)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">print</span> data</span><br><span class="line">        tcpCliSock.send(responseStr)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    tcpCliSock.close()</span><br><span class="line"></span><br><span class="line">tcpSerSock.close()</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/11/01/万圣节/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2332,219 +2543,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/07/03/RedBlackBST/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/03/RedBlackBST/" itemprop="url">红黑二叉查找树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-03T16:28:09+08:00">
-                2018-07-03
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/07/03/RedBlackBST/" class="leancloud_visitors" data-flag-title="红黑二叉查找树">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,374
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="2-3查找树"><a href="#2-3查找树" class="headerlink" title="2-3查找树"></a>2-3查找树</h1><p>定义：一棵2-3查找树或为一棵空树，或由以下结点组成：</p>
-<ul>
-<li>2-结点，含有一个键（及其对应的值）和两条链接，左链接指向的2-3树中的键都小于该结点，右链接指向的2-3树中的键都大于该结点。</li>
-<li>3-结点，还有两个键（及其对应的值）和三条链接，左链接指向的2-3树中的键都小于该结点，中链接指向的2-3树中的键都位于该结点的两个键之间，右链接指向的2-3树中的键都大于该结点。</li>
-<li>我们将指向一棵空树的链接称为空链接。</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/2-3tree.PNG" alt="2-3查找树" title="2-3查找树"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/03/RedBlackBST/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2601,7 +2599,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2713,7 +2711,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2727,7 +2725,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">26.5k</span>
+    <span title="Site words total count">27.0k</span>
   
 </div>
 
@@ -2744,7 +2742,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共26.5k字</span>
+  <span class="post-count">博客全站共27.0k字</span>
 </div>
 -->
 
