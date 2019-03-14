@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2019/03/14/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E6%89%93%E5%8D%B0ABC%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2019-03-14T09:20:16.204Z</lastmod>
+    <data>
+        <display>
+        <title>线程交替打印ABC的多种实现方法</title>
+        <pubTime>2019-03-14T09:18:18.000Z</pubTime>
+        
+        <tag>java 并发 线程</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2019/01/23/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II/</loc>
     <lastmod>2019-01-23T13:34:09.067Z</lastmod>
     <data>
@@ -196,25 +216,61 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
+    <loc>http:zhuhaijun.cn/2018/06/21/loadmore/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>RPM、SRPM与YUM 常用命令</title>
-        <pubTime>2018-05-14T07:26:14.000Z</pubTime>
+        <title>到底部上滑加载更多</title>
+        <pubTime>2018-06-21T12:51:29.000Z</pubTime>
         
-        <tag>linix</tag>
-         
-        <tag>rpm</tag>
-         
-        <tag>srpm</tag>
-         
-        <tag>yum</tag>
+        <tag>js loadmore</tag>
          
          
            
              
-              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
+              <breadCrumb title="js" url="http:zhuhaijun.cn/categories/js/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/05/10/atom/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Atom编辑Markdown</title>
+        <pubTime>2018-05-10T06:58:49.000Z</pubTime>
+        
+        <tag>atom</tag>
+         
+         
+           
+             
+              <breadCrumb title="tool" url="http:zhuhaijun.cn/categories/tool/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>git submodule foreach git pull的问题</title>
+        <pubTime>2018-07-02T16:18:15.000Z</pubTime>
+        
+        <tag>bug</tag>
+         
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="bug" url="http:zhuhaijun.cn/categories/bug/"/>
           
         </display>
     </data>
@@ -244,71 +300,6 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/05/10/atom/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用Atom编辑Markdown</title>
-        <pubTime>2018-05-10T06:58:49.000Z</pubTime>
-        
-        <tag>atom</tag>
-         
-         
-           
-             
-              <breadCrumb title="tool" url="http:zhuhaijun.cn/categories/tool/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/12/05/classpy/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>java字节码分析工具classpy</title>
-        <pubTime>2018-12-05T09:10:04.000Z</pubTime>
-        
-        <tag>jvm</tag>
-         
-        <tag>classpy</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>git submodule foreach git pull的问题</title>
-        <pubTime>2018-07-02T16:18:15.000Z</pubTime>
-        
-        <tag>bug</tag>
-         
-        <tag>git</tag>
-         
-         
-           
-             
-              <breadCrumb title="bug" url="http:zhuhaijun.cn/categories/bug/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
     <loc>http:zhuhaijun.cn/2018/07/03/hexo-add-image/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -322,28 +313,6 @@
            
              
               <breadCrumb title="hexo" url="http:zhuhaijun.cn/categories/hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/07/02/Heap-sort/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>堆排序</title>
-        <pubTime>2018-07-02T03:52:57.000Z</pubTime>
-        
-        <tag>algorithm</tag>
-         
-        <tag>sort</tag>
-         
-         
-           
-             
-              <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
           
         </display>
     </data>
@@ -372,22 +341,45 @@
     </url>
 
     
+    
   <url>
-    <loc>http:zhuhaijun.cn/2018/11/06/install-go/</loc>
+    <loc>http:zhuhaijun.cn/2018/07/02/Heap-sort/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>install go</title>
-        <pubTime>2018-11-06T11:56:00.000Z</pubTime>
+        <title>堆排序</title>
+        <pubTime>2018-07-02T03:52:57.000Z</pubTime>
         
-        <tag>go</tag>
+        <tag>algorithm</tag>
          
-        <tag>install</tag>
+        <tag>sort</tag>
          
          
            
              
-              <breadCrumb title="go" url="http:zhuhaijun.cn/categories/go/"/>
+              <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>java运行时数据区域</title>
+        <pubTime>2018-07-02T17:43:12.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>jvm</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
           
         </display>
     </data>
@@ -419,6 +411,28 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/07/25/kafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>kafka 生产者和消费者</title>
+        <pubTime>2018-07-25T08:08:46.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>kafka</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/06/21/js-timestamp-to-datestring/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -439,21 +453,25 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/25/kafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
+    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>kafka 生产者和消费者</title>
-        <pubTime>2018-07-25T08:08:46.000Z</pubTime>
+        <title>RPM、SRPM与YUM 常用命令</title>
+        <pubTime>2018-05-14T07:26:14.000Z</pubTime>
         
-        <tag>java</tag>
+        <tag>linix</tag>
          
-        <tag>kafka</tag>
+        <tag>rpm</tag>
+         
+        <tag>srpm</tag>
+         
+        <tag>yum</tag>
          
          
            
              
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
           
         </display>
     </data>
@@ -491,21 +509,21 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    <loc>http:zhuhaijun.cn/2018/11/06/install-go/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>java运行时数据区域</title>
-        <pubTime>2018-07-02T17:43:12.000Z</pubTime>
+        <title>install go</title>
+        <pubTime>2018-11-06T11:56:00.000Z</pubTime>
         
-        <tag>java</tag>
+        <tag>go</tag>
          
-        <tag>jvm</tag>
+        <tag>install</tag>
          
          
            
              
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+              <breadCrumb title="go" url="http:zhuhaijun.cn/categories/go/"/>
           
         </display>
     </data>
@@ -528,26 +546,6 @@
            
              
               <breadCrumb title="tool" url="http:zhuhaijun.cn/categories/tool/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/06/21/loadmore/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>到底部上滑加载更多</title>
-        <pubTime>2018-06-21T12:51:29.000Z</pubTime>
-        
-        <tag>js loadmore</tag>
-         
-         
-           
-             
-              <breadCrumb title="js" url="http:zhuhaijun.cn/categories/js/"/>
           
         </display>
     </data>
@@ -595,30 +593,6 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/13/mongodb-replica-sets/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>mongodb replica sets副本集集群搭建</title>
-        <pubTime>2018-07-13T03:55:10.000Z</pubTime>
-        
-        <tag>mongodb</tag>
-         
-        <tag>replica sets</tag>
-         
-        <tag>nosql</tag>
-         
-         
-           
-             
-              <breadCrumb title="mongodb" url="http:zhuhaijun.cn/categories/mongodb/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -639,21 +613,23 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/RedBlackBST/</loc>
+    <loc>http:zhuhaijun.cn/2018/07/13/mongodb-replica-sets/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>红黑二叉查找树</title>
-        <pubTime>2018-07-03T08:28:09.000Z</pubTime>
+        <title>mongodb replica sets副本集集群搭建</title>
+        <pubTime>2018-07-13T03:55:10.000Z</pubTime>
         
-        <tag>algorithm</tag>
+        <tag>mongodb</tag>
          
-        <tag>tree</tag>
+        <tag>replica sets</tag>
+         
+        <tag>nosql</tag>
          
          
            
              
-              <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
+              <breadCrumb title="mongodb" url="http:zhuhaijun.cn/categories/mongodb/"/>
           
         </display>
     </data>
@@ -703,6 +679,28 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/08/06/Spring%E4%B8%AD%E7%9A%84BeanPostProcessor/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>Spring中的BeanPostProcessor简介</title>
+        <pubTime>2018-08-06T12:26:50.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+        <tag>java</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/05/03/svn-out-of-date/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -743,26 +741,6 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/11/01/windows%20cmd%20python%E4%BA%A4%E4%BA%92%E6%A8%A1%E5%BC%8F%E4%B8%8Bcp65001%E5%BC%82%E5%B8%B8/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>windows cmdpython交互模式下cp65001异常</title>
-        <pubTime>2018-11-01T08:11:39.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-         
-           
-             
-              <breadCrumb title="python" url="http:zhuhaijun.cn/categories/python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http:zhuhaijun.cn/2018/11/01/%E4%B8%87%E5%9C%A3%E8%8A%82/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -783,6 +761,48 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/11/01/windows%20cmd%20python%E4%BA%A4%E4%BA%92%E6%A8%A1%E5%BC%8F%E4%B8%8Bcp65001%E5%BC%82%E5%B8%B8/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>windows cmdpython交互模式下cp65001异常</title>
+        <pubTime>2018-11-01T08:11:39.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http:zhuhaijun.cn/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/RedBlackBST/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>红黑二叉查找树</title>
+        <pubTime>2018-07-03T08:28:09.000Z</pubTime>
+        
+        <tag>algorithm</tag>
+         
+        <tag>tree</tag>
+         
+         
+           
+             
+              <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/08/01/Spring%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -791,28 +811,6 @@
         <pubTime>2018-08-01T03:08:39.000Z</pubTime>
         
         <tag>spring</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/08/06/Spring%E4%B8%AD%E7%9A%84BeanPostProcessor/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>Spring中的BeanPostProcessor简介</title>
-        <pubTime>2018-08-06T12:26:50.000Z</pubTime>
-        
-        <tag>spring</tag>
-         
-        <tag>java</tag>
          
          
            
@@ -860,6 +858,28 @@
            
              
               <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/12/05/classpy/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>java字节码分析工具classpy</title>
+        <pubTime>2018-12-05T09:10:04.000Z</pubTime>
+        
+        <tag>jvm</tag>
+         
+        <tag>classpy</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
           
         </display>
     </data>
