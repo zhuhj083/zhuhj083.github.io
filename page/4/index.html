@@ -325,6 +325,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/07/02/Heap-sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/02/Heap-sort/" itemprop="url">堆排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-02T11:52:57+08:00">
+                2018-07-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/02/Heap-sort/" class="leancloud_visitors" data-flag-title="堆排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  708
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义：当一颗二叉树的每个几节点都大于等于它的子节点时，它被称为堆有序。</p>
+<p>定义：二叉堆是一组能够用<strong>堆有序</strong>的<strong>完全二叉树</strong>排序的元素，并在数组中按照层级存储（a[0]不使用。）<br><br>在位置k的节点的父节点位置为k/2 ；<br><br>位置k的节点的左右子节点分别是 2k,2k+1;</p>
+<h2 id="插入元素、删除元素"><a href="#插入元素、删除元素" class="headerlink" title="插入元素、删除元素"></a>插入元素、删除元素</h2><p><strong>比较大小 交换</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">less</span> <span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> pq[i].compareTo(pq[j]) &lt; <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  T t =pq[i];</span><br><span class="line">  pq[i] = pq[j];</span><br><span class="line">  pq[j] = t ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>插入元素</strong><br>将新元素添加到数组的尾，增加堆的大小，并让这个元素上浮到合适的位置</p>
+<p>上浮算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>( k &gt; <span class="number">1</span> &amp;&amp;  less( k/<span class="number">2</span> , k ))&#123;</span><br><span class="line">    exch(k/<span class="number">2</span>,k);</span><br><span class="line">    k = k/<span class="number">2</span> ;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>删除最大元素</strong><br>我们删除a[0],并将数组的最后一个元素放到顶端，减小堆的大小，并将这个元素下沉到合适的位置</p>
+<p>下沉算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sink</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">2</span>*k &lt;= N )&#123;<span class="comment">//N为数组长度</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">2</span>*k ;</span><br><span class="line">    <span class="comment">//比较左右子节点哪个大，取大的那个</span></span><br><span class="line">    <span class="keyword">if</span> (j &lt; N &amp;&amp; less(j , j +<span class="number">1</span> )) &#123;</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!less(k,j)) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    exch(k, j);</span><br><span class="line">    k = j ;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/02/Heap-sort/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/06/27/algorithm-analysis-math/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1829,295 +2042,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/14/linux-rpm-srpm-yum/" itemprop="url">RPM、SRPM与YUM 常用命令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T15:26:14+08:00">
-                2018-05-14
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/14/linux-rpm-srpm-yum/" class="leancloud_visitors" data-flag-title="RPM、SRPM与YUM 常用命令">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,105
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h1><h2 id="rpm-安装（install）"><a href="#rpm-安装（install）" class="headerlink" title="rpm 安装（install）"></a>rpm 安装（install）</h2><p><code>rpm -ivh  package-name</code></p>
-<blockquote>
-<p>参数：</p>
-<ul>
-<li>-i：install的意思</li>
-<li>-v：查看更详细的安装信息画面</li>
-<li>-h：以安装信息栏显示安装进度</li>
-</ul>
-</blockquote>
-<h2 id="rpm-升级与更新（upgrade-freshen）"><a href="#rpm-升级与更新（upgrade-freshen）" class="headerlink" title="rpm 升级与更新（upgrade/freshen）"></a>rpm 升级与更新（upgrade/freshen）</h2><p>以<code>-Uvh</code> 或 <code>-Fvh</code> 来升级</p>
-<ul>
-<li>-Uvh：后面接的软件即使没有安装过，则系统将予直接安装，若安装过，则系统自动更新到新版</li>
-<li>-Fvh：后面接的软件并未安装到你的Linux系统上，则该软件不会被安装。</li>
-</ul>
-<h2 id="rpm-查询（query）"><a href="#rpm-查询（query）" class="headerlink" title="rpm 查询（query）"></a>rpm 查询（query）</h2><p>RPM在查询的时候，其实查询的地方是<code>/var/lib/rpm</code>这个目录下的数据库文件</p>
-<ul>
-<li>rpm -qa                             &lt;==已安装软件</li>
-<li>rpm -q[licdR]  已安装软件的名称      &lt;== 已安装软件</li>
-<li>rpm -qf 存在于系统上面的某个文件名    &lt;==已安装软件</li>
-<li>rpm -qp[licdR] 未安装的某个文件名称   &lt;== 查阅RPM文件</li>
-</ul>
-<p>参数：<br><br>查询已安装软件的信息</p>
-<ul>
-<li>-q：仅查询，后面接的软件名称是否有安装</li>
-<li>-qa：列出所有的已经安装在本机Linux系统上面的所有软件名称</li>
-<li>-qi：列出该软件的详细信息，包含开发商，版本与说明等</li>
-<li>-ql：列出该软件所有的文件与目录所在的完整文件名（list）</li>
-<li>-qc：列出该软件的所有设置文件（找出在/etc/下面的文件名而已）</li>
-<li>-qd：列出该软件的所有帮助文档（找出与man有关的文件而已）</li>
-<li>-qR：列出与该软件有关的依赖软件所含的文件名（Required的意思）</li>
-<li>-qf：由后面接的文件名称找出该文件属于哪一个已安装的软件</li>
-<li>-qp[licdR]：后面接的所有的参数以上面的说明一致，但用途仅在于找出某个RPM文件内的信息</li>
-</ul>
-<h2 id="rpm-验证与数字证书（Verify-Signature）"><a href="#rpm-验证与数字证书（Verify-Signature）" class="headerlink" title="rpm 验证与数字证书（Verify/Signature）"></a>rpm 验证与数字证书（Verify/Signature）</h2><p>rpm -Va</p>
-<p>rpm -V 已安装的软件名称</p>
-<p>rpm -Vp 某个RPM文件的文件名</p>
-<p>rpm -Vf 在系统上面的某个文件</p>
-<blockquote>
-<p>参数：</p>
-<ul>
-<li>-V：后面加的是软件名称，若该软件所含的文件被改动过，才会列出来</li>
-<li>-Va：列出目前系统上面所有可能被改动过的文件</li>
-<li>-Vp：后面接的是文件名称，列出该软件内可能被改动过的文件</li>
-<li>-Vf：列出某个文件是否被改动过</li>
-</ul>
-</blockquote>
-<h2 id="rpm-卸载"><a href="#rpm-卸载" class="headerlink" title="rpm 卸载"></a>rpm 卸载</h2><p>rpm -e 软件名称</p>
-<h2 id="重建数据库"><a href="#重建数据库" class="headerlink" title="重建数据库"></a>重建数据库</h2><p>rpm –rebuilddb</p>
-<h1 id="srpm文件的安装"><a href="#srpm文件的安装" class="headerlink" title="srpm文件的安装"></a>srpm文件的安装</h1><p><code>rpmrebuild  --rebuild src-package-name</code> —–&gt; 将后面的SRPM进行编译与打包，最后产生RPM的文件（仅编译并打包）</p>
-<p><code>rpmrebuild  --recompile src-package-name</code> —–&gt; 直接编译、打包并且安装（不仅进行编译打包，还进行安装）</p>
-<h1 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h1><h2 id="yum查询功能-yum-list-info-search-provides-whatprovides-参数"><a href="#yum查询功能-yum-list-info-search-provides-whatprovides-参数" class="headerlink" title="yum查询功能 yum [ list | info | search | provides | whatprovides ] 参数"></a>yum查询功能 yum [ list | info | search | provides | whatprovides ] 参数</h2><p>yum [option] [查询工作项目] [相关参数]</p>
-<p>参数:  <br><br>[option]：主要的参数，包括有：</p>
-<ul>
-<li>-y：当yum要等待用户输入时，这个选项可以自动提供yes的响应</li>
-<li>–installroot=/some/path ： 将该软件安装在 /some/path 中而不适用默认路径</li>
-</ul>
-<p>[查询工作目录] [相关参数] ：这方面的参数有：</p>
-<ul>
-<li>search：搜索某个软件名称或者是描述（description）的重要关键字</li>
-<li>list：列出目前yum所管理的所有的软件名称与版本，有点类似于rpm -qa</li>
-<li>info：同上，类似于rpm -qai 的运行结果</li>
-<li>provides：从文件中去搜索软件，类似于 rpm -qf的功能</li>
-</ul>
-<p>例子：</p>
-<ul>
-<li>yum search raid：搜索磁盘阵列（raid）相关的软件有哪些</li>
-<li>yum info mdadm ： 找出mdadm这个软件的功能为何</li>
-<li>yum list updates ： 列出目前服务器上可供本机进行升级的软件有哪些</li>
-<li>yum provides passwd：列出提供passwd这个文件的软件有哪些</li>
-</ul>
-<h2 id="yum安装-升级功能：yum-install-update-软件"><a href="#yum安装-升级功能：yum-install-update-软件" class="headerlink" title="yum安装/升级功能：yum [install | update] 软件"></a>yum安装/升级功能：yum [install | update] 软件</h2><p>yum [option] [查询工作项目] [相关参数]<br>参数：<br>install：后面接要安装的软件<br>update：后面接要升级的软件，若要整个系统都更新，就直接 update 即可</p>
-<h2 id="yum删除功能：yum-remove-软件"><a href="#yum删除功能：yum-remove-软件" class="headerlink" title="yum删除功能：yum [ remove ] 软件"></a>yum删除功能：yum [ remove ] 软件</h2><h2 id="yum的设置文件"><a href="#yum的设置文件" class="headerlink" title="yum的设置文件"></a>yum的设置文件</h2><p>vi /etc/yum.repos.d/CentOS-Base.repo</p>
-<h2 id="列出目前-yum-server-所使用的容器有哪些"><a href="#列出目前-yum-server-所使用的容器有哪些" class="headerlink" title="列出目前 yum server 所使用的容器有哪些"></a>列出目前 yum server 所使用的容器有哪些</h2><p>yum repolist all</p>
-<h2 id="yum的软件组功能"><a href="#yum的软件组功能" class="headerlink" title="yum的软件组功能"></a>yum的软件组功能</h2><p>yum [组功能] [软件组]</p>
-<blockquote>
-<p>参数：</p>
-<ul>
-<li>grouplist：列出所有可使用的组列表，例如Development Tools之类的</li>
-<li>groupinfo：后面接group name，则可了解该group内含的所有组名称</li>
-<li>groupinstall：可以安装一整组软件</li>
-<li>groupremove：移除某个组</li>
-</ul>
-</blockquote>
-<p>例如：</p>
-<blockquote>
-<p>yum groupinstall “Development Tools” 安装开发软件</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/14/linux-vim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2751,7 +2675,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/add-themes-next-by-submodule/">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhu Haijun">
@@ -2770,7 +2694,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/12/add-themes-next-by-submodule/" itemprop="url">通过添加git子模块的方式来下载hexo next主题</a></h1>
+                <a class="post-title-link" href="/2018/05/14/linux-rpm-srpm-yum/" itemprop="url">RPM、SRPM与YUM 常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -2782,8 +2706,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T17:26:07+08:00">
-                2018-05-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T15:26:14+08:00">
+                2018-05-14
               </time>
             
 
@@ -2818,8 +2742,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -2835,7 +2759,7 @@
 
           
           
-             <span id="/2018/05/12/add-themes-next-by-submodule/" class="leancloud_visitors" data-flag-title="通过添加git子模块的方式来下载hexo next主题">
+             <span id="/2018/05/14/linux-rpm-srpm-yum/" class="leancloud_visitors" data-flag-title="RPM、SRPM与YUM 常用命令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2860,7 +2784,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  665
+                  1,105
                 </span>
               
 
@@ -2876,7 +2800,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -2899,29 +2823,93 @@
       
         
           
-            <h1 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h1><p>当我们使用hexo的时候，一般都会使用各种主题，大多数的文档都是叫我们直接<code>clone</code>主题到themes目录下，然后再配置<code>-config.yml</code>。</p>
-<p>但是，当我们将我们的博客上传到我们自己的github上的时候，主题无法与博客数据一起同步。</p>
-<p>原因是我们使用了<code>clone</code>将主题下载到本地，所以它自己本身也是一个<code>git</code>仓库。<br>因此它上层的博客仓库就无法对其进行管理。</p>
-<p>更好的方法是<code>fork</code>一份主题到自己的github上，再将自己的github里的主题当作子模块加载进来。</p>
-<p><code>fork</code>的目的在于，我们可以对主题进行各种个性化的定制以及修改，<br>并对这些定制进行版本控制。同时，我们还能随时与原主题的更新进行合并。</p>
-<p>1、fork <a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:iissnan/hexo-theme-next.git` 到自己的github</p>
-<h1 id="通过git-submodule-add-添加为子模块"><a href="#通过git-submodule-add-添加为子模块" class="headerlink" title="通过git submodule add 添加为子模块"></a>通过git submodule add 添加为子模块</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-hexo-site</span><br><span class="line">$ git submodule add https://github.com/someone/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>运行 <code>git status</code>，会看到<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="string">'origin/master'</span>.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">        new file:   .gitmodules</span><br><span class="line">        new file:   themes/next</span><br></pre></td></tr></table></figure></p>
-<p>首先你注意到有一个<code>.gitmodules</code>文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat .gitmodules</span><br><span class="line">[submodule <span class="string">"themes/next"</span>]</span><br><span class="line">        path = themes/next</span><br><span class="line">        url = https://github.com/iissnan/hexo-theme-next</span><br></pre></td></tr></table></figure></p>
-<h1 id="修改themes-next主题"><a href="#修改themes-next主题" class="headerlink" title="修改themes/next主题"></a>修改themes/next主题</h1><p>修改了<code>themes/next</code>里面的内容后，<code>git status</code>查看<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="string">'origin/master'</span>.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">        new file:   .gitmodules</span><br><span class="line">        new file:   themes/next</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">  (commit or discard the untracked or modified content <span class="keyword">in</span> submodules)</span><br><span class="line">        modified:   .gitmodules</span><br><span class="line">        modified:   themes/next (modified content, untracked content)</span><br></pre></td></tr></table></figure></p>
-<h1 id="更新submodule"><a href="#更新submodule" class="headerlink" title="更新submodule"></a>更新submodule</h1><p>submodule里面做了修改操作后，要在submodule和主目录下分别提交</p>
-<h2 id="submodule-push-到远端仓库"><a href="#submodule-push-到远端仓库" class="headerlink" title="submodule push 到远端仓库"></a>submodule push 到远端仓库</h2><p>将添加的子模块push到远端submodule的仓库，分别执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'提交信息'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
-<h2 id="主目录内push"><a href="#主目录内push" class="headerlink" title="主目录内push"></a>主目录内push</h2><p>然后再回到父目录,提交Submodule在父项目中的变动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">' update submodule'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
-<h1 id="clone-Submodule"><a href="#clone-Submodule" class="headerlink" title="clone Submodule"></a>clone Submodule</h1><ul>
-<li><p>方法一：一种是采用递归的方式clone整个项目</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:***/***.git --recursive</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>方法二：一种是clone父项目，再更新子项目<br>clone我的博客项目后,执行下面更新命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>  your-hexo-site</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
-</li>
+            <h1 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h1><h2 id="rpm-安装（install）"><a href="#rpm-安装（install）" class="headerlink" title="rpm 安装（install）"></a>rpm 安装（install）</h2><p><code>rpm -ivh  package-name</code></p>
+<blockquote>
+<p>参数：</p>
+<ul>
+<li>-i：install的意思</li>
+<li>-v：查看更详细的安装信息画面</li>
+<li>-h：以安装信息栏显示安装进度</li>
 </ul>
-<h1 id="更新submodule-1"><a href="#更新submodule-1" class="headerlink" title="更新submodule"></a>更新submodule</h1><p>方法一：在父目录直接执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git pull</span><br></pre></td></tr></table></figure></p>
-<p>方法二：在submodule目录下执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="rpm-升级与更新（upgrade-freshen）"><a href="#rpm-升级与更新（upgrade-freshen）" class="headerlink" title="rpm 升级与更新（upgrade/freshen）"></a>rpm 升级与更新（upgrade/freshen）</h2><p>以<code>-Uvh</code> 或 <code>-Fvh</code> 来升级</p>
+<ul>
+<li>-Uvh：后面接的软件即使没有安装过，则系统将予直接安装，若安装过，则系统自动更新到新版</li>
+<li>-Fvh：后面接的软件并未安装到你的Linux系统上，则该软件不会被安装。</li>
+</ul>
+<h2 id="rpm-查询（query）"><a href="#rpm-查询（query）" class="headerlink" title="rpm 查询（query）"></a>rpm 查询（query）</h2><p>RPM在查询的时候，其实查询的地方是<code>/var/lib/rpm</code>这个目录下的数据库文件</p>
+<ul>
+<li>rpm -qa                             &lt;==已安装软件</li>
+<li>rpm -q[licdR]  已安装软件的名称      &lt;== 已安装软件</li>
+<li>rpm -qf 存在于系统上面的某个文件名    &lt;==已安装软件</li>
+<li>rpm -qp[licdR] 未安装的某个文件名称   &lt;== 查阅RPM文件</li>
+</ul>
+<p>参数：<br><br>查询已安装软件的信息</p>
+<ul>
+<li>-q：仅查询，后面接的软件名称是否有安装</li>
+<li>-qa：列出所有的已经安装在本机Linux系统上面的所有软件名称</li>
+<li>-qi：列出该软件的详细信息，包含开发商，版本与说明等</li>
+<li>-ql：列出该软件所有的文件与目录所在的完整文件名（list）</li>
+<li>-qc：列出该软件的所有设置文件（找出在/etc/下面的文件名而已）</li>
+<li>-qd：列出该软件的所有帮助文档（找出与man有关的文件而已）</li>
+<li>-qR：列出与该软件有关的依赖软件所含的文件名（Required的意思）</li>
+<li>-qf：由后面接的文件名称找出该文件属于哪一个已安装的软件</li>
+<li>-qp[licdR]：后面接的所有的参数以上面的说明一致，但用途仅在于找出某个RPM文件内的信息</li>
+</ul>
+<h2 id="rpm-验证与数字证书（Verify-Signature）"><a href="#rpm-验证与数字证书（Verify-Signature）" class="headerlink" title="rpm 验证与数字证书（Verify/Signature）"></a>rpm 验证与数字证书（Verify/Signature）</h2><p>rpm -Va</p>
+<p>rpm -V 已安装的软件名称</p>
+<p>rpm -Vp 某个RPM文件的文件名</p>
+<p>rpm -Vf 在系统上面的某个文件</p>
+<blockquote>
+<p>参数：</p>
+<ul>
+<li>-V：后面加的是软件名称，若该软件所含的文件被改动过，才会列出来</li>
+<li>-Va：列出目前系统上面所有可能被改动过的文件</li>
+<li>-Vp：后面接的是文件名称，列出该软件内可能被改动过的文件</li>
+<li>-Vf：列出某个文件是否被改动过</li>
+</ul>
+</blockquote>
+<h2 id="rpm-卸载"><a href="#rpm-卸载" class="headerlink" title="rpm 卸载"></a>rpm 卸载</h2><p>rpm -e 软件名称</p>
+<h2 id="重建数据库"><a href="#重建数据库" class="headerlink" title="重建数据库"></a>重建数据库</h2><p>rpm –rebuilddb</p>
+<h1 id="srpm文件的安装"><a href="#srpm文件的安装" class="headerlink" title="srpm文件的安装"></a>srpm文件的安装</h1><p><code>rpmrebuild  --rebuild src-package-name</code> —–&gt; 将后面的SRPM进行编译与打包，最后产生RPM的文件（仅编译并打包）</p>
+<p><code>rpmrebuild  --recompile src-package-name</code> —–&gt; 直接编译、打包并且安装（不仅进行编译打包，还进行安装）</p>
+<h1 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h1><h2 id="yum查询功能-yum-list-info-search-provides-whatprovides-参数"><a href="#yum查询功能-yum-list-info-search-provides-whatprovides-参数" class="headerlink" title="yum查询功能 yum [ list | info | search | provides | whatprovides ] 参数"></a>yum查询功能 yum [ list | info | search | provides | whatprovides ] 参数</h2><p>yum [option] [查询工作项目] [相关参数]</p>
+<p>参数:  <br><br>[option]：主要的参数，包括有：</p>
+<ul>
+<li>-y：当yum要等待用户输入时，这个选项可以自动提供yes的响应</li>
+<li>–installroot=/some/path ： 将该软件安装在 /some/path 中而不适用默认路径</li>
+</ul>
+<p>[查询工作目录] [相关参数] ：这方面的参数有：</p>
+<ul>
+<li>search：搜索某个软件名称或者是描述（description）的重要关键字</li>
+<li>list：列出目前yum所管理的所有的软件名称与版本，有点类似于rpm -qa</li>
+<li>info：同上，类似于rpm -qai 的运行结果</li>
+<li>provides：从文件中去搜索软件，类似于 rpm -qf的功能</li>
+</ul>
+<p>例子：</p>
+<ul>
+<li>yum search raid：搜索磁盘阵列（raid）相关的软件有哪些</li>
+<li>yum info mdadm ： 找出mdadm这个软件的功能为何</li>
+<li>yum list updates ： 列出目前服务器上可供本机进行升级的软件有哪些</li>
+<li>yum provides passwd：列出提供passwd这个文件的软件有哪些</li>
+</ul>
+<h2 id="yum安装-升级功能：yum-install-update-软件"><a href="#yum安装-升级功能：yum-install-update-软件" class="headerlink" title="yum安装/升级功能：yum [install | update] 软件"></a>yum安装/升级功能：yum [install | update] 软件</h2><p>yum [option] [查询工作项目] [相关参数]<br>参数：<br>install：后面接要安装的软件<br>update：后面接要升级的软件，若要整个系统都更新，就直接 update 即可</p>
+<h2 id="yum删除功能：yum-remove-软件"><a href="#yum删除功能：yum-remove-软件" class="headerlink" title="yum删除功能：yum [ remove ] 软件"></a>yum删除功能：yum [ remove ] 软件</h2><h2 id="yum的设置文件"><a href="#yum的设置文件" class="headerlink" title="yum的设置文件"></a>yum的设置文件</h2><p>vi /etc/yum.repos.d/CentOS-Base.repo</p>
+<h2 id="列出目前-yum-server-所使用的容器有哪些"><a href="#列出目前-yum-server-所使用的容器有哪些" class="headerlink" title="列出目前 yum server 所使用的容器有哪些"></a>列出目前 yum server 所使用的容器有哪些</h2><p>yum repolist all</p>
+<h2 id="yum的软件组功能"><a href="#yum的软件组功能" class="headerlink" title="yum的软件组功能"></a>yum的软件组功能</h2><p>yum [组功能] [软件组]</p>
+<blockquote>
+<p>参数：</p>
+<ul>
+<li>grouplist：列出所有可使用的组列表，例如Development Tools之类的</li>
+<li>groupinfo：后面接group name，则可了解该group内含的所有组名称</li>
+<li>groupinstall：可以安装一整组软件</li>
+<li>groupremove：移除某个组</li>
+</ul>
+</blockquote>
+<p>例如：</p>
+<blockquote>
+<p>yum groupinstall “Development Tools” 安装开发软件</p>
+</blockquote>
 
           
         
@@ -3019,7 +3007,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3145,7 +3133,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">29.7k</span>
+    <span title="Site words total count">30.2k</span>
   
 </div>
 
@@ -3162,7 +3150,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共29.7k字</span>
+  <span class="post-count">博客全站共30.2k字</span>
 </div>
 -->
 

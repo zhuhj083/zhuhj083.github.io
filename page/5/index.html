@@ -325,6 +325,231 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/add-themes-next-by-submodule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/12/add-themes-next-by-submodule/" itemprop="url">通过添加git子模块的方式来下载hexo next主题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T17:26:07+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/12/add-themes-next-by-submodule/" class="leancloud_visitors" data-flag-title="通过添加git子模块的方式来下载hexo next主题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  665
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h1><p>当我们使用hexo的时候，一般都会使用各种主题，大多数的文档都是叫我们直接<code>clone</code>主题到themes目录下，然后再配置<code>-config.yml</code>。</p>
+<p>但是，当我们将我们的博客上传到我们自己的github上的时候，主题无法与博客数据一起同步。</p>
+<p>原因是我们使用了<code>clone</code>将主题下载到本地，所以它自己本身也是一个<code>git</code>仓库。<br>因此它上层的博客仓库就无法对其进行管理。</p>
+<p>更好的方法是<code>fork</code>一份主题到自己的github上，再将自己的github里的主题当作子模块加载进来。</p>
+<p><code>fork</code>的目的在于，我们可以对主题进行各种个性化的定制以及修改，<br>并对这些定制进行版本控制。同时，我们还能随时与原主题的更新进行合并。</p>
+<p>1、fork <a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:iissnan/hexo-theme-next.git` 到自己的github</p>
+<h1 id="通过git-submodule-add-添加为子模块"><a href="#通过git-submodule-add-添加为子模块" class="headerlink" title="通过git submodule add 添加为子模块"></a>通过git submodule add 添加为子模块</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-hexo-site</span><br><span class="line">$ git submodule add https://github.com/someone/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>运行 <code>git status</code>，会看到<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="string">'origin/master'</span>.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">        new file:   .gitmodules</span><br><span class="line">        new file:   themes/next</span><br></pre></td></tr></table></figure></p>
+<p>首先你注意到有一个<code>.gitmodules</code>文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat .gitmodules</span><br><span class="line">[submodule <span class="string">"themes/next"</span>]</span><br><span class="line">        path = themes/next</span><br><span class="line">        url = https://github.com/iissnan/hexo-theme-next</span><br></pre></td></tr></table></figure></p>
+<h1 id="修改themes-next主题"><a href="#修改themes-next主题" class="headerlink" title="修改themes/next主题"></a>修改themes/next主题</h1><p>修改了<code>themes/next</code>里面的内容后，<code>git status</code>查看<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="string">'origin/master'</span>.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">        new file:   .gitmodules</span><br><span class="line">        new file:   themes/next</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">  (commit or discard the untracked or modified content <span class="keyword">in</span> submodules)</span><br><span class="line">        modified:   .gitmodules</span><br><span class="line">        modified:   themes/next (modified content, untracked content)</span><br></pre></td></tr></table></figure></p>
+<h1 id="更新submodule"><a href="#更新submodule" class="headerlink" title="更新submodule"></a>更新submodule</h1><p>submodule里面做了修改操作后，要在submodule和主目录下分别提交</p>
+<h2 id="submodule-push-到远端仓库"><a href="#submodule-push-到远端仓库" class="headerlink" title="submodule push 到远端仓库"></a>submodule push 到远端仓库</h2><p>将添加的子模块push到远端submodule的仓库，分别执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'提交信息'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<h2 id="主目录内push"><a href="#主目录内push" class="headerlink" title="主目录内push"></a>主目录内push</h2><p>然后再回到父目录,提交Submodule在父项目中的变动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">' update submodule'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<h1 id="clone-Submodule"><a href="#clone-Submodule" class="headerlink" title="clone Submodule"></a>clone Submodule</h1><ul>
+<li><p>方法一：一种是采用递归的方式clone整个项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:***/***.git --recursive</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法二：一种是clone父项目，再更新子项目<br>clone我的博客项目后,执行下面更新命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>  your-hexo-site</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="更新submodule-1"><a href="#更新submodule-1" class="headerlink" title="更新submodule"></a>更新submodule</h1><p>方法一：在父目录直接执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git pull</span><br></pre></td></tr></table></figure></p>
+<p>方法二：在submodule目录下执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/hexo-many-computer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1904,7 +2129,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2030,7 +2255,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">29.7k</span>
+    <span title="Site words total count">30.2k</span>
   
 </div>
 
@@ -2047,7 +2272,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共29.7k字</span>
+  <span class="post-count">博客全站共30.2k字</span>
 </div>
 -->
 

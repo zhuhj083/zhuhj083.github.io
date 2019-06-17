@@ -325,6 +325,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/06/17/js-utils/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/17/js-utils/" itemprop="url">js utils</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-17T15:39:07+08:00">
+                2019-06-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-17T15:41:33+08:00">
+                2019-06-17
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/17/js-utils/" class="leancloud_visitors" data-flag-title="js utils">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  515
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="js-时间戳转时间间隔"><a href="#js-时间戳转时间间隔" class="headerlink" title="js 时间戳转时间间隔"></a>js 时间戳转时间间隔</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 时间转为时间戳</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">date2timestamp</span>(<span class="params">datetime</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timestamp = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.parse(datetime));</span><br><span class="line">    timestamp = timestamp.getTime();</span><br><span class="line">    timestamp = timestamp / <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">return</span> timestamp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 时间戳转时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timestamp2date</span>(<span class="params">timestamp, mode</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">parseInt</span>(timestamp) &gt; <span class="number">999999999999</span>)&#123;</span><br><span class="line">        timestamp /= <span class="number">1000</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> tt = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">parseInt</span>(timestamp) * <span class="number">1000</span>).toLocaleString().replace(<span class="regexp">/:\d&#123;1,2&#125;$/</span>, <span class="string">' '</span>).replace(<span class="regexp">/年|月/g</span>, <span class="string">"-"</span>).replace(<span class="regexp">/日/g</span>, <span class="string">" "</span>).replace(<span class="regexp">/上午/g</span>, <span class="string">""</span>).replace(<span class="regexp">/下午/g</span>, <span class="string">""</span>);</span><br><span class="line">    <span class="keyword">var</span> date_arr = tt.split(<span class="string">" "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> minute = <span class="number">60</span>;</span><br><span class="line">        <span class="keyword">var</span> hour = minute * <span class="number">60</span>;</span><br><span class="line">        <span class="keyword">var</span> day = hour * <span class="number">24</span>;</span><br><span class="line">        <span class="keyword">var</span> halfamonth = day * <span class="number">15</span>;</span><br><span class="line">        <span class="keyword">var</span> month = day * <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">var</span> current_timestamp = <span class="built_in">parseInt</span>(<span class="built_in">Date</span>.parse(<span class="keyword">new</span> <span class="built_in">Date</span>()) / <span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">var</span> diffValue = current_timestamp - timestamp;</span><br><span class="line">        <span class="keyword">var</span> monthC = diffValue / month;</span><br><span class="line">        <span class="keyword">var</span> dayC = diffValue / day;</span><br><span class="line">        <span class="keyword">var</span> hourC = diffValue / hour;</span><br><span class="line">        <span class="keyword">var</span> minC = diffValue / minute;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 2小时内--&gt; 刚刚</span></span><br><span class="line"><span class="comment">         * 2小时-24小时内  --&gt; *小时前</span></span><br><span class="line"><span class="comment">         * 超过24小时-1月内 --&gt;  **天前</span></span><br><span class="line"><span class="comment">         * 超过1个月-1年内  --&gt;  *月前</span></span><br><span class="line"><span class="comment">         * 超过1年 --&gt;  1年前</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (monthC &gt; <span class="number">12</span>)&#123;</span><br><span class="line">            result = <span class="number">1</span> + <span class="string">"年前"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (monthC &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            result = <span class="built_in">parseInt</span>(monthC) + <span class="string">"月前"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (dayC &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            result = <span class="built_in">parseInt</span>(dayC) + <span class="string">"天前"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (hourC &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">            result = <span class="built_in">parseInt</span>(hourC) + <span class="string">"小时前"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            result = <span class="string">"刚刚"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> current_timestamp = <span class="built_in">parseInt</span>(<span class="built_in">Date</span>.parse(<span class="keyword">new</span> <span class="built_in">Date</span>()) / <span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">if</span> ((current_timestamp - timestamp) &gt; <span class="number">7</span> * <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span>) &#123;</span><br><span class="line">            <span class="comment">// 一周之前，显示日期</span></span><br><span class="line">            <span class="keyword">return</span> date_arr[<span class="number">0</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">            <span class="keyword">var</span> date = d.getFullYear() + <span class="string">"/"</span> + (d.getMonth() + <span class="number">1</span>) + <span class="string">"/"</span> + d.getDate();</span><br><span class="line">            <span class="keyword">var</span> b_date = date2timestamp(date + <span class="string">" 00:00:00"</span>);</span><br><span class="line">            <span class="keyword">var</span> e_date = date2timestamp(date + <span class="string">" 23:59:59"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">parseInt</span>(timestamp) &gt; <span class="built_in">parseInt</span>(b_date) &amp;&amp; <span class="built_in">parseInt</span>(timestamp) &lt; <span class="built_in">parseInt</span>(e_date)) &#123;</span><br><span class="line">                <span class="comment">// 今天,只显示时间</span></span><br><span class="line">                <span class="keyword">return</span> date_arr[<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">parseInt</span>(timestamp) &gt; <span class="built_in">parseInt</span>(b_date - <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span>) &amp;&amp; <span class="built_in">parseInt</span>(timestamp) &lt; <span class="built_in">parseInt</span>(e_date - <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span>)) &#123;</span><br><span class="line">                <span class="comment">// 昨天，显示昨天</span></span><br><span class="line">                <span class="keyword">return</span> <span class="string">"昨天"</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 显示周几</span></span><br><span class="line">            <span class="keyword">var</span> days = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">"星期日"</span>,<span class="string">"星期一"</span>,<span class="string">"星期二"</span>,<span class="string">"星期三"</span>,<span class="string">"星期四"</span>,<span class="string">"星期五"</span>,<span class="string">"星期六"</span>);</span><br><span class="line">            <span class="keyword">var</span> day  = <span class="keyword">new</span> <span class="built_in">Date</span>(date_arr[<span class="number">0</span>]).getDay();</span><br><span class="line">            <span class="keyword">return</span> days[day];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是当天，就不显示日期</span></span><br><span class="line">        <span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">        <span class="keyword">var</span> date = d.getFullYear() + <span class="string">"/"</span> + (d.getMonth() + <span class="number">1</span>) + <span class="string">"/"</span> + d.getDate();</span><br><span class="line">        <span class="keyword">var</span> b_date = date2timestamp(date + <span class="string">" 00:00:00"</span>);</span><br><span class="line">        <span class="keyword">var</span> e_date = date2timestamp(date + <span class="string">" 23:59:59"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">parseInt</span>(timestamp) &gt; <span class="built_in">parseInt</span>(b_date) &amp;&amp; <span class="built_in">parseInt</span>(timestamp) &lt; <span class="built_in">parseInt</span>(e_date)) &#123;</span><br><span class="line">            <span class="keyword">return</span> date_arr[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> tt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/03/14/线程交替打印ABC的多种实现方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2230,195 +2433,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/19/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/19/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T13:17:36+08:00">
-                2018-12-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:17:36+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/12/19/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  78
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2475,7 +2489,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2601,7 +2615,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">29.7k</span>
+    <span title="Site words total count">30.2k</span>
   
 </div>
 
@@ -2618,7 +2632,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共29.7k字</span>
+  <span class="post-count">博客全站共30.2k字</span>
 </div>
 -->
 
