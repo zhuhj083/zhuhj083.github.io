@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2019/06/24/Mac%E4%B8%8A%E5%AE%89%E8%A3%85Redis/</loc>
+    <lastmod>2019-06-24T11:45:02.657Z</lastmod>
+    <data>
+        <display>
+        <title>Mac上安装Redis</title>
+        <pubTime>2019-06-24T11:40:51.000Z</pubTime>
+        
+        <tag>mac</tag>
+         
+        <tag>redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Mac" url="http:zhuhaijun.cn/categories/Mac/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2019/06/17/js-utils/</loc>
     <lastmod>2019-06-17T07:41:33.753Z</lastmod>
     <data>
@@ -236,29 +258,42 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/05/14/linux-view-file/</loc>
+    <loc>http:zhuhaijun.cn/2018/06/21/loadmore/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>linux文件内容查阅</title>
-        <pubTime>2018-05-14T08:35:19.000Z</pubTime>
+        <title>到底部上滑加载更多</title>
+        <pubTime>2018-06-21T12:51:29.000Z</pubTime>
         
-        <tag>linux，cat</tag>
-         
-        <tag>more</tag>
-         
-        <tag>less</tag>
-         
-        <tag>touch</tag>
-         
-        <tag>which</tag>
-         
-        <tag>whereis</tag>
+        <tag>js loadmore</tag>
          
          
            
              
-              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
+              <breadCrumb title="js" url="http:zhuhaijun.cn/categories/js/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>git submodule foreach git pull的问题</title>
+        <pubTime>2018-07-02T16:18:15.000Z</pubTime>
+        
+        <tag>bug</tag>
+         
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="bug" url="http:zhuhaijun.cn/categories/bug/"/>
           
         </display>
     </data>
@@ -286,29 +321,6 @@
     </data>
     </url>
 
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>git submodule foreach git pull的问题</title>
-        <pubTime>2018-07-02T16:18:15.000Z</pubTime>
-        
-        <tag>bug</tag>
-         
-        <tag>git</tag>
-         
-         
-           
-             
-              <breadCrumb title="bug" url="http:zhuhaijun.cn/categories/bug/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
     
   <url>
     <loc>http:zhuhaijun.cn/2018/07/03/hexo-add-image/</loc>
@@ -421,48 +433,6 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>java运行时数据区域</title>
-        <pubTime>2018-07-02T17:43:12.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>jvm</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>正则表达式使用的特殊符号和字符</title>
-        <pubTime>2018-10-30T03:53:21.000Z</pubTime>
-        
-        <tag>re</tag>
-         
-         
-           
-             
-              <breadCrumb title="re" url="http:zhuhaijun.cn/categories/re/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http:zhuhaijun.cn/2018/06/21/js-timestamp-to-datestring/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -476,54 +446,6 @@
            
              
               <breadCrumb title="js" url="http:zhuhaijun.cn/categories/js/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/07/25/kafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>kafka 生产者和消费者</title>
-        <pubTime>2018-07-25T08:08:46.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>kafka</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>RPM、SRPM与YUM 常用命令</title>
-        <pubTime>2018-05-14T07:26:14.000Z</pubTime>
-        
-        <tag>linix</tag>
-         
-        <tag>rpm</tag>
-         
-        <tag>srpm</tag>
-         
-        <tag>yum</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
           
         </display>
     </data>
@@ -553,19 +475,93 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/06/21/loadmore/</loc>
+    <loc>http:zhuhaijun.cn/2018/07/25/kafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>到底部上滑加载更多</title>
-        <pubTime>2018-06-21T12:51:29.000Z</pubTime>
+        <title>kafka 生产者和消费者</title>
+        <pubTime>2018-07-25T08:08:46.000Z</pubTime>
         
-        <tag>js loadmore</tag>
+        <tag>java</tag>
+         
+        <tag>kafka</tag>
          
          
            
              
-              <breadCrumb title="js" url="http:zhuhaijun.cn/categories/js/"/>
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>java运行时数据区域</title>
+        <pubTime>2018-07-02T17:43:12.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>jvm</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/05/14/linux-view-file/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>linux文件内容查阅</title>
+        <pubTime>2018-05-14T08:35:19.000Z</pubTime>
+        
+        <tag>linux，cat</tag>
+         
+        <tag>more</tag>
+         
+        <tag>less</tag>
+         
+        <tag>touch</tag>
+         
+        <tag>which</tag>
+         
+        <tag>whereis</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式使用的特殊符号和字符</title>
+        <pubTime>2018-10-30T03:53:21.000Z</pubTime>
+        
+        <tag>re</tag>
+         
+         
+           
+             
+              <breadCrumb title="re" url="http:zhuhaijun.cn/categories/re/"/>
           
         </display>
     </data>
@@ -659,28 +655,6 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/08/06/Spring%E4%B8%AD%E7%9A%84BeanPostProcessor/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>Spring中的BeanPostProcessor简介</title>
-        <pubTime>2018-08-06T12:26:50.000Z</pubTime>
-        
-        <tag>spring</tag>
-         
-        <tag>java</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http:zhuhaijun.cn/2018/07/25/spring%E5%9C%A8%E4%BB%BB%E6%84%8F%E7%B1%BB%E4%B8%ADgetBean/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -703,6 +677,32 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>RPM、SRPM与YUM 常用命令</title>
+        <pubTime>2018-05-14T07:26:14.000Z</pubTime>
+        
+        <tag>linix</tag>
+         
+        <tag>rpm</tag>
+         
+        <tag>srpm</tag>
+         
+        <tag>yum</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/04/28/start/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -716,6 +716,28 @@
            
              
               <breadCrumb title="随笔" url="http:zhuhaijun.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2018/08/06/Spring%E4%B8%AD%E7%9A%84BeanPostProcessor/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>Spring中的BeanPostProcessor简介</title>
+        <pubTime>2018-08-06T12:26:50.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+        <tag>java</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
           
         </display>
     </data>
@@ -823,6 +845,26 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/06/27/algorithm-analysis-math/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>算法分析</title>
+        <pubTime>2018-06-27T05:20:24.000Z</pubTime>
+        
+        <tag>algorithm</tag>
+         
+         
+           
+             
+              <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/05/12/add-themes-next-by-submodule/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -838,26 +880,6 @@
            
              
               <breadCrumb title="hexo" url="http:zhuhaijun.cn/categories/hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/06/27/algorithm-analysis-math/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>算法分析</title>
-        <pubTime>2018-06-27T05:20:24.000Z</pubTime>
-        
-        <tag>algorithm</tag>
-         
-         
-           
-             
-              <breadCrumb title="algorithm" url="http:zhuhaijun.cn/categories/algorithm/"/>
           
         </display>
     </data>
