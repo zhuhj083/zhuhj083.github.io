@@ -4,6 +4,50 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2019/08/22/Spring%20ImportBeanDefinitionRegistrar%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2019-08-22T12:56:26.934Z</lastmod>
+    <data>
+        <display>
+        <title>Spring ImportBeanDefinitionRegistrar介绍.md</title>
+        <pubTime>2019-08-22T08:32:51.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+        <tag>java</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http:zhuhaijun.cn/2019/08/22/Spring%20ImportSelector%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2019-08-22T12:55:55.679Z</lastmod>
+    <data>
+        <display>
+        <title>Spring ImportSelector介绍.md</title>
+        <pubTime>2019-08-22T08:32:51.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+        <tag>java</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/08/01/Spring%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2019-08-22T07:57:52.210Z</lastmod>
     <data>
@@ -298,29 +342,6 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>git submodule foreach git pull的问题</title>
-        <pubTime>2018-07-02T16:18:15.000Z</pubTime>
-        
-        <tag>bug</tag>
-         
-        <tag>git</tag>
-         
-         
-           
-             
-              <breadCrumb title="bug" url="http:zhuhaijun.cn/categories/bug/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
     <loc>http:zhuhaijun.cn/2018/07/03/hexo-add-image/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -429,6 +450,28 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>java运行时数据区域</title>
+        <pubTime>2018-07-02T17:43:12.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>jvm</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/06/21/js-timestamp-to-datestring/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -493,21 +536,25 @@
 
     
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
         <display>
-        <title>java运行时数据区域</title>
-        <pubTime>2018-07-02T17:43:12.000Z</pubTime>
+        <title>RPM、SRPM与YUM 常用命令</title>
+        <pubTime>2018-05-14T07:26:14.000Z</pubTime>
         
-        <tag>java</tag>
+        <tag>linix</tag>
          
-        <tag>jvm</tag>
+        <tag>rpm</tag>
+         
+        <tag>srpm</tag>
+         
+        <tag>yum</tag>
          
          
            
              
-              <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
+              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
           
         </display>
     </data>
@@ -560,32 +607,6 @@
            
              
               <breadCrumb title="tool" url="http:zhuhaijun.cn/categories/tool/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>RPM、SRPM与YUM 常用命令</title>
-        <pubTime>2018-05-14T07:26:14.000Z</pubTime>
-        
-        <tag>linix</tag>
-         
-        <tag>rpm</tag>
-         
-        <tag>srpm</tag>
-         
-        <tag>yum</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux" url="http:zhuhaijun.cn/categories/linux/"/>
           
         </display>
     </data>
@@ -723,6 +744,26 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/04/28/start/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>开始</title>
+        <pubTime>2018-04-28T13:05:22.000Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http:zhuhaijun.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/05/03/svn-out-of-date/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -756,26 +797,6 @@
            
              
               <breadCrumb title="java" url="http:zhuhaijun.cn/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http:zhuhaijun.cn/2018/04/28/start/</loc>
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>开始</title>
-        <pubTime>2018-04-28T13:05:22.000Z</pubTime>
-        
-        <tag>Hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="随笔" url="http:zhuhaijun.cn/categories/%E9%9A%8F%E7%AC%94/"/>
           
         </display>
     </data>
@@ -973,6 +994,28 @@
 
     
   <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>git submodule foreach git pull的问题</title>
+        <pubTime>2018-07-02T16:18:15.000Z</pubTime>
+        
+        <tag>bug</tag>
+         
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="bug" url="http:zhuhaijun.cn/categories/bug/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http:zhuhaijun.cn/2018/05/14/linux-vim/</loc>
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     <data>
@@ -1037,6 +1080,7 @@
     </data>
     </url>
 
+    
     
     
     

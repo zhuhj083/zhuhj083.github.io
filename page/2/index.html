@@ -325,6 +325,431 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/24/python实现微信机器人AI智能回复/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/24/python实现微信机器人AI智能回复/" itemprop="url">python实现微信机器人AI智能回复</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T19:08:06+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-24T19:24:57+08:00">
+                2018-12-24
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/24/python实现微信机器人AI智能回复/" class="leancloud_visitors" data-flag-title="python实现微信机器人AI智能回复">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  130
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="注册图灵机器人网站的账号"><a href="#注册图灵机器人网站的账号" class="headerlink" title="注册图灵机器人网站的账号"></a>注册图灵机器人网站的账号</h1><p>链接：<a href="http://www.tuling123.com/" target="_blank" rel="noopener">http://www.tuling123.com/</a><br>你可以获取自己的图灵机器人apikey</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def get_response(_info):</span><br><span class="line">    <span class="built_in">print</span>(_info)</span><br><span class="line">    api_url = <span class="string">'http://www.tuling123.com/openapi/api'</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">'key'</span>: <span class="string">'your_tuling_apikey'</span>, <span class="comment"># 上一步注册的apikey</span></span><br><span class="line">        <span class="string">'info'</span>: _info,</span><br><span class="line">        <span class="string">'userid'</span>: <span class="string">'robot'</span>,          <span class="comment"># 随意填</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()</span><br><span class="line">    <span class="built_in">print</span>(r.get(<span class="string">'text'</span>))</span><br><span class="line">    <span class="built_in">return</span> r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@itchat.msg_register(itchat.content.TEXT)</span><br><span class="line">def text_reply(msg):</span><br><span class="line">    <span class="built_in">return</span> r<span class="string">"[Bao]"</span> + get_response(msg[<span class="string">"Text"</span>])[<span class="string">"text"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"start"</span>)</span><br><span class="line">    itchat.auto_login(hotReload=True)</span><br><span class="line">    itchat.run()</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/21/Mac-teminal-ssh-免密码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/Mac-teminal-ssh-免密码/" itemprop="url">Mac teminal ssh 免密码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T19:13:16+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-21T19:15:08+08:00">
+                2018-12-21
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index">
+                    <span itemprop="name">Mac</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/21/Mac-teminal-ssh-免密码/" class="leancloud_visitors" data-flag-title="Mac teminal ssh 免密码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  204
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、创建expect脚本"><a href="#一、创建expect脚本" class="headerlink" title="一、创建expect脚本"></a>一、创建expect脚本</h1><ol>
+<li><p>在/usr/local/bin目录下创建item2ssh.sh脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> timeout 15</span><br><span class="line"><span class="built_in">set</span> port [lindex <span class="variable">$argv</span> 0]</span><br><span class="line"><span class="built_in">set</span> username [lindex <span class="variable">$argv</span> 1]</span><br><span class="line"><span class="built_in">set</span> host [lindex <span class="variable">$argv</span> 2]</span><br><span class="line"><span class="built_in">set</span> passwd [lindex <span class="variable">$argv</span> 3]</span><br><span class="line">spawn ssh -p <span class="variable">$port</span> <span class="variable">$username</span>@<span class="variable">$host</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"(yes/no)?"</span></span><br><span class="line">        &#123;send <span class="string">"yes\n"</span>;exp_continue&#125;</span><br><span class="line">        <span class="string">"password:"</span></span><br><span class="line">        &#123;send <span class="string">"<span class="variable">$passwd</span>\n"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>赋予可执行权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/bin</span><br><span class="line">sudo chmod +x item2ssh.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="二、创建alias"><a href="#二、创建alias" class="headerlink" title="二、创建alias"></a>二、创建alias</h1><ol start="3">
+<li><p>创建alias<br>在~目录下，创建.bash_alies文件，内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> ssh2std=<span class="string">'item2login.sh 22 username ip passwd'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改.bash_profile<br>添加以下几行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f ~/.bash_aliases ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">source</span> ~/.bash_aliases</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>5.source使之生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>这样以后，直接敲ssd2std 就可以免密码ssh登录到std机器上了。</p>
+<h1 id="三、item2中使用"><a href="#三、item2中使用" class="headerlink" title="三、item2中使用"></a>三、item2中使用</h1><p>在item2软件中，<code>comand</code>+<code>,</code> 弹出Preferences，<br>然后可以添加Profiles,如下图所示<br><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/item2.jpg" alt="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/item2.jpg"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/21/MAC使用nginx分发80至8080端口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1987,553 +2412,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/30/RE-Metacharacter/" itemprop="url">正则表达式使用的特殊符号和字符</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T11:53:21+08:00">
-                2018-10-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/re/" itemprop="url" rel="index">
-                    <span itemprop="name">re</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/30/RE-Metacharacter/" class="leancloud_visitors" data-flag-title="正则表达式使用的特殊符号和字符">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  445
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="正则表达式中最常见的符号和字符"><a href="#正则表达式中最常见的符号和字符" class="headerlink" title="正则表达式中最常见的符号和字符"></a>正则表达式中最常见的符号和字符</h1><table>
-<thead>
-<tr>
-<th>记号</th>
-<th>说明</th>
-<th>正则表达式样例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>literal</em></td>
-<td>匹配字符串的值</td>
-<td>foo</td>
-</tr>
-<tr>
-<td><em>re1&#124;rel2</em></td>
-<td>匹配正则表达式re1或re2</td>
-<td>foo&#124;bar</td>
-</tr>
-<tr>
-<td>.</td>
-<td>匹配任何字符（换行符除外）</td>
-<td>b.b</td>
-</tr>
-<tr>
-<td>^</td>
-<td>匹配字符串的开始</td>
-<td>^Dear</td>
-</tr>
-<tr>
-<td>$</td>
-<td>匹配字符串的结尾</td>
-<td>/bin/*sh$</td>
-</tr>
-<tr>
-<td>*</td>
-<td>匹配前面出现的正则表达式零次或多次</td>
-<td>[A-Za-z0-9]*</td>
-</tr>
-<tr>
-<td>+</td>
-<td>匹配前面出现的正则表达式一次或多次</td>
-<td>[a-z]+\.com</td>
-</tr>
-<tr>
-<td>?</td>
-<td>匹配前面出现的正则表达式零次或一次</td>
-<td>goo?</td>
-</tr>
-<tr>
-<td>{N}</td>
-<td>匹配前面出现的正则表达式N次</td>
-<td>[0-9]{3}</td>
-</tr>
-<tr>
-<td>{M,N}</td>
-<td>匹配重复出现M次到N次的正则表达式</td>
-<td>[0-9]{5,9}</td>
-</tr>
-<tr>
-<td>[…]</td>
-<td>匹配字符组里出现的任意一个字符</td>
-<td>[aeiou]</td>
-</tr>
-<tr>
-<td>[..x-y..]</td>
-<td>匹配从字符x到y中任意一个字符</td>
-<td>[0-9],[A-Za-z]</td>
-</tr>
-<tr>
-<td>[^…]</td>
-<td>不匹配此字符组中出现的任何一个字符，包括某一范围的字符（如果在此字符集中出现）</td>
-<td>[^aeiou],[^A-Za-z]</td>
-</tr>
-<tr>
-<td>(*&#124;+&#124;?&#124;{})?</td>
-<td>用于上面出现的任何“非贪婪”，版本重复匹配次数符号</td>
-<td>.*?[a-z]</td>
-</tr>
-<tr>
-<td>(…)</td>
-<td>匹配封闭括号中正则表达式（RE），并保存为子组</td>
-<td>（[0-9]{3}）?,f(oo&#124;u)bar</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>匹配任何数字，和[0-9]一样，（\D是\d的反义：任何非数字）</td>
-<td>data\d+.txt</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>匹配任何数字和字符，即<a href="\W是\w的反义">A-Za-z0-9</a></td>
-<td>[A-Za-z_]\w+</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>匹配任何空白符，和[\n\t\r\v\f]相同，（\S是\s的反义）</td>
-<td>of\sthe</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>匹配单词边界（\B是\b的反义）</td>
-<td>\bThe\b</td>
-</tr>
-<tr>
-<td>\nn</td>
-<td>匹配已保存的子组(参考上面的正则表达式符合:（…））)</td>
-<td>price:\16</td>
-</tr>
-<tr>
-<td>\c</td>
-<td>逐一匹配特殊字符c（即取消它的特殊含义，按字面匹配）</td>
-<td>.,\,*</td>
-</tr>
-<tr>
-<td>\A(\Z)</td>
-<td>匹配字符换的起始（结束）</td>
-<td>\ADear</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/Spring中的BeanPostProcessor/" itemprop="url">Spring中的BeanPostProcessor简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T20:26:50+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/08/06/Spring中的BeanPostProcessor/" class="leancloud_visitors" data-flag-title="Spring中的BeanPostProcessor简介">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  289
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="BeanPostProcessor简介"><a href="#BeanPostProcessor简介" class="headerlink" title="BeanPostProcessor简介"></a>BeanPostProcessor简介</h1><p>BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//bean初始化方法调用前被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//bean初始化方法调用后被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>BeanPostProcessor接口有2个回调方法，当一个BeanPostProcessor的实现类注册到Spring IOC容器后，对于该Spring IOC 容器所创造的每一个bean实例的初始化方法（如afterPropertiesSet和自定义init-method方法）调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法；而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法。</p>
-<p>整个调用过程简单示意如下：</p>
-<blockquote>
-<p>Spring IOC容器实例化Bean</p>
-</blockquote>
-<blockquote>
-<p>调用BeanPostProcessor的postProcessBeforeInitialization方法</p>
-</blockquote>
-<blockquote>
-<p>调用bean实例的初始化方法</p>
-</blockquote>
-<blockquote>
-<p>调用BeanPostProcessor的postProcessAfterInitialization方法</p>
-</blockquote>
-<p>可以看到，Spring容器通过BeanPostProcessor给了我们一个机会对Spring管理的bean进行再加工。比如：我们可以修改bean的属性，可以给bean生成一个动态代理实例等等。</p>
-<p>一些Spring AOP的底层处理也是通过实现BeanPostProcessor来执行代理包装逻辑的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2585,7 +2468,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2711,7 +2594,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.4k</span>
+    <span title="Site words total count">35.1k</span>
   
 </div>
 
@@ -2728,7 +2611,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共31.4k字</span>
+  <span class="post-count">博客全站共35.1k字</span>
 </div>
 -->
 

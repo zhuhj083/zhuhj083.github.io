@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http:zhuhaijun.cn/2019/08/22/Spring%20ImportBeanDefinitionRegistrar%E4%BB%8B%E7%BB%8D/</loc>
+    
+    <lastmod>2019-08-22T12:56:26.934Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2019/08/22/Spring%20ImportSelector%E4%BB%8B%E7%BB%8D/</loc>
+    
+    <lastmod>2019-08-22T12:55:55.679Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http:zhuhaijun.cn/2018/08/01/Spring%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2019-08-22T07:57:52.210Z</lastmod>
@@ -100,20 +114,6 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/tags/index.html</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http:zhuhaijun.cn/2018/07/03/hexo-add-image/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
@@ -149,6 +149,13 @@
   </url>
   
   <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http:zhuhaijun.cn/2018/06/21/js-timestamp-to-datestring/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
@@ -170,7 +177,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
+    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -185,13 +192,6 @@
   
   <url>
     <loc>http:zhuhaijun.cn/2018/11/01/IntelliJ-IDEA-%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -240,6 +240,13 @@
   </url>
   
   <url>
+    <loc>http:zhuhaijun.cn/2018/04/28/start/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http:zhuhaijun.cn/2018/05/03/svn-out-of-date/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
@@ -248,13 +255,6 @@
   
   <url>
     <loc>http:zhuhaijun.cn/2018/06/22/volatile-and-synchronized/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/2018/04/28/start/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -324,6 +324,13 @@
   </url>
   
   <url>
+    <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http:zhuhaijun.cn/2018/05/14/linux-vim/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
@@ -345,6 +352,13 @@
   </url>
   
   <url>
+    <loc>http:zhuhaijun.cn/categories/index.html</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http:zhuhaijun.cn/about/index.html</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
@@ -352,7 +366,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/categories/index.html</loc>
+    <loc>http:zhuhaijun.cn/tags/index.html</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
