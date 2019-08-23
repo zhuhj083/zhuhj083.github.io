@@ -648,7 +648,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhu Haijun">
@@ -667,7 +667,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/06/Spring中的BeanPostProcessor/" itemprop="url">Spring中的BeanPostProcessor简介</a></h1>
+                <a class="post-title-link" href="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" itemprop="url">Spring中的BeanPostProcessor和BeanFactoryPostProcessor</a></h1>
         
 
         <div class="post-meta">
@@ -695,8 +695,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-23T15:42:29+08:00">
+                2019-08-23
               </time>
             
           </span>
@@ -732,7 +732,7 @@
 
           
           
-             <span id="/2018/08/06/Spring中的BeanPostProcessor/" class="leancloud_visitors" data-flag-title="Spring中的BeanPostProcessor简介">
+             <span id="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" class="leancloud_visitors" data-flag-title="Spring中的BeanPostProcessor和BeanFactoryPostProcessor">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -757,7 +757,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  289
+                  1,762
                 </span>
               
 
@@ -773,7 +773,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  8
                 </span>
               
             </div>
@@ -795,8 +795,16 @@
 
       
         
-          
-            <h1 id="BeanPostProcessor简介"><a href="#BeanPostProcessor简介" class="headerlink" title="BeanPostProcessor简介"></a>BeanPostProcessor简介</h1><p>BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//bean初始化方法调用前被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//bean初始化方法调用后被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <p>BeanPostProcessor和BeanFactoryPostProcessor是Spring初始化Bean时对外暴露的2个接口，两个接口看起来很相似，但是作用和使用场景去不同。</p>
+<p>参考博文：<a href="https://blog.csdn.net/caihaijiang/article/details/35552859" target="_blank" rel="noopener">https://blog.csdn.net/caihaijiang/article/details/35552859</a></p>
+<h1 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h1><h2 id="接口的定义"><a href="#接口的定义" class="headerlink" title="接口的定义"></a>接口的定义</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//实现该接口，可以在spring的bean创建之前，修改bean的定义属性。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现该接口，可以在spring的bean创建之前，修改bean的定义属性。</p>
+<p>也就是说，Spring允许BeanFactoryPostProcessor在容器实例化任何其它bean之前读取配置元数据，并可以根据需要进行修改。例如可以把bean的scope从singleton改为prototype，也可以把property的值给修改掉。</p>
+<p>可以同时配置多个BeanFactoryPostProcessor，并通过设置<code>order</code>属性来控制各个BeanFactoryPostProcessor的执行次序。</p>
+<blockquote>
+<p>注意：BeanFactoryPostProcessor是在spring容器加载了bean的定义文件之后，在bean实例化之前执行的。接口方法的入参是ConfigurrableListableBeanFactory，使用该参数，可以获取到相关bean的定义信息</p>
+</blockquote>
+<h1 id="BeanPostProcessor简介"><a href="#BeanPostProcessor简介" class="headerlink" title="BeanPostProcessor简介"></a>BeanPostProcessor简介</h1><p>BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//bean初始化方法调用前被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//bean初始化方法调用后被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>BeanPostProcessor接口有2个回调方法，当一个BeanPostProcessor的实现类注册到Spring IOC容器后，对于该Spring IOC 容器所创造的每一个bean实例的初始化方法（如afterPropertiesSet和自定义init-method方法）调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法；而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法。</p>
 <p>整个调用过程简单示意如下：</p>
 <blockquote>
@@ -813,8 +821,13 @@
 </blockquote>
 <p>可以看到，Spring容器通过BeanPostProcessor给了我们一个机会对Spring管理的bean进行再加工。比如：我们可以修改bean的属性，可以给bean生成一个动态代理实例等等。</p>
 <p>一些Spring AOP的底层处理也是通过实现BeanPostProcessor来执行代理包装逻辑的。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2743,7 +2756,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">35.1k</span>
+    <span title="Site words total count">36.6k</span>
   
 </div>
 
@@ -2760,7 +2773,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共35.1k字</span>
+  <span class="post-count">博客全站共36.6k字</span>
 </div>
 -->
 

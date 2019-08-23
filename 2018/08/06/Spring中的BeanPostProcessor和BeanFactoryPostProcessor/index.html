@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="BeanPostProcessor简介BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：1234567public interface BeanPostProcessor &amp;#123;    //bean初始化方法调用前被调用    Object postProcessBeforeInitialization(Object bean, String">
+<meta name="description" content="BeanPostProcessor和BeanFactoryPostProcessor是Spring初始化Bean时对外暴露的2个接口，两个接口看起来很相似，但是作用和使用场景去不同。 参考博文：https://blog.csdn.net/caihaijiang/article/details/35552859 BeanFactoryPostProcessor接口的定义12345public int">
 <meta name="keywords" content="spring,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring中的BeanPostProcessor简介">
-<meta property="og:url" content="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/index.html">
+<meta property="og:title" content="Spring中的BeanPostProcessor和BeanFactoryPostProcessor">
+<meta property="og:url" content="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/index.html">
 <meta property="og:site_name" content="I&#39;m somebody">
-<meta property="og:description" content="BeanPostProcessor简介BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：1234567public interface BeanPostProcessor &amp;#123;    //bean初始化方法调用前被调用    Object postProcessBeforeInitialization(Object bean, String">
+<meta property="og:description" content="BeanPostProcessor和BeanFactoryPostProcessor是Spring初始化Bean时对外暴露的2个接口，两个接口看起来很相似，但是作用和使用场景去不同。 参考博文：https://blog.csdn.net/caihaijiang/article/details/35552859 BeanFactoryPostProcessor接口的定义12345public int">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-19T05:19:08.000Z">
+<meta property="og:updated_time" content="2019-08-23T07:42:29.500Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring中的BeanPostProcessor简介">
-<meta name="twitter:description" content="BeanPostProcessor简介BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：1234567public interface BeanPostProcessor &amp;#123;    //bean初始化方法调用前被调用    Object postProcessBeforeInitialization(Object bean, String">
+<meta name="twitter:title" content="Spring中的BeanPostProcessor和BeanFactoryPostProcessor">
+<meta name="twitter:description" content="BeanPostProcessor和BeanFactoryPostProcessor是Spring初始化Bean时对外暴露的2个接口，两个接口看起来很相似，但是作用和使用场景去不同。 参考博文：https://blog.csdn.net/caihaijiang/article/details/35552859 BeanFactoryPostProcessor接口的定义12345public int">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/"/>
+  <link rel="canonical" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/"/>
 
 
 
 
 
-  <title>Spring中的BeanPostProcessor简介 | I'm somebody</title>
+  <title>Spring中的BeanPostProcessor和BeanFactoryPostProcessor | I'm somebody</title>
   
 
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhu Haijun">
@@ -342,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spring中的BeanPostProcessor简介</h1>
+          <h1 class="post-title" itemprop="name headline">Spring中的BeanPostProcessor和BeanFactoryPostProcessor</h1>
         
 
         <div class="post-meta">
@@ -370,8 +370,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-23T15:42:29+08:00">
+                2019-08-23
               </time>
             
           </span>
@@ -408,8 +408,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/06/Spring中的BeanPostProcessor/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/06/Spring中的BeanPostProcessor/" itemprop="commentsCount"></span>
+                <a href="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -417,7 +417,7 @@
 
           
           
-             <span id="/2018/08/06/Spring中的BeanPostProcessor/" class="leancloud_visitors" data-flag-title="Spring中的BeanPostProcessor简介">
+             <span id="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" class="leancloud_visitors" data-flag-title="Spring中的BeanPostProcessor和BeanFactoryPostProcessor">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  289
+                  1,762
                 </span>
               
 
@@ -458,7 +458,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  8
                 </span>
               
             </div>
@@ -479,7 +479,16 @@
       
 
       
-        <h1 id="BeanPostProcessor简介"><a href="#BeanPostProcessor简介" class="headerlink" title="BeanPostProcessor简介"></a>BeanPostProcessor简介</h1><p>BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//bean初始化方法调用前被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//bean初始化方法调用后被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>BeanPostProcessor和BeanFactoryPostProcessor是Spring初始化Bean时对外暴露的2个接口，两个接口看起来很相似，但是作用和使用场景去不同。</p>
+<p>参考博文：<a href="https://blog.csdn.net/caihaijiang/article/details/35552859" target="_blank" rel="noopener">https://blog.csdn.net/caihaijiang/article/details/35552859</a></p>
+<h1 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h1><h2 id="接口的定义"><a href="#接口的定义" class="headerlink" title="接口的定义"></a>接口的定义</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//实现该接口，可以在spring的bean创建之前，修改bean的定义属性。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现该接口，可以在spring的bean创建之前，修改bean的定义属性。</p>
+<p>也就是说，Spring允许BeanFactoryPostProcessor在容器实例化任何其它bean之前读取配置元数据，并可以根据需要进行修改。例如可以把bean的scope从singleton改为prototype，也可以把property的值给修改掉。</p>
+<p>可以同时配置多个BeanFactoryPostProcessor，并通过设置<code>order</code>属性来控制各个BeanFactoryPostProcessor的执行次序。</p>
+<blockquote>
+<p>注意：BeanFactoryPostProcessor是在spring容器加载了bean的定义文件之后，在bean实例化之前执行的。接口方法的入参是ConfigurrableListableBeanFactory，使用该参数，可以获取到相关bean的定义信息</p>
+</blockquote>
+<h1 id="BeanPostProcessor简介"><a href="#BeanPostProcessor简介" class="headerlink" title="BeanPostProcessor简介"></a>BeanPostProcessor简介</h1><p>BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//bean初始化方法调用前被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//bean初始化方法调用后被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>BeanPostProcessor接口有2个回调方法，当一个BeanPostProcessor的实现类注册到Spring IOC容器后，对于该Spring IOC 容器所创造的每一个bean实例的初始化方法（如afterPropertiesSet和自定义init-method方法）调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法；而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法。</p>
 <p>整个调用过程简单示意如下：</p>
 <blockquote>
@@ -496,6 +505,46 @@
 </blockquote>
 <p>可以看到，Spring容器通过BeanPostProcessor给了我们一个机会对Spring管理的bean进行再加工。比如：我们可以修改bean的属性，可以给bean生成一个动态代理实例等等。</p>
 <p>一些Spring AOP的底层处理也是通过实现BeanPostProcessor来执行代理包装逻辑的。</p>
+<a id="more"></a>
+<p>BeanPostProcessor，可以在spring容器实例化bean之后，在执行bean的初始化方法前后，添加一些自己的处理逻辑。这里说的初始化方法，指的是下面两种：</p>
+<ul>
+<li><p>bean实现了InitializingBean接口，对应的方法为afterPropertiesSet</p>
+</li>
+<li><p>在bean定义的时候，通过init-method设置的方法</p>
+</li>
+</ul>
+<p><strong>注意：BeanPostProcessor是在spring容器加载了bean的定义文件并且实例化bean之后执行的。BeanPostProcessor的执行顺序是在BeanFactoryPostProcessor之后。</strong></p>
+<p>spring中，有内置的一些BeanPostProcessor实现类，例如：</p>
+<ul>
+<li><p>org.springframework.context.annotation.CommonAnnotationBeanPostProcessor：支持@Resource注解的注入</p>
+</li>
+<li><p>org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor：支持@Required注解的注入</p>
+</li>
+<li><p>org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor：支持@Autowired注解的注入</p>
+</li>
+<li><p>org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor：支持@PersistenceUnit和@PersistenceContext注解的注入</p>
+</li>
+<li><p>org.springframework.context.support.ApplicationContextAwareProcessor：用来为bean注入ApplicationContext等容器对象</p>
+<blockquote>
+<p>这些注解类的BeanPostProcessor，在spring配置文件中，可以通过这样的配置</p>
+<p> &lt;context:component-scan base-package=”<em>.</em>“ /&gt; ，自动进行注册。</p>
+<p>（spring通过ComponentScanBeanDefinitionParser类来解析该标签）</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>1.定义一个Bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zhj.postprocessor.bean;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.InitializingBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyJavaBean</span> <span class="keyword">implements</span> <span class="title">InitializingBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String desc;</span><br><span class="line">    <span class="keyword">private</span> String remark;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyJavaBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------MyJavaBean的构造函数被执行啦--------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> desc;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDesc</span><span class="params">(String desc)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"---------调用setDesc方法，desc="</span>+desc);</span><br><span class="line">        <span class="keyword">this</span>.desc = desc;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRemark</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> remark;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRemark</span><span class="params">(String remark)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------调用setRemark方法，remark="</span>+remark);</span><br><span class="line">        <span class="keyword">this</span>.remark = remark;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------调用afterPropertiesSet方法----------"</span>);</span><br><span class="line">        <span class="keyword">this</span>.desc = <span class="string">"在初始化方法中修改之后的描述信息"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------调用initMethod方法------------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"MyJavaBean&#123;"</span> +</span><br><span class="line">                <span class="string">"desc='"</span> + desc + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", remark='"</span> + remark + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.自定义一个BeanFactoryPostProcessor</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zhj.postprocessor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.BeansException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.MutablePropertyValues;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.BeanDefinition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.BeanFactoryPostProcessor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.ConfigurableListableBeanFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhj on 2019-08-23.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBeanFactoryPostProcessor</span> <span class="keyword">implements</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.println();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"---------------调用MyBeanFactoryPostProcessor#postProcessBeanFactory---------------"</span>);</span><br><span class="line">        BeanDefinition bd = beanFactory.getBeanDefinition(<span class="string">"myJavaBean"</span>);</span><br><span class="line">        MutablePropertyValues propertyValues = bd.getPropertyValues();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"属性值："</span> + propertyValues.toString());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (propertyValues.contains(<span class="string">"remark"</span>)) &#123;</span><br><span class="line">            propertyValues.addPropertyValue(<span class="string">"remark"</span>, <span class="string">"把备注信息修改一下"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        bd.setScope(BeanDefinition.SCOPE_PROTOTYPE);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"---------------end---------------"</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.自定义一个BeanPostProcessor</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zhj.postprocessor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.BeansException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.BeanPostProcessor;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhj on 2019-08-23.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBeanPostProcessor</span> <span class="keyword">implements</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"BeanPostProcessor，对象"</span> + beanName + <span class="string">"调用初始化方法之前的数据： "</span> + bean.toString());</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"BeanPostProcessor，对象"</span> + beanName + <span class="string">"调用初始化方法之后的数据："</span> + bean.toString());</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.Spring 配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myJavaBean"</span> <span class="attr">class</span>=<span class="string">"com.zhj.postprocessor.bean.MyJavaBean"</span> <span class="attr">init-method</span>=<span class="string">"initMethod"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"desc"</span> <span class="attr">value</span>=<span class="string">"原始的描述信息"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"remark"</span> <span class="attr">value</span>=<span class="string">"原始的备注信息"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myBeanFactoryPostProcessor"</span> <span class="attr">class</span>=<span class="string">"com.zhj.postprocessor.MyBeanFactoryPostProcessor"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myBeanPostProcessor"</span> <span class="attr">class</span>=<span class="string">"com.zhj.postprocessor.MyBeanPostProcessor"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5.测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zhj.postprocessor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.zhj.postprocessor.bean.MyJavaBean;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhj on 2019-08-23.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PostProcessorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"classpath:spring-processor.xml"</span>);</span><br><span class="line">        MyJavaBean bean = (MyJavaBean) context.getBean(<span class="string">"myJavaBean"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"-------------------下面输出结果----------------"</span>);</span><br><span class="line">        System.out.println(<span class="string">"描述："</span> + bean.getDesc());</span><br><span class="line">        System.out.println(<span class="string">"备注："</span> + bean.getRemark());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6.执行结果</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---------------调用MyBeanFactoryPostProcessor<span class="comment">#postProcessBeanFactory---------------</span></span><br><span class="line">属性值：PropertyValues: length=2; bean property <span class="string">'desc'</span>; bean property <span class="string">'remark'</span></span><br><span class="line">---------------end---------------</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--------MyJavaBean的构造函数被执行啦--------</span><br><span class="line">---------调用setDesc方法，desc=原始的描述信息</span><br><span class="line">--------调用setRemark方法，remark=把备注信息修改一下</span><br><span class="line">BeanPostProcessor，对象myJavaBean调用初始化方法之前的数据： MyJavaBean&#123;desc=<span class="string">'原始的描述信息'</span>, remark=<span class="string">'把备注信息修改一下'</span>&#125;</span><br><span class="line">--------调用afterPropertiesSet方法----------</span><br><span class="line">--------调用initMethod方法------------</span><br><span class="line">BeanPostProcessor，对象myJavaBean调用初始化方法之后的数据：MyJavaBean&#123;desc=<span class="string">'在初始化方法中修改之后的描述信息'</span>, remark=<span class="string">'把备注信息修改一下'</span>&#125;</span><br><span class="line">-------------------下面输出结果----------------</span><br><span class="line">描述：在初始化方法中修改之后的描述信息</span><br><span class="line">备注：把备注信息修改一下</span><br><span class="line"></span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br></pre></td></tr></table></figure>
+<p>从上面的结果可以看出，BeanFactoryPostProcessor在bean实例化之前执行，之后实例化bean（调用构造函数，并调用set方法注入属性值），然后在调用两个初始化方法前后，执行了BeanPostProcessor。初始化方法的执行顺序是，先执行afterPropertiesSet，再执行init-method。</p>
 
       
     </div>
@@ -528,7 +577,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/" title="Spring中的BeanPostProcessor简介">http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor/</a>
+    <a href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" title="Spring中的BeanPostProcessor和BeanFactoryPostProcessor">http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -784,7 +833,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BeanPostProcessor简介"><span class="nav-number">1.</span> <span class="nav-text">BeanPostProcessor简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BeanFactoryPostProcessor"><span class="nav-number">1.</span> <span class="nav-text">BeanFactoryPostProcessor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的定义"><span class="nav-number">1.1.</span> <span class="nav-text">接口的定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BeanPostProcessor简介"><span class="nav-number">2.</span> <span class="nav-text">BeanPostProcessor简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a></li></ol></div>
             
 
           </div>
@@ -818,7 +867,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">35.1k</span>
+    <span title="Site words total count">36.6k</span>
   
 </div>
 
@@ -835,7 +884,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共35.1k字</span>
+  <span class="post-count">博客全站共36.6k字</span>
 </div>
 -->
 
