@@ -87,20 +87,20 @@
 
 
 
-<meta name="description" content="Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 一.安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads 下载后解压到指定目录">
+<meta name="description" content="Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 一.安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads windows下安装">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring环境搭建">
 <meta property="og:url" content="http:zhuhaijun.cn/2018/08/01/Spring环境搭建/index.html">
 <meta property="og:site_name" content="I&#39;m somebody">
-<meta property="og:description" content="Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 一.安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads 下载后解压到指定目录">
+<meta property="og:description" content="Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 一.安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads windows下安装">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/2BF6BF68-CC3B-4F87-B6EB-B549D7023CD9.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/F3CC7F89-FCFC-4077-B2F3-73F0EF852C58.png">
-<meta property="og:updated_time" content="2019-08-22T07:57:52.210Z">
+<meta property="og:updated_time" content="2019-08-23T09:42:43.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring环境搭建">
-<meta name="twitter:description" content="Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 一.安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads 下载后解压到指定目录">
+<meta name="twitter:description" content="Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。github的安装不再赘述。 一.安装gradleGradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。 下载地址为：http://gradle.org/downloads windows下安装">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/2BF6BF68-CC3B-4F87-B6EB-B549D7023CD9.png">
 
 
@@ -373,8 +373,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-22T15:57:52+08:00">
-                2019-08-22
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-23T17:42:43+08:00">
+                2019-08-23
               </time>
             
           </span>
@@ -445,7 +445,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,328
+                  950
                 </span>
               
 
@@ -461,7 +461,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  4
                 </span>
               
             </div>
@@ -485,16 +485,23 @@
         <p>Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。<br>github的安装不再赘述。</p>
 <h1 id="一-安装gradle"><a href="#一-安装gradle" class="headerlink" title="一.安装gradle"></a>一.安装gradle</h1><p>Gradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。</p>
 <p>下载地址为：<a href="http://gradle.org/downloads" target="_blank" rel="noopener">http://gradle.org/downloads</a></p>
-<p>下载后解压到指定目录，我放在了<code>C:\Program Files\gradle-1.6</code></p>
+<h2 id="windows下安装gradle"><a href="#windows下安装gradle" class="headerlink" title="windows下安装gradle"></a>windows下安装gradle</h2><p>下载后解压到指定目录，我放在了<code>C:\Program Files\gradle-1.6</code></p>
 <p>然后配置环境变量</p>
 <ol>
 <li>根据对应目录创建GRADLE_HOME系统变量</li>
 <li>将系统变量加入到path中</li>
 <li>测试，打开命令窗口输入<code>gradle -version</code>,如果安装成功会出现Gradle对应的版本信息。</li>
 </ol>
+<h2 id="Mac下brew安装Gradle"><a href="#Mac下brew安装Gradle" class="headerlink" title="Mac下brew安装Gradle"></a>Mac下brew安装Gradle</h2><p>1.打开终端，使用<code>brew install gradle</code>完成安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew info gradle</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...省略</span><br><span class="line">==&gt; Downloading https://services.gradle.org/distributions/gradle-5.6-all.zip</span><br><span class="line">==&gt; Downloading from https://downloads.gradle-dn.com/distributions/gradle-5.6-all.zip</span><br><span class="line"><span class="comment">######################################################################## 100.0%</span></span><br><span class="line">🍺  /usr/<span class="built_in">local</span>/Cellar/gradle/5.6: 14,317 files, 245.0MB, built <span class="keyword">in</span> 45 seconds</span><br></pre></td></tr></table></figure>
+<p>2.安装成功，默认的安装位置为：<br><code>/usr/local/Cellar/gradle/5.6</code></p>
+<p>3.验证是否安装成功，<code>gradle -v</code>,打印下面信息说明安装成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ gradle -v</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Gradle 5.6</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build time:   2019-08-14 21:05:25 UTC</span><br><span class="line">Revision:     f0b9d60906c7b8c42cd6c61a39ae7b74767bb012</span><br><span class="line"></span><br><span class="line">Kotlin:       1.3.41</span><br><span class="line">Groovy:       2.5.4</span><br><span class="line">Ant:          Apache Ant(TM) version 1.9.14 compiled on March 12 2019</span><br><span class="line">JVM:          1.8.0_191 (Oracle Corporation 25.191-b12)</span><br><span class="line">OS:           Mac OS X 10.14.6 x86_64</span><br></pre></td></tr></table></figure>
 <h1 id="二-下载Spring"><a href="#二-下载Spring" class="headerlink" title="二.下载Spring"></a>二.下载Spring</h1><p>例如要将下载的源码存储到g:\spring下，进入这个目录，输入一下命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:spring-projects/spring-framework.git spring-framework</span><br></pre></td></tr></table></figure></p>
-<p>等待一段时间后，完成下载。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:spring-projects/spring-framework.git</span><br><span class="line">Cloning into <span class="string">'spring-framework'</span>...</span><br><span class="line">remote: Counting objects: 438994, <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (66/66), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 438994 (delta 6), reused 39 (delta 0), pack-reused 438914</span><br><span class="line">Receiving objects: 100% (438994/438994), 111.82 MiB | 2.83 MiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (211139/211139), <span class="keyword">done</span>.</span><br><span class="line">Checking out files: 100% (8092/8092), <span class="keyword">done</span>.</span><br></pre></td></tr></table></figure></p>
-<p>进入这个目录，会看到已经存在了相应的源码信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> spring-framework/</span><br><span class="line">$ ll</span><br><span class="line">total 53</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089 11072 8月   1 12:06 build.gradle</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 buildSrc/</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089  2395 8月   1 12:06 CODE_OF_CONDUCT.adoc</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089  6401 8月   1 12:06 CONTRIBUTING.md</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 gradle/</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089    30 8月   1 12:06 gradle.properties</span><br><span class="line">-rwxr-xr-x 1 zhuhaijun 1049089  5533 8月   1 12:06 gradlew*</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089  2348 8月   1 12:06 gradlew.bat</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089  2486 8月   1 12:06 import-into-eclipse.md</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089  1868 8月   1 12:06 import-into-idea.md</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089  2290 8月   1 12:06 README.md</span><br><span class="line">-rw-r--r-- 1 zhuhaijun 1049089   831 8月   1 12:06 settings.gradle</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-aop/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-aspects/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-beans/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-context/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-context-indexer/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-context-support/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-core/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-expression/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-framework-bom/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-instrument/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-jcl/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-jdbc/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-jms/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-messaging/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-orm/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-oxm/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-test/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-tx/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-web/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-webflux/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-webmvc/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 spring-websocket/</span><br><span class="line">drwxr-xr-x 1 zhuhaijun 1049089     0 8月   1 12:06 src/</span><br></pre></td></tr></table></figure></p>
+<p>等待一段时间后，完成下载。</p>
+<p>进入这个目录，会看到已经存在了相应的源码信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> spring-framework/</span><br><span class="line">$ ll</span><br></pre></td></tr></table></figure></p>
 <h1 id="三-构建spring并导入IDEA"><a href="#三-构建spring并导入IDEA" class="headerlink" title="三.构建spring并导入IDEA"></a>三.构建spring并导入IDEA</h1><p>当前的源码并不可以直接导入到IDEA中，我们还需要将源码转换为IDEA可以读取的形式。</p>
 <p>参考：<a href="https://github.com/spring-projects/spring-framework/blob/master/import-into-idea.md" target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/blob/master/import-into-idea.md</a></p>
 <h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><h3 id="1-Precompile-spring-oxm-with-gradlew-spring-oxm-compileTestJava"><a href="#1-Precompile-spring-oxm-with-gradlew-spring-oxm-compileTestJava" class="headerlink" title="1.Precompile spring-oxm with ./gradlew :spring-oxm:compileTestJava"></a>1.Precompile spring-oxm with ./gradlew :spring-oxm:compileTestJava</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./gradlew :spring-oxm:compileTestJava</span><br></pre></td></tr></table></figure>
@@ -507,7 +514,8 @@
 <p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/F3CC7F89-FCFC-4077-B2F3-73F0EF852C58.png" alt="spring-oxm"></p>
 <p>2.执行完了后，接着编译spring-context，spring-bean,同样的方法</p>
 <p>3.最后编译spring-aspects和spring-aop</p>
-<h3 id="4-完成"><a href="#4-完成" class="headerlink" title="4.完成"></a>4.完成</h3><p>到了这里，spring的源码基本编译完成，然后就可以debug了</p>
+<h3 id="4-CoroutinesUtils类-找不到的处理"><a href="#4-CoroutinesUtils类-找不到的处理" class="headerlink" title="4.CoroutinesUtils类 找不到的处理"></a>4.CoroutinesUtils类 找不到的处理</h3><p>在spring-core项目的kotlin-coroutines的build目录下找到<code>kotlin-coroutines-5.2.0.BUILD-SNAPSHOT.jar</code>.再引入spring-core项目中即可。</p>
+<h3 id="5-完成"><a href="#5-完成" class="headerlink" title="5.完成"></a>5.完成</h3><p>到了这里，spring的源码基本编译完成，然后就可以debug了</p>
 
       
     </div>
@@ -794,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-安装gradle"><span class="nav-number">1.</span> <span class="nav-text">一.安装gradle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-下载Spring"><span class="nav-number">2.</span> <span class="nav-text">二.下载Spring</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-构建spring并导入IDEA"><span class="nav-number">3.</span> <span class="nav-text">三.构建spring并导入IDEA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤："><span class="nav-number">3.1.</span> <span class="nav-text">步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Precompile-spring-oxm-with-gradlew-spring-oxm-compileTestJava"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.Precompile spring-oxm with ./gradlew :spring-oxm:compileTestJava</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-导入IntelliJ"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.导入IntelliJ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3编译相关模块"><span class="nav-number">3.1.3.</span> <span class="nav-text">3编译相关模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-完成"><span class="nav-number">3.1.4.</span> <span class="nav-text">4.完成</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-安装gradle"><span class="nav-number">1.</span> <span class="nav-text">一.安装gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows下安装gradle"><span class="nav-number">1.1.</span> <span class="nav-text">windows下安装gradle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac下brew安装Gradle"><span class="nav-number">1.2.</span> <span class="nav-text">Mac下brew安装Gradle</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-下载Spring"><span class="nav-number">2.</span> <span class="nav-text">二.下载Spring</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-构建spring并导入IDEA"><span class="nav-number">3.</span> <span class="nav-text">三.构建spring并导入IDEA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤："><span class="nav-number">3.1.</span> <span class="nav-text">步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Precompile-spring-oxm-with-gradlew-spring-oxm-compileTestJava"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.Precompile spring-oxm with ./gradlew :spring-oxm:compileTestJava</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-导入IntelliJ"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.导入IntelliJ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3编译相关模块"><span class="nav-number">3.1.3.</span> <span class="nav-text">3编译相关模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-CoroutinesUtils类-找不到的处理"><span class="nav-number">3.1.4.</span> <span class="nav-text">4.CoroutinesUtils类 找不到的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-完成"><span class="nav-number">3.1.5.</span> <span class="nav-text">5.完成</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -828,7 +836,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">36.6k</span>
+    <span title="Site words total count">36.2k</span>
   
 </div>
 
@@ -845,7 +853,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共36.6k字</span>
+  <span class="post-count">博客全站共36.2k字</span>
 </div>
 -->
 
