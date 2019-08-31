@@ -2,30 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/08/01/Spring%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <loc>http:zhuhaijun.cn/2019/08/31/Spring%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%902-BeanDefinition/</loc>
     
-    <lastmod>2019-08-23T09:42:43.661Z</lastmod>
+    <lastmod>2019-08-31T18:48:32.305Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/08/06/Spring%E4%B8%AD%E7%9A%84BeanPostProcessor%E5%92%8CBeanFactoryPostProcessor/</loc>
+    <loc>http:zhuhaijun.cn/2019/09/01/Spring%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%905-ResolvableType/</loc>
     
-    <lastmod>2019-08-23T07:42:29.500Z</lastmod>
+    <lastmod>2019-08-31T18:47:36.882Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2019/08/31/Spring%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%904-BeanFactory%E4%B8%8EDefaultListableBeanFactory/</loc>
+    
+    <lastmod>2019-08-31T17:43:22.348Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2019/08/31/Spring%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%903-DefaultSingletonBeanRegistry/</loc>
+    
+    <lastmod>2019-08-31T17:42:24.077Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/08/01/Spring%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%901-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2019-08-31T17:41:27.151Z</lastmod>
     
   </url>
   
   <url>
     <loc>http:zhuhaijun.cn/2019/08/22/Spring%20ImportBeanDefinitionRegistrar%E4%BB%8B%E7%BB%8D/</loc>
     
-    <lastmod>2019-08-22T12:56:26.934Z</lastmod>
+    <lastmod>2019-08-31T08:31:55.174Z</lastmod>
     
   </url>
   
   <url>
     <loc>http:zhuhaijun.cn/2019/08/22/Spring%20ImportSelector%E4%BB%8B%E7%BB%8D/</loc>
     
-    <lastmod>2019-08-22T12:55:55.679Z</lastmod>
+    <lastmod>2019-08-31T08:31:49.872Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/08/06/Spring%E4%B8%AD%E7%9A%84BeanPostProcessor%E5%92%8CBeanFactoryPostProcessor/</loc>
+    
+    <lastmod>2019-08-31T08:31:47.030Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/25/spring%E5%9C%A8%E4%BB%BB%E6%84%8F%E7%B1%BB%E4%B8%ADgetBean/</loc>
+    
+    <lastmod>2019-08-31T08:31:44.236Z</lastmod>
     
   </url>
   
@@ -121,35 +156,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/11/01/httpServer-by-python/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/2018/11/06/install-go/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/2018/05/12/install-hexo/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http:zhuhaijun.cn/2018/07/03/java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/2018/07/25/kafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -163,14 +170,21 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
+    <loc>http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/03/RedBlackBST/</loc>
+    <loc>http:zhuhaijun.cn/2018/07/25/kafka-%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/05/14/linux-rpm-srpm-yum/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -212,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/</loc>
+    <loc>http:zhuhaijun.cn/2018/07/03/RedBlackBST/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -226,7 +240,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/25/spring%E5%9C%A8%E4%BB%BB%E6%84%8F%E7%B1%BB%E4%B8%ADgetBean/</loc>
+    <loc>http:zhuhaijun.cn/2018/06/27/algorithm-analysis-math/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -268,13 +282,6 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/06/27/algorithm-analysis-math/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http:zhuhaijun.cn/2018/05/10/atom/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
@@ -296,21 +303,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/06/22/%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%8D%8F%E7%A8%8B/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http:zhuhaijun.cn/2018/07/03/git%20submodel%20foreach%20pull%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
-    
-    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http:zhuhaijun.cn/2018/07/04/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -324,7 +317,28 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/tags/index.html</loc>
+    <loc>http:zhuhaijun.cn/2018/06/22/%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%8D%8F%E7%A8%8B/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/04/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/categories/index.html</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/07/02/Heap-sort/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -352,7 +366,21 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/2018/07/02/Heap-sort/</loc>
+    <loc>http:zhuhaijun.cn/2018/11/01/httpServer-by-python/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/11/06/install-go/</loc>
+    
+    <lastmod>2018-12-19T05:19:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http:zhuhaijun.cn/2018/05/12/install-hexo/</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
@@ -366,7 +394,7 @@
   </url>
   
   <url>
-    <loc>http:zhuhaijun.cn/categories/index.html</loc>
+    <loc>http:zhuhaijun.cn/tags/index.html</loc>
     
     <lastmod>2018-12-19T05:19:08.000Z</lastmod>
     
