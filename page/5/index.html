@@ -325,6 +325,669 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/07/02/Heap-sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/02/Heap-sort/" itemprop="url">堆排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-02T11:52:57+08:00">
+                2018-07-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/02/Heap-sort/" class="leancloud_visitors" data-flag-title="堆排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  708
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义：当一颗二叉树的每个几节点都大于等于它的子节点时，它被称为堆有序。</p>
+<p>定义：二叉堆是一组能够用<strong>堆有序</strong>的<strong>完全二叉树</strong>排序的元素，并在数组中按照层级存储（a[0]不使用。）<br><br>在位置k的节点的父节点位置为k/2 ；<br><br>位置k的节点的左右子节点分别是 2k,2k+1;</p>
+<h2 id="插入元素、删除元素"><a href="#插入元素、删除元素" class="headerlink" title="插入元素、删除元素"></a>插入元素、删除元素</h2><p><strong>比较大小 交换</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">less</span> <span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> pq[i].compareTo(pq[j]) &lt; <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exch</span><span class="params">(<span class="keyword">int</span> i , <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  T t =pq[i];</span><br><span class="line">  pq[i] = pq[j];</span><br><span class="line">  pq[j] = t ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>插入元素</strong><br>将新元素添加到数组的尾，增加堆的大小，并让这个元素上浮到合适的位置</p>
+<p>上浮算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swim</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>( k &gt; <span class="number">1</span> &amp;&amp;  less( k/<span class="number">2</span> , k ))&#123;</span><br><span class="line">    exch(k/<span class="number">2</span>,k);</span><br><span class="line">    k = k/<span class="number">2</span> ;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>删除最大元素</strong><br>我们删除a[0],并将数组的最后一个元素放到顶端，减小堆的大小，并将这个元素下沉到合适的位置</p>
+<p>下沉算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sink</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">2</span>*k &lt;= N )&#123;<span class="comment">//N为数组长度</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">2</span>*k ;</span><br><span class="line">    <span class="comment">//比较左右子节点哪个大，取大的那个</span></span><br><span class="line">    <span class="keyword">if</span> (j &lt; N &amp;&amp; less(j , j +<span class="number">1</span> )) &#123;</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!less(k,j)) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    exch(k, j);</span><br><span class="line">    k = j ;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/02/Heap-sort/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/06/27/algorithm-analysis-math/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/27/algorithm-analysis-math/" itemprop="url">算法分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T13:20:24+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/27/algorithm-analysis-math/" class="leancloud_visitors" data-flag-title="算法分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  639
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="四个定义"><a href="#四个定义" class="headerlink" title="四个定义"></a>四个定义</h2><p><strong>定义1</strong> 如果存在正常数c和n<sub>0</sub>使得当N&gt;n<sub>0</sub>时T(N)≤cf(N),则记为T(N)=O(f(N))。</p>
+<p><strong>定义2</strong> 如果存在正常数c和n<sub>0</sub>使得当N&gt;n<sub>0</sub>时T(N)≥cf(N),则记为T(N)=Ω(f(N))。</p>
+<p><strong>定义3</strong> T(N)=Θ(h(N))当且仅当T(N)=O(h(N))和T(N)=Ω(h(N))。</p>
+<p><strong>定义4</strong> 如果对每一正常数c都存在常数n<sub>0</sub>使得当N&gt;n<sub>0</sub>时T(N)&lt;cp(N),则T(N)=o(p(N))。<br>有时候也可以说，如果T(N)=O(p(N))且T(N)≠Θ(p(N)),则T(N)=o(p(N))。</p>
+<p>这些定义的目的是要在函数间建立一种相对的级别，来比较它们的<strong>相对增长率（relative rate of growth）</strong></p>
+<p>定义1 T(N)=O(f(N))是说T(N)的增长率<code>小于或等于</code>f(N)的增长率，<code>大O标记法</code></p>
+<p>定义2 T(N)=Ω(f(N))是说T(N)的增长率大于或等于f(N)的增长率</p>
+<p>定义3 T(N)=Θ(h(N))是说T(N)的增长率等于h(N)的增长率。</p>
+<p>定义4 T(N)=o(p(N))是说T(N)的增长率<code>大于或等于</code>p(N)的增长率，<code>小o标记法</code></p>
+<h2 id="重要法则"><a href="#重要法则" class="headerlink" title="重要法则"></a>重要法则</h2><p><strong>法则1</strong> 如果T<sub>1</sub>(N)=O(f(N))且T<sub>2</sub>(N)=O(g(N))，那么</p>
+<p>(a): T<sub>1</sub>(N) + T<sub>2</sub>(N) = O( f(N)+g(N) )(直观地和非正式地可以写成max( O(f(N), O(g(N)) ) ) 。</p>
+<p>(b): T<sub>1</sub>(N) <em> T<sub>2</sub>(N) = O( f(N)</em>g(N) ) 。</p>
+<p><strong>法则2</strong> 如果T(N)是一个k次多项式，则T(N)=Θ(N<sup>k</sup>)</p>
+<p><strong>法则3</strong> 对任意常数k，log<sup>k</sup>N = O(N),它告诉我们对数增长得非常缓慢</p>
+<p>注意：<br><br>1、不要将常数或低阶项放进大O。<br><br>2、我们总能够通过计算极限 $$ lim<sub>N-&gt;∞</sub>f(N)/g(N)来确定两个函数的相对增长率。</p>
+<h1 id="运行时间计算"><a href="#运行时间计算" class="headerlink" title="运行时间计算"></a>运行时间计算</h1><p>要做的就是计算大O运行时间。大O是一个上界。</p>
+<h2 id="一般法则"><a href="#一般法则" class="headerlink" title="一般法则"></a>一般法则</h2><p><strong>法则1——for循环</strong><br>一个for循环的运行时间至多是该for循环内部那些语句的运行时间乘以迭代的次数。</p>
+<p><strong>法则2——嵌套for循环</strong><br>在一组嵌套循环内部的一条语句总的运行时间为该语句的运行时间乘以该组所有for循环的大小的乘积。</p>
+<p><strong>法则3——顺序语句</strong><br>将各个语句的运行时间求和即可。</p>
+<p><strong>法则4——if/else语句</strong><br>一个if/else语句的运行时间从不超过判断的运行时间再加上if和else中运行时间长者的总的运行时间。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/06/22/volatile-and-synchronized/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/22/volatile-and-synchronized/" itemprop="url">volatile and synchronized</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T14:50:03+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
+                2018-12-19
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/22/volatile-and-synchronized/" class="leancloud_visitors" data-flag-title="volatile and synchronized">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,049
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="volatile概述"><a href="#volatile概述" class="headerlink" title="volatile概述"></a>volatile概述</h1><p>volatile是轻量级的synchronized,在多处理器开发中保证了共享变量的可见性。<br>可见性：当一个线程修改一个共享变量时，另一个线程能够读到这个修改的值。<br>volatile不会引起线程的上下文切换和调度。</p>
+<p>如果一个字段被声明为volatile,Java线程内存模型确保所有线程看到这个变量的值是一致的。</p>
+<h2 id="CPU术语定义"><a href="#CPU术语定义" class="headerlink" title="CPU术语定义"></a>CPU术语定义</h2><ul>
+<li>内存屏障（memory barriers）：是一组处理器命令，用于实现对内存操作的顺序限制</li>
+<li>缓冲行（cache line）：CPU高速缓存中可以分配的最小存储单位 。处理器填写缓存行时会加载整个缓存行，现代CPU需要执行几百次CPU指令</li>
+<li>原子操作(atomic operations):不可中断的一个活或一些列操作</li>
+<li>缓存行填充(cache line fill):当处理器识别到从内存中读取操作数是可缓存的，处理器读取整个高速缓存行到适当的缓存（L1、L2、L3的或所有）</li>
+<li>缓存命中（cache hit）:如果进行高速缓存行填充的内存位置仍然是下次处理器访问的地址时，处理器从缓存中读取操作数，而不是从内存中读取</li>
+<li>写命中（write hit）：当处理器将操作数写回到一个内存缓存的区域时，它首先会检查这个缓存的内存地址是否在缓存中，如果存在一个有效的缓存行，则处理器将这个操作数写回到缓存，而不是写回到内存，这个操作被称为写命中</li>
+<li>写缺失（write misses the cache）：一个有效的缓存行被写入到不存在的内存区域</li>
+</ul>
+<h1 id="volatile实现原理"><a href="#volatile实现原理" class="headerlink" title="volatile实现原理"></a>volatile实现原理</h1><p>有volatile修饰的共享变量进行写操作的时候，会多出有Lock前缀的指令：</p>
+<ol>
+<li>Lock前缀指令会引起处理器缓存写回到内容<ul>
+<li>执行指令期间，声言处理器的LOCK#信号，LOCK#信号确保在声言该信号期间，处理器可以独占任何共享内存</li>
+</ul>
+</li>
+<li>一个处理器的缓存写回到内存会导致其他处理器的缓存无效<ul>
+<li>处理器使用嗅探技术保证它的内部缓存、系统内存和其他处理器的缓存的数据在总线上保持一致</li>
+</ul>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/22/volatile-and-synchronized/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/06/22/markdown-grammar/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2288,682 +2951,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/add-themes-next-by-submodule/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/12/add-themes-next-by-submodule/" itemprop="url">通过添加git子模块的方式来下载hexo next主题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T17:26:07+08:00">
-                2018-05-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/12/add-themes-next-by-submodule/" class="leancloud_visitors" data-flag-title="通过添加git子模块的方式来下载hexo next主题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  665
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h1><p>当我们使用hexo的时候，一般都会使用各种主题，大多数的文档都是叫我们直接<code>clone</code>主题到themes目录下，然后再配置<code>-config.yml</code>。</p>
-<p>但是，当我们将我们的博客上传到我们自己的github上的时候，主题无法与博客数据一起同步。</p>
-<p>原因是我们使用了<code>clone</code>将主题下载到本地，所以它自己本身也是一个<code>git</code>仓库。<br>因此它上层的博客仓库就无法对其进行管理。</p>
-<p>更好的方法是<code>fork</code>一份主题到自己的github上，再将自己的github里的主题当作子模块加载进来。</p>
-<p><code>fork</code>的目的在于，我们可以对主题进行各种个性化的定制以及修改，<br>并对这些定制进行版本控制。同时，我们还能随时与原主题的更新进行合并。</p>
-<p>1、fork <a href="mailto:`git@github.com" target="_blank" rel="noopener">`git@github.com</a>:iissnan/hexo-theme-next.git` 到自己的github</p>
-<h1 id="通过git-submodule-add-添加为子模块"><a href="#通过git-submodule-add-添加为子模块" class="headerlink" title="通过git submodule add 添加为子模块"></a>通过git submodule add 添加为子模块</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> your-hexo-site</span><br><span class="line">$ git submodule add https://github.com/someone/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>运行 <code>git status</code>，会看到<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="string">'origin/master'</span>.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">        new file:   .gitmodules</span><br><span class="line">        new file:   themes/next</span><br></pre></td></tr></table></figure></p>
-<p>首先你注意到有一个<code>.gitmodules</code>文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat .gitmodules</span><br><span class="line">[submodule <span class="string">"themes/next"</span>]</span><br><span class="line">        path = themes/next</span><br><span class="line">        url = https://github.com/iissnan/hexo-theme-next</span><br></pre></td></tr></table></figure></p>
-<h1 id="修改themes-next主题"><a href="#修改themes-next主题" class="headerlink" title="修改themes/next主题"></a>修改themes/next主题</h1><p>修改了<code>themes/next</code>里面的内容后，<code>git status</code>查看<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Your branch is up to date with <span class="string">'origin/master'</span>.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">        new file:   .gitmodules</span><br><span class="line">        new file:   themes/next</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">  (commit or discard the untracked or modified content <span class="keyword">in</span> submodules)</span><br><span class="line">        modified:   .gitmodules</span><br><span class="line">        modified:   themes/next (modified content, untracked content)</span><br></pre></td></tr></table></figure></p>
-<h1 id="更新submodule"><a href="#更新submodule" class="headerlink" title="更新submodule"></a>更新submodule</h1><p>submodule里面做了修改操作后，要在submodule和主目录下分别提交</p>
-<h2 id="submodule-push-到远端仓库"><a href="#submodule-push-到远端仓库" class="headerlink" title="submodule push 到远端仓库"></a>submodule push 到远端仓库</h2><p>将添加的子模块push到远端submodule的仓库，分别执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'提交信息'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
-<h2 id="主目录内push"><a href="#主目录内push" class="headerlink" title="主目录内push"></a>主目录内push</h2><p>然后再回到父目录,提交Submodule在父项目中的变动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">' update submodule'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
-<h1 id="clone-Submodule"><a href="#clone-Submodule" class="headerlink" title="clone Submodule"></a>clone Submodule</h1><ul>
-<li><p>方法一：一种是采用递归的方式clone整个项目</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:***/***.git --recursive</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>方法二：一种是clone父项目，再更新子项目<br>clone我的博客项目后,执行下面更新命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>  your-hexo-site</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="更新submodule-1"><a href="#更新submodule-1" class="headerlink" title="更新submodule"></a>更新submodule</h1><p>方法一：在父目录直接执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule foreach git pull</span><br></pre></td></tr></table></figure></p>
-<p>方法二：在submodule目录下执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/hexo-many-computer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/12/hexo-many-computer/" itemprop="url">Hexo多终端同步管理博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T03:16:46+08:00">
-                2018-05-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:25:10+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/12/hexo-many-computer/" class="leancloud_visitors" data-flag-title="Hexo多终端同步管理博客">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  522
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="A电脑备份博客到github"><a href="#A电脑备份博客到github" class="headerlink" title="A电脑备份博客到github"></a><strong>A电脑</strong>备份博客到github</h2><ol>
-<li><p>进入博客根目录。确认.gitignore文件的存在。内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在博客根目录下，在<code>git bash</code>下依次执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin &lt;server&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同步到远程git仓库，在<code>git bash</code>下以此执行</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .                   <span class="comment">#添加目录下所有文件</span></span><br><span class="line">git commit -m “更新说明”     <span class="comment">#提交并添加更新说明</span></span><br><span class="line">git push -u origin master   <span class="comment">#推送更新到远程仓库</span></span><br></pre></td></tr></table></figure>
-<h2 id="B电脑拉下远程仓库文件"><a href="#B电脑拉下远程仓库文件" class="headerlink" title="B电脑拉下远程仓库文件"></a><strong>B电脑</strong>拉下远程仓库文件</h2><p>在B电脑上先安装好nodejs、git、hexo，<br>执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
-<p>建好hexo文件夹，再执行以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin &lt;server&gt;    <span class="comment">#添加远程仓库</span></span><br><span class="line">git fetch --all                   <span class="comment">#从远程仓库抓取数据到本地</span></span><br><span class="line">git reset --hard origin/master    <span class="comment">#彻底回退到某个版本，本地的源码也会变为上一个版本的内容</span></span><br></pre></td></tr></table></figure></p>
-<p>然后同步submodule，更新themes下的主题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> you-hexo-site</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure></p>
-<h2 id="B电脑发布博客后同步"><a href="#B电脑发布博客后同步" class="headerlink" title="B电脑发布博客后同步"></a><strong><em>B电脑</em></strong>发布博客后同步</h2><p>在B电脑发布完博客之后，将博客备份同步到远程仓库。<br>执行以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add                     <span class="comment">#可以用git master 查看更改内容</span></span><br><span class="line">git commit -m <span class="string">"更新信息"</span></span><br><span class="line">git push -u origin master   <span class="comment">#以后每次提交可以直接git pu</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="每次写博客时同步管理"><a href="#每次写博客时同步管理" class="headerlink" title="每次写博客时同步管理"></a>每次写博客时同步管理</h2><p>每次写博客之前，先执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br><span class="line">git submodule foreach git pull</span><br></pre></td></tr></table></figure></p>
-<p>进行同步更新。<br>发布完文章后同样按照上面的<em>发布博客后同步</em>。 同步到远程仓库。</p>
-<h2 id="常用命令整理"><a href="#常用命令整理" class="headerlink" title="常用命令整理"></a>常用命令整理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git pull                      <span class="comment">#同步更新github仓库</span></span><br><span class="line">hexo new <span class="string">"文章名"</span>              <span class="comment">#简写形式 hexo n "文章名"</span></span><br><span class="line">hexo clean                    <span class="comment">#清除旧的public文件夹</span></span><br><span class="line">hexo generate                 <span class="comment">#生成静态文件 简写形式 hexo g</span></span><br><span class="line">hexo deploy                   <span class="comment">#发布到github上 简写形式 hexo d</span></span><br><span class="line">git add .                     <span class="comment">#添加更改文件到缓存区</span></span><br><span class="line">git commit -m <span class="string">"更新说明"</span>       <span class="comment">#提交到本地仓库</span></span><br><span class="line">git push -u origin master     <span class="comment">#推送到远程仓库进行备份</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/05/12/install-hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/12/install-hexo/" itemprop="url">安装并使用hexo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:28:29+08:00">
-                2018-05-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/05/12/install-hexo/" class="leancloud_visitors" data-flag-title="安装并使用hexo">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  505
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>Hexo是一个快速、简洁、高效的博客框架。Hexo使用<a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>解析文章。可以快速生成靓丽的主题的静态网页。</p>
-<p>Hexo参考文档：<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/</a></p>
-<h3 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h3><p>安装Hexo前，确保您的电脑里已经安装了</p>
-<blockquote>
-<p>node.js</p>
-</blockquote>
-<blockquote>
-<p>git</p>
-</blockquote>
-<p>如果你的电脑已经安装了上述必备程序，那么接下来只需要使用npm即可完成hexo的安装。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
-<h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>git参考文档：<a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2</a></p>
-<p>由于我们写博客一般都在windows系统上面，这里只写一下windows环境安装过程。</p>
-<p>Linux下安装参考上面的文档。</p>
-<p>点击<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a>,会自动下载安装程序，点下一步下一步就可以了。</p>
-<h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>windows下64位下载地址：<br><a href="http://nodejs.cn/download/" target="_blank" rel="noopener">http://nodejs.cn/download/</a></p>
-<p>下载后 一直点下一步下一步即可。</p>
-<p>安装完成后，cmd中输入path。<br>我们可以看到环境变量中已经包含了C:\Program Files\nodejs\</p>
-<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><p>安装后，执行下面的命令，Hexo将会在指定的文件夹中新建所需的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
-<p>如果没有输入folder，则是在当前目录中新建。</p>
-<p>新建完成后，目录结构如下所示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></p>
-<h2 id="使用hexo"><a href="#使用hexo" class="headerlink" title="使用hexo"></a>使用hexo</h2><h3 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span>    <span class="comment">#可以简写成hexo n</span></span><br></pre></td></tr></table></figure>
-<h3 id="生成静态网页"><a href="#生成静态网页" class="headerlink" title="生成静态网页"></a>生成静态网页</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo g          <span class="comment">#可以简写成hexo g</span></span><br></pre></td></tr></table></figure>
-<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s          <span class="comment">#可以简写成hexo #!/bin/sh</span></span><br><span class="line">$ hexo s --debug</span><br></pre></td></tr></table></figure>
-<p>启动完以后，可以通过 127.0.0.1:4000 访问</p>
-<h3 id="部署到远程服务器上"><a href="#部署到远程服务器上" class="headerlink" title="部署到远程服务器上"></a>部署到远程服务器上</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d         <span class="comment">#可以简写成hexo d</span></span><br></pre></td></tr></table></figure>
-<p>注：通过配置github pages的地址到_config.yml中，执行这条命令后，可以一键部署到github pages。</p>
-<p>部署到github上需要安装 hexo-deployer-git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
-<h3 id="清理"><a href="#清理" class="headerlink" title="清理"></a>清理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3020,7 +3007,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3031,7 +3018,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3042,7 +3029,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3146,7 +3133,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.4k</span>
+    <span title="Site words total count">54.8k</span>
   
 </div>
 
@@ -3163,7 +3150,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共46.4k字</span>
+  <span class="post-count">博客全站共54.8k字</span>
 </div>
 -->
 

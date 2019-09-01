@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rpc," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="I'm somebody" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一. DubboComponentScan注解类分析1. 首先看DubboComponentScan源码DubboComponentScan注解类 12345678910111213@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)@Documented@Import(DubboComponentScanRegistrar.cl">
+<meta name="keywords" content="rpc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dubbo源码分析4-DubboComponentScan注解分析">
+<meta property="og:url" content="http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/index.html">
+<meta property="og:site_name" content="I&#39;m somebody">
+<meta property="og:description" content="一. DubboComponentScan注解类分析1. 首先看DubboComponentScan源码DubboComponentScan注解类 12345678910111213@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)@Documented@Import(DubboComponentScanRegistrar.cl">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/ServiceAnnotationBeanPostProcessor.png">
+<meta property="og:updated_time" content="2019-09-01T07:11:49.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dubbo源码分析4-DubboComponentScan注解分析">
+<meta name="twitter:description" content="一. DubboComponentScan注解类分析1. 首先看DubboComponentScan源码DubboComponentScan注解类 12345678910111213@Target(ElementType.TYPE)@Retention(RetentionPolicy.RUNTIME)@Documented@Import(DubboComponentScanRegistrar.cl">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/ServiceAnnotationBeanPostProcessor.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/"/>
+
+
+
+
+
+  <title>Dubbo源码分析4-DubboComponentScan注解分析 | I'm somebody</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bfa04bfb8a85e4551db88727e3b32704";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I'm somebody</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">任重而道远</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dubbo源码分析4-DubboComponentScan注解分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T02:59:53+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:11:49+08:00">
+                2019-09-01
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dubbo/" itemprop="url" rel="index">
+                    <span itemprop="name">dubbo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" class="leancloud_visitors" data-flag-title="Dubbo源码分析4-DubboComponentScan注解分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,024
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一-DubboComponentScan注解类分析"><a href="#一-DubboComponentScan注解类分析" class="headerlink" title="一. DubboComponentScan注解类分析"></a>一. DubboComponentScan注解类分析</h1><h2 id="1-首先看DubboComponentScan源码"><a href="#1-首先看DubboComponentScan源码" class="headerlink" title="1. 首先看DubboComponentScan源码"></a>1. 首先看DubboComponentScan源码</h2><p>DubboComponentScan注解类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import</span>(DubboComponentScanRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DubboComponentScan &#123;</span><br><span class="line"></span><br><span class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] basePackages() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] basePackageClasses() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到@Import了DubboComponentScanRegistrar类。这个类也是实现了Spring的ImportBeanDefinitionRegistrar接口，直接看registerBeanDefinitions()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据importingClassMetadata找到贴有DubboComponentScan注解的类的信息，</span></span><br><span class="line">    <span class="comment">// 从中获取需要扫描的包</span></span><br><span class="line">    Set&lt;String&gt; packagesToScan = getPackagesToScan(importingClassMetadata);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册ServiceAnnotationBeanPostProcessor，会传入packagesToScan</span></span><br><span class="line">    registerServiceAnnotationBeanPostProcessor(packagesToScan, registry);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册ReferenceAnnotationBeanPostProcessor</span></span><br><span class="line">    registerReferenceAnnotationBeanPostProcessor(registry);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的主要的工作就是对需要扫描的包或者类的处理，统一处理为包路径。然后注册两个Bean(ServiceAnnotationBeanPostProcessor和ReferenceAnnotationBeanPostProcessor)</p>
+<a id="more"></a>
+<h2 id="2-ServiceAnnotationBeanPostProcessor分析"><a href="#2-ServiceAnnotationBeanPostProcessor分析" class="headerlink" title="2. ServiceAnnotationBeanPostProcessor分析"></a>2. ServiceAnnotationBeanPostProcessor分析</h2><p>ServiceAnnotationBeanPostProcessor实现了BeanDefinitionRegistryPostProcessor。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceAnnotationBeanPostProcessor</span> <span class="keyword">implements</span> <span class="title">BeanDefinitionRegistryPostProcessor</span>, <span class="title">EnvironmentAware</span>,</span></span><br><span class="line"><span class="class">        <span class="title">ResourceLoaderAware</span>, <span class="title">BeanClassLoaderAware</span> </span>&#123;</span><br><span class="line">          <span class="comment">//...代码略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ServiceAnnotationBeanPostProcessor的类图</p>
+<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/ServiceAnnotationBeanPostProcessor.png" alt=""></p>
+<p>BeanDefinitionRegistryPostProcessor的作用是：允许在正常的BeanFactoryPostProcessor检测开始之前注册更多的自定义bean。</p>
+<p>Spring容器中所有的Bean注册之后，回调postProcessBeanDefinitionRegistry方法，开始扫描@Service注解并注入容器。</p>
+<p>看ServiceAnnotationBeanPostProcessor#postProcessBeanDefinitionRegistry方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postProcessBeanDefinitionRegistry</span><span class="params">(BeanDefinitionRegistry registry)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//// 获取扫描包，扫描包可以是多个，所以这里使用了Set集合</span></span><br><span class="line">    Set&lt;String&gt; resolvedPackagesToScan = resolvePackagesToScan(packagesToScan);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断需要扫描的包是否为空</span></span><br><span class="line">    <span class="keyword">if</span> (!CollectionUtils.isEmpty(resolvedPackagesToScan)) &#123;</span><br><span class="line">        <span class="comment">// 不为空则调用方法进行解析</span></span><br><span class="line">        registerServiceBeans(resolvedPackagesToScan, registry);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">            logger.warn(<span class="string">"packagesToScan is empty , ServiceBean registry will be ignored!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续看ServiceAnnotationBeanPostProcessor#registerServiceBeans方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Registers Beans whose classes was annotated &#123;<span class="doctag">@link</span> Service&#125;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> packagesToScan The base packages to scan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry       &#123;<span class="doctag">@link</span> BeanDefinitionRegistry&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerServiceBeans</span><span class="params">(Set&lt;String&gt; packagesToScan, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义扫描对象，该类继承了ClassPathBeanDefinitionScanner类</span></span><br><span class="line">    DubboClassPathBeanDefinitionScanner scanner =</span><br><span class="line">            <span class="keyword">new</span> DubboClassPathBeanDefinitionScanner(registry, environment, resourceLoader);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// beanName解析器</span></span><br><span class="line">    BeanNameGenerator beanNameGenerator = resolveBeanNameGenerator(registry);</span><br><span class="line"></span><br><span class="line">    scanner.setBeanNameGenerator(beanNameGenerator);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//这行代码很重要，添加了一个注解过滤器，用来过滤出来写了@Service注解的对象</span></span><br><span class="line">    scanner.addIncludeFilter(<span class="keyword">new</span> AnnotationTypeFilter(Service.class));</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加旧版Dubbo <span class="doctag">@Service</span>的兼容性</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Add the compatibility for legacy Dubbo's <span class="doctag">@Service</span></span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * The issue : https://github.com/apache/dubbo/issues/4330</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 2.7.3</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    scanner.addIncludeFilter(<span class="keyword">new</span> AnnotationTypeFilter(com.alibaba.dubbo.config.annotation.Service.class));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//扫描正式开始，遍历包</span></span><br><span class="line">    <span class="keyword">for</span> (String packageToScan : packagesToScan) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Registers @Service Bean first</span></span><br><span class="line">        scanner.scan(packageToScan);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始查找添加了@Service注解的类</span></span><br><span class="line">        <span class="comment">// Finds all BeanDefinitionHolders of @Service whether @ComponentScan scans or not.</span></span><br><span class="line">        Set&lt;BeanDefinitionHolder&gt; beanDefinitionHolders =</span><br><span class="line">                findServiceBeanDefinitionHolders(scanner, packageToScan, registry, beanNameGenerator);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//找到了则不为空</span></span><br><span class="line">        <span class="keyword">if</span> (!CollectionUtils.isEmpty(beanDefinitionHolders)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders) &#123;</span><br><span class="line">                <span class="comment">// 注册serviceBean定义，并做数据绑定和解析</span></span><br><span class="line">                registerServiceBean(beanDefinitionHolder, registry, scanner);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (logger.isInfoEnabled()) &#123;</span><br><span class="line">                logger.info(beanDefinitionHolders.size() + <span class="string">" annotated Dubbo's @Service Components &#123; "</span> +</span><br><span class="line">                        beanDefinitionHolders +</span><br><span class="line">                        <span class="string">" &#125; were scanned under package["</span> + packageToScan + <span class="string">"]"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                logger.warn(<span class="string">"No Spring Bean annotating Dubbo's @Service was found under package["</span></span><br><span class="line">                        + packageToScan + <span class="string">"]"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，主要作用就是通过扫描过滤器，扫描包中添加了@Service注解的类。最后得到BeanDefinitionHolder对象，调用registerServiceBean来注册ServiceBean</p>
+<p>看registerServiceBean方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Registers &#123;<span class="doctag">@link</span> ServiceBean&#125; from new annotated &#123;<span class="doctag">@link</span> Service&#125; &#123;<span class="doctag">@link</span> BeanDefinition&#125;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> beanDefinitionHolder</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> scanner</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ServiceBean</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> BeanDefinition</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerServiceBean</span><span class="params">(BeanDefinitionHolder beanDefinitionHolder, BeanDefinitionRegistry registry,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 DubboClassPathBeanDefinitionScanner scanner)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 有@Service注解的，实现了某个接口的 服务类对象</span></span><br><span class="line">    Class&lt;?&gt; beanClass = resolveClass(beanDefinitionHolder);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找到@service注解</span></span><br><span class="line">    Annotation service = findServiceAnnotation(beanClass);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The &#123;<span class="doctag">@link</span> AnnotationAttributes&#125; of <span class="doctag">@Service</span> annotation</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    AnnotationAttributes serviceAnnotationAttributes = getAnnotationAttributes(service, <span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 服务类实现的接口对象</span></span><br><span class="line">    Class&lt;?&gt; interfaceClass = resolveServiceInterfaceClass(serviceAnnotationAttributes, beanClass);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 得到bean的名称</span></span><br><span class="line">    String annotatedServiceBeanName = beanDefinitionHolder.getBeanName();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建ServiceBean对象的BeanDefinition,通过Service注解对象，以及接口服务的实现类生成ServiceBean</span></span><br><span class="line">    AbstractBeanDefinition serviceBeanDefinition =</span><br><span class="line">            buildServiceBeanDefinition(service, serviceAnnotationAttributes, interfaceClass, annotatedServiceBeanName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建ServuceBean的名称</span></span><br><span class="line">    <span class="comment">// ServiceBean Bean name</span></span><br><span class="line">    String beanName = generateServiceBeanName(serviceAnnotationAttributes, interfaceClass);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 校验Bean是否重复</span></span><br><span class="line">    <span class="keyword">if</span> (scanner.checkCandidate(beanName, serviceBeanDefinition)) &#123; <span class="comment">// check duplicated candidate bean</span></span><br><span class="line">        <span class="comment">// 调用BeanDefinitionRegistry注册。</span></span><br><span class="line">        registry.registerBeanDefinition(beanName, serviceBeanDefinition);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (logger.isInfoEnabled()) &#123;</span><br><span class="line">            logger.info(<span class="string">"The BeanDefinition["</span> + serviceBeanDefinition +</span><br><span class="line">                    <span class="string">"] of ServiceBean has been registered with name : "</span> + beanName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">            logger.warn(<span class="string">"The Duplicated BeanDefinition["</span> + serviceBeanDefinition +</span><br><span class="line">                    <span class="string">"] of ServiceBean[ bean name : "</span> + beanName +</span><br><span class="line">                    <span class="string">"] was be found , Did @DubboComponentScan scan to same package in many times?"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后看buildServiceBeanDefinition方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> AbstractBeanDefinition <span class="title">buildServiceBeanDefinition</span><span class="params">(Annotation serviceAnnotation,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                          AnnotationAttributes serviceAnnotationAttributes,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                          Class&lt;?&gt; interfaceClass,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                          String annotatedServiceBeanName)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成ServiceBean对象BeanDefinitionBuilder</span></span><br><span class="line">    BeanDefinitionBuilder builder = rootBeanDefinition(ServiceBean.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取beanDefinition</span></span><br><span class="line">    AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 属性集合</span></span><br><span class="line">    MutablePropertyValues propertyValues = beanDefinition.getPropertyValues();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 忽略的属性,指的是AnnotationPropertyValuesAdapter中，不把以下属性放到PropertyValues中去</span></span><br><span class="line">    String[] ignoreAttributeNames = of(<span class="string">"provider"</span>, <span class="string">"monitor"</span>, <span class="string">"application"</span>, <span class="string">"module"</span>, <span class="string">"registry"</span>, <span class="string">"protocol"</span>,</span><br><span class="line">            <span class="string">"interface"</span>, <span class="string">"interfaceName"</span>, <span class="string">"parameters"</span>);</span><br><span class="line"></span><br><span class="line">    propertyValues.addPropertyValues(<span class="keyword">new</span> AnnotationPropertyValuesAdapter(serviceAnnotation, environment, ignoreAttributeNames));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//// 设置ref属性</span></span><br><span class="line">    <span class="comment">// References "ref" property to annotated-@Service Bean</span></span><br><span class="line">    addPropertyReference(builder, <span class="string">"ref"</span>, annotatedServiceBeanName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置服务的接口</span></span><br><span class="line">    <span class="comment">// Set interface</span></span><br><span class="line">    builder.addPropertyValue(<span class="string">"interface"</span>, interfaceClass.getName());</span><br><span class="line">    <span class="comment">// Convert parameters into map</span></span><br><span class="line">    builder.addPropertyValue(<span class="string">"parameters"</span>, convertParameters(serviceAnnotationAttributes.getStringArray(<span class="string">"parameters"</span>)));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add methods parameters</span></span><br><span class="line">    List&lt;MethodConfig&gt; methodConfigs = convertMethodConfigs(serviceAnnotationAttributes.get(<span class="string">"methods"</span>));</span><br><span class="line">    <span class="keyword">if</span> (!methodConfigs.isEmpty()) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">"methods"</span>, methodConfigs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取注解中的provider属性</span></span><br><span class="line"><span class="comment">     * Add &#123;<span class="doctag">@link</span> org.apache.dubbo.config.ProviderConfig&#125; Bean reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String providerConfigBeanName = serviceAnnotationAttributes.getString(<span class="string">"provider"</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(providerConfigBeanName)) &#123;</span><br><span class="line">        addPropertyReference(builder, <span class="string">"provider"</span>, providerConfigBeanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取注解中的monitor属性</span></span><br><span class="line"><span class="comment">     * Add &#123;<span class="doctag">@link</span> org.apache.dubbo.config.MonitorConfig&#125; Bean reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String monitorConfigBeanName = serviceAnnotationAttributes.getString(<span class="string">"monitor"</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(monitorConfigBeanName)) &#123;</span><br><span class="line">        addPropertyReference(builder, <span class="string">"monitor"</span>, monitorConfigBeanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取注解中的application属性</span></span><br><span class="line"><span class="comment">     * Add &#123;<span class="doctag">@link</span> org.apache.dubbo.config.ApplicationConfig&#125; Bean reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String applicationConfigBeanName = serviceAnnotationAttributes.getString(<span class="string">"application"</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(applicationConfigBeanName)) &#123;</span><br><span class="line">        addPropertyReference(builder, <span class="string">"application"</span>, applicationConfigBeanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Add &#123;<span class="doctag">@link</span> org.apache.dubbo.config.ModuleConfig&#125; Bean reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String moduleConfigBeanName = serviceAnnotationAttributes.getString(<span class="string">"module"</span>);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.hasText(moduleConfigBeanName)) &#123;</span><br><span class="line">        addPropertyReference(builder, <span class="string">"module"</span>, moduleConfigBeanName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取注解中的注册中心属性</span></span><br><span class="line"><span class="comment">     * Add &#123;<span class="doctag">@link</span> org.apache.dubbo.config.RegistryConfig&#125; Bean reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String[] registryConfigBeanNames = serviceAnnotationAttributes.getStringArray(<span class="string">"registry"</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;RuntimeBeanReference&gt; registryRuntimeBeanReferences = toRuntimeBeanReferences(registryConfigBeanNames);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!registryRuntimeBeanReferences.isEmpty()) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">"registries"</span>, registryRuntimeBeanReferences);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取注解中的协议属性</span></span><br><span class="line"><span class="comment">     * Add &#123;<span class="doctag">@link</span> org.apache.dubbo.config.ProtocolConfig&#125; Bean reference</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String[] protocolConfigBeanNames = serviceAnnotationAttributes.getStringArray(<span class="string">"protocol"</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;RuntimeBeanReference&gt; protocolRuntimeBeanReferences = toRuntimeBeanReferences(protocolConfigBeanNames);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!protocolRuntimeBeanReferences.isEmpty()) &#123;</span><br><span class="line">        builder.addPropertyValue(<span class="string">"protocols"</span>, protocolRuntimeBeanReferences);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> builder.getBeanDefinition();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终dubbo解析出了ServiceBean对象的beandefinition放入了spring的容器。</p>
+<p>ServiceBean对于每个暴露的服务来说很重要，每个暴露的服务都拥有一个ServiceBean，这个类里面包含了服务发布，服务下线等操作，算是一个很核心的类。</p>
+<h2 id="3-ReferenceAnnotationBeanPostProcessor分析"><a href="#3-ReferenceAnnotationBeanPostProcessor分析" class="headerlink" title="3. ReferenceAnnotationBeanPostProcessor分析"></a>3. ReferenceAnnotationBeanPostProcessor分析</h2><p>Dubbo中做<code>属性注入</code>是通过ReferenceAnnotationBeanPostProcessor处理的，主要做以下几件事情</p>
+<ul>
+<li>获取类中标注的@Reference注解的字段和方法</li>
+<li>反射设置字段或方法对应的引用</li>
+</ul>
+<h3 id="3-1-类的继承关系"><a href="#3-1-类的继承关系" class="headerlink" title="3.1 类的继承关系"></a>3.1 类的继承关系</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceAnnotationBeanPostProcessor</span> <span class="keyword">extends</span> <span class="title">AnnotationInjectedBeanPostProcessor</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">        <span class="title">ApplicationContextAware</span>, <span class="title">ApplicationListener</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationInjectedBeanPostProcessor</span> <span class="keyword">extends</span></span></span><br><span class="line"><span class="class">        <span class="title">InstantiationAwareBeanPostProcessorAdapter</span> <span class="keyword">implements</span> <span class="title">MergedBeanDefinitionPostProcessor</span>, <span class="title">PriorityOrdered</span>,</span></span><br><span class="line"><span class="class">        <span class="title">BeanFactoryAware</span>, <span class="title">BeanClassLoaderAware</span>, <span class="title">EnvironmentAware</span>, <span class="title">DisposableBean</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ReferenceAnnotationBeanPostProcessor是一个BeanPostProcessor，该类实现了<code>InstantiationAwareBeanPostProcessor</code> ，所以Spring的Bean中初始化前会触发postProcessPropertyValues方法，该方法允许我们做进一步处理，比如增加属性和属性值修改等。从而达到解析@Reference并实现依赖注入（@Autowired注入一样的原理）。</p>
+<blockquote>
+<p>InstantiationAwareBeanPostProcessor：实例化Bean后置处理器（继承BeanPostProcessor），有以下三个方法</p>
+<ul>
+<li>postProcessBeforeInstantiation：在实例化目标对象之前执行，可以自定义实例化逻辑，如返回一个代理对象等。</li>
+<li>postProcessAfterInitialization： Bean实例化完毕后执行的<strong>后处理操作</strong>，所有初始化逻辑、装配逻辑之前执行，如果返回false将阻止其他的InstantiationAwareBeanPostProcessor的postProcessAfterInstantiation的执行。</li>
+<li>postProcessPropertyValues：完成其他定制的一些<strong>依赖注入</strong>和<strong>依赖检查</strong>等，如：<ul>
+<li>AutowiredAnnotationBeanPostProcessor执行@Autowired注解注入</li>
+<li>CommonAnnotationBeanPostProcessor执行@Resource等注解的注入</li>
+<li>RequiredAnnotationBeanPostProcessor执行@ Required注解的检查等等。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="3-2-源码分析"><a href="#3-2-源码分析" class="headerlink" title="3.2  源码分析"></a>3.2  源码分析</h3><p>首先看AnnotationInjectedBeanPostProcessor#postProcessPropertyValues方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> PropertyValues <span class="title">postProcessPropertyValues</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName)</span> <span class="keyword">throws</span> BeanCreationException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// InjectionMetadata metadata是注入元数据 ，包含了</span></span><br><span class="line">    <span class="comment">//      目标Bean的Class对象</span></span><br><span class="line">    <span class="comment">//      和注入元素（InjectionElement）的集合</span></span><br><span class="line">    <span class="comment">// 查找Bean所有标注了指定注解（@Reference）的字段和方法</span></span><br><span class="line">    InjectionMetadata metadata = findInjectionMetadata(beanName, bean.getClass(), pvs);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 通过反射来给bean设置值</span></span><br><span class="line">        metadata.inject(bean, beanName, pvs);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (BeanCreationException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(beanName, <span class="string">"Injection of @"</span> + getAnnotationType().getSimpleName()</span><br><span class="line">                + <span class="string">" dependencies is failed"</span>, ex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pvs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注入元数据InjectionMetadata类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InjectionMetadata</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//目标Bean的Class对象</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Class&lt;?&gt; targetClass;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//注入元素（InjectionElement）集合</span></span><br><span class="line">  <span class="comment">//注入元素可能是属性也可能是方法</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Collection&lt;InjectedElement&gt; injectedElements;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">InjectionMetadata</span><span class="params">(Class&lt;?&gt; targetClass, Collection&lt;InjectedElement&gt; elements)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.targetClass = targetClass;</span><br><span class="line">		<span class="keyword">this</span>.injectedElements = elements;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//...其他代码略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-1-收集注入元数据"><a href="#3-2-1-收集注入元数据" class="headerlink" title="3.2.1 收集注入元数据"></a>3.2.1 收集注入元数据</h4><p>通过findInjectionMetadata找到@Reference，并解析得到 元数据对象。</p>
+<p>AnnotationInjectedBeanPostProcessor#findInjectionMetadata()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> InjectionMetadata <span class="title">findInjectionMetadata</span><span class="params">(String beanName, Class&lt;?&gt; clazz, PropertyValues pvs)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过类名作为缓存的key</span></span><br><span class="line">    <span class="comment">// Fall back to class name as cache key, for backwards compatibility with custom callers.</span></span><br><span class="line">    String cacheKey = (StringUtils.hasLength(beanName) ? beanName : clazz.getName());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从缓存中的injectionMetadataCache根据类名获取 AnnotatedInjectionMetadata元数据</span></span><br><span class="line">    <span class="comment">// Quick check on the concurrent map first, with minimal locking.</span></span><br><span class="line">    AnnotationInjectedBeanPostProcessor.AnnotatedInjectionMetadata metadata = <span class="keyword">this</span>.injectionMetadataCache.get(cacheKey);</span><br><span class="line">    <span class="comment">// 判断metadata是否需要刷新（metadata为空以及class对象不等于ReferenceInjectionMetadata时，则需要进行刷新）</span></span><br><span class="line">    <span class="keyword">if</span> (InjectionMetadata.needsRefresh(metadata, clazz)) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>.injectionMetadataCache) &#123;</span><br><span class="line">            metadata = <span class="keyword">this</span>.injectionMetadataCache.get(cacheKey);</span><br><span class="line">            <span class="comment">// 双重检查机制</span></span><br><span class="line">            <span class="keyword">if</span> (InjectionMetadata.needsRefresh(metadata, clazz)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (metadata != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    metadata.clear(pvs);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 构建InjectionMetadata元数据</span></span><br><span class="line">                    metadata = buildAnnotatedMetadata(clazz);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 加入到缓存</span></span><br><span class="line">                    <span class="keyword">this</span>.injectionMetadataCache.put(cacheKey, metadata);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (NoClassDefFoundError err) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Failed to introspect object class ["</span> + clazz.getName() +</span><br><span class="line">                            <span class="string">"] for annotation metadata: could not find class that it depends on"</span>, err);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> metadata;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构建InjectionMetadata元数据，</p>
+<p>AnnotationInjectedBeanPostProcessor#buildAnnotatedMetadata()方法源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> AnnotationInjectedBeanPostProcessor.<span class="function">AnnotatedInjectionMetadata <span class="title">buildAnnotatedMetadata</span><span class="params">(<span class="keyword">final</span> Class&lt;?&gt; beanClass)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取属性上的指定注解（@Reference注解）</span></span><br><span class="line">    Collection&lt;AnnotationInjectedBeanPostProcessor.AnnotatedFieldElement&gt; fieldElements = findFieldAnnotationMetadata(beanClass);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取方法上的指定注解（@Reference注解）</span></span><br><span class="line">    Collection&lt;AnnotationInjectedBeanPostProcessor.AnnotatedMethodElement&gt; methodElements = findAnnotatedMethodMetadata(beanClass);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> AnnotationInjectedBeanPostProcessor.AnnotatedInjectionMetadata(beanClass, fieldElements, methodElements);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取属性上的@Reference注解详解</p>
+<p>AnnotationInjectedBeanPostProcessor#findFieldAnnotationMetadata()方法源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;AnnotationInjectedBeanPostProcessor.AnnotatedFieldElement&gt; findFieldAnnotationMetadata(<span class="keyword">final</span> Class&lt;?&gt; beanClass) &#123;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">final</span> List&lt;AnnotationInjectedBeanPostProcessor.AnnotatedFieldElement&gt; elements = <span class="keyword">new</span> LinkedList&lt;AnnotationInjectedBeanPostProcessor.AnnotatedFieldElement&gt;();</span><br><span class="line"></span><br><span class="line">    ReflectionUtils.doWithFields(beanClass, field -&gt; &#123;</span><br><span class="line">        <span class="comment">// getAnnotationTypes 拿到需要寻找的注解类（@Reference注解）</span></span><br><span class="line">        <span class="keyword">for</span> (Class&lt;? extends Annotation&gt; annotationType : getAnnotationTypes()) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//合并和解析占位符后，获取AnnotationAttributes注释属性</span></span><br><span class="line">            AnnotationAttributes attributes = getMergedAttributes(field, annotationType, getEnvironment(), <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (attributes != <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 不能是static方法</span></span><br><span class="line">                <span class="keyword">if</span> (Modifier.isStatic(field.getModifiers())) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                        logger.warn(<span class="string">"@"</span> + annotationType.getName() + <span class="string">" is not supported on static fields: "</span> + field);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                elements.add(<span class="keyword">new</span> AnnotatedFieldElement(field, attributes));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> elements;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-2-对字段、方法进行反射绑定"><a href="#3-2-2-对字段、方法进行反射绑定" class="headerlink" title="3.2.2 对字段、方法进行反射绑定"></a>3.2.2 对字段、方法进行反射绑定</h4><p>元数据收集好了，接下来就是调用<code>metadata.inject(bean, beanName, pvs);</code>这个方法了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">(Object target, String beanName, PropertyValues pvs)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">	<span class="comment">// 获取metadata中的InjectedElement</span></span><br><span class="line">   Collection&lt;InjectedElement&gt; elementsToIterate =</span><br><span class="line">			(<span class="keyword">this</span>.checkedElements != <span class="keyword">null</span> ? <span class="keyword">this</span>.checkedElements : <span class="keyword">this</span>.injectedElements);</span><br><span class="line">	<span class="keyword">if</span> (!elementsToIterate.isEmpty()) &#123;</span><br><span class="line">		<span class="keyword">boolean</span> debug = logger.isDebugEnabled();</span><br><span class="line">     <span class="comment">// 循环设值</span></span><br><span class="line">		<span class="keyword">for</span> (InjectedElement element : elementsToIterate) &#123;</span><br><span class="line">       <span class="comment">//触发方法或字段值的注入</span></span><br><span class="line">			element.inject(target, beanName, pvs);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>InjectionMetadata#inject()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">(Object target, String requestingBeanName, PropertyValues pvs)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.isField) &#123;</span><br><span class="line">		Field field = (Field) <span class="keyword">this</span>.member;</span><br><span class="line">		ReflectionUtils.makeAccessible(field);</span><br><span class="line">		field.set(target, getResourceToInject(target, requestingBeanName));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (checkPropertySkipping(pvs)) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Method method = (Method) <span class="keyword">this</span>.member;</span><br><span class="line">			ReflectionUtils.makeAccessible(method);</span><br><span class="line">			method.invoke(target, getResourceToInject(target, requestingBeanName));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span><br><span class="line">			<span class="keyword">throw</span> ex.getTargetException();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>属性注入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotatedFieldElement</span> <span class="keyword">extends</span> <span class="title">InjectionMetadata</span>.<span class="title">InjectedElement</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Field field;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AnnotationAttributes attributes;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Object bean;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">AnnotatedFieldElement</span><span class="params">(Field field, AnnotationAttributes attributes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(field, <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">this</span>.field = field;</span><br><span class="line">        <span class="keyword">this</span>.attributes = attributes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">(Object bean, String beanName, PropertyValues pvs)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; injectedType = field.getType();</span><br><span class="line"></span><br><span class="line">        Object injectedObject = getInjectedObject(attributes, bean, beanName, injectedType, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        ReflectionUtils.makeAccessible(field);</span><br><span class="line"></span><br><span class="line">        field.set(bean, injectedObject);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法注入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotatedMethodElement</span> <span class="keyword">extends</span> <span class="title">InjectionMetadata</span>.<span class="title">InjectedElement</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Method method;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AnnotationAttributes attributes;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Object object;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">AnnotatedMethodElement</span><span class="params">(Method method, PropertyDescriptor pd, AnnotationAttributes attributes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(method, pd);</span><br><span class="line">        <span class="keyword">this</span>.method = method;</span><br><span class="line">        <span class="keyword">this</span>.attributes = attributes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">(Object bean, String beanName, PropertyValues pvs)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; injectedType = pd.getPropertyType();</span><br><span class="line"></span><br><span class="line">        Object injectedObject = getInjectedObject(attributes, bean, beanName, injectedType, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        ReflectionUtils.makeAccessible(method);</span><br><span class="line"></span><br><span class="line">        method.invoke(bean, injectedObject);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>消费者每引用的一种服务，都会创建一个ReferenceBean， 如果多个地方使用@Reference引用同一个服务，需要看他们的的缓存key是否一样，如果都是一样的，那么就只会创建一个ReferenceBean，如果有些配置不一样，比如版本号不一致，则会创建创建不同的ReferenceBean对象，这也是他版本号能够起到的作用把。至此@Reference注解已经解析完毕，并且服务引用的对象也已经创建了。</p>
+
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------the end-------------</div>
+    
+</div>
+
+     
+    </div>
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Zhu Haijun
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" title="Dubbo源码分析4-DubboComponentScan注解分析">http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rpc/" rel="tag"><i class="fa fa-tag"></i> rpc</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/Spring源码分析5-ResolvableType/" rel="next" title="Spring源码分析5-ResolvableType">
+                <i class="fa fa-chevron-left"></i> Spring源码分析5-ResolvableType
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/01/Dubbo源码分析3-EnableDubboConfig注解分析/" rel="prev" title="Dubbo源码分析3-EnableDubboConfig注解分析">
+                Dubbo源码分析3-EnableDubboConfig注解分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Zhu Haijun" />
+            
+              <p class="site-author-name" itemprop="name">Zhu Haijun</p>
+              <p class="site-description motion-element" itemprop="description">互联网技术、学习心得，生活感悟</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhuhaijun1988@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/zhuhaijun1988" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.myjscode.com?fr=zhj/" title="myjscode" target="_blank">myjscode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yuedu.sogou.com/" title="Sogou Novel" target="_blank">Sogou Novel</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://theme-next.iissnan.com/" title="Next docs" target="_blank">Next docs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hexo.io/docs/" title="Hexo docs" target="_blank">Hexo docs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leancloud.cn" title="leancloud" target="_blank">leancloud</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-DubboComponentScan注解类分析"><span class="nav-number">1.</span> <span class="nav-text">一. DubboComponentScan注解类分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-首先看DubboComponentScan源码"><span class="nav-number">1.1.</span> <span class="nav-text">1. 首先看DubboComponentScan源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ServiceAnnotationBeanPostProcessor分析"><span class="nav-number">1.2.</span> <span class="nav-text">2. ServiceAnnotationBeanPostProcessor分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ReferenceAnnotationBeanPostProcessor分析"><span class="nav-number">1.3.</span> <span class="nav-text">3. ReferenceAnnotationBeanPostProcessor分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-类的继承关系"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 类的继承关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-源码分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2  源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-收集注入元数据"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">3.2.1 收集注入元数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-对字段、方法进行反射绑定"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">3.2.2 对字段、方法进行反射绑定</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhu Haijun</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.8k</span>
+  
+</div>
+
+<!--
+
+-->
+
+
+
+
+
+
+
+<!--
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共54.8k字</span>
+</div>
+-->
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1273578910&web_id=1273578910" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zhuhj083',
+            repo: 'BlogComments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '39f3726d5eaf0ede720d9539244fd7ed7c213171',
+            
+                client_id: 'b18a46ea15307cfa951e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("a9vVypE1DjLuAnmn3NVfkxep-gzGzoHsz", "Lfb9AURwxLsBSmLtQdaLamMj");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Douban,QQZone,Evernote";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Douban,QQZone,Evernote";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
