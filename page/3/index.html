@@ -325,6 +325,868 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/24/python制作微信好友照片墙/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/24/python制作微信好友照片墙/" itemprop="url">python制作微信好友照片墙</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T19:08:52+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-24T19:09:46+08:00">
+                2018-12-24
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/24/python制作微信好友照片墙/" class="leancloud_visitors" data-flag-title="python制作微信好友照片墙">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  257
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装itchat和pillow库"><a href="#安装itchat和pillow库" class="headerlink" title="安装itchat和pillow库"></a>安装itchat和pillow库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install itchat</span><br><span class="line">sudo pip install pillow</span><br></pre></td></tr></table></figure>
+<h1 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h1><p>wechat_head_img.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">import math</span><br><span class="line">import os</span><br><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">itchat.auto_login(hotReload=True)</span><br><span class="line">friends = itchat.get_friends(update=True)</span><br><span class="line"></span><br><span class="line">num = 0</span><br><span class="line"><span class="keyword">if</span> not os.path.exists(<span class="string">"headImg"</span>):</span><br><span class="line">    os.mkdir(<span class="string">"headImg"</span>)</span><br><span class="line"><span class="keyword">for</span> friend  <span class="keyword">in</span> friends:</span><br><span class="line">    img = itchat.get_head_img(userName=friend[<span class="string">"UserName"</span>])</span><br><span class="line">    <span class="keyword">if</span> len(img) == 0:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"skip %d,friend=%s"</span> % (num,friend[<span class="string">"NickName"</span>]) )</span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"%d,friend=%s"</span> % (num,friend[<span class="string">"NickName"</span>]))</span><br><span class="line">    fileImage = open(<span class="string">'headImg'</span> + <span class="string">"/"</span> + str(num) + <span class="string">".jpg"</span>,<span class="string">'web'</span>)</span><br><span class="line">    fileImage.write(img)</span><br><span class="line">    fileImage.close()</span><br><span class="line">    num += 1</span><br><span class="line"></span><br><span class="line">all_image = os.listdir(<span class="string">'headImg'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"There %d images"</span> % len(all_image))</span><br><span class="line">each_size = int(math.sqrt(<span class="built_in">float</span>(640*640)/len(all_image)))</span><br><span class="line">lines = int(640 / each_size)</span><br><span class="line">image = Image.new(<span class="string">'RGBA'</span>,(640,640))</span><br><span class="line">x = 0</span><br><span class="line">y = 0</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(0,len(all_image)):</span><br><span class="line">    imagePath = <span class="string">'headImg'</span>+<span class="string">"/"</span>+str(i) + <span class="string">".jpg"</span></span><br><span class="line">    <span class="keyword">if</span> not os.path.isfile(imagePath):</span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    img = Image.open(imagePath)</span><br><span class="line">    img = img.resize((each_size,each_size),Image.ANTIALIAS)</span><br><span class="line">    image.paste( img , (x*each_size,y*each_size) )</span><br><span class="line">    x += 1</span><br><span class="line">    <span class="keyword">if</span> x == lines:</span><br><span class="line">        x = 0</span><br><span class="line">        y += 1</span><br><span class="line"></span><br><span class="line">image = image.convert(<span class="string">'RGB'</span>)</span><br><span class="line">image.save(<span class="string">'headImg'</span>+<span class="string">"/"</span>+<span class="string">"all.jpg"</span>)</span><br><span class="line">itchat.send_image(<span class="string">'headImg'</span>+<span class="string">"/"</span>+<span class="string">"all.jpg"</span> , <span class="string">'filehelper'</span>)</span><br></pre></td></tr></table></figure></p>
+<h1 id="直接执行"><a href="#直接执行" class="headerlink" title="直接执行"></a>直接执行</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加执行权限</span></span><br><span class="line">sudo chmod +x wechat_head_img.py</span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line">python wechat_head_img.py</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/24/python实现微信机器人AI智能回复/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/24/python实现微信机器人AI智能回复/" itemprop="url">python实现微信机器人AI智能回复</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T19:08:06+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-24T19:24:57+08:00">
+                2018-12-24
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/24/python实现微信机器人AI智能回复/" class="leancloud_visitors" data-flag-title="python实现微信机器人AI智能回复">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  130
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="注册图灵机器人网站的账号"><a href="#注册图灵机器人网站的账号" class="headerlink" title="注册图灵机器人网站的账号"></a>注册图灵机器人网站的账号</h1><p>链接：<a href="http://www.tuling123.com/" target="_blank" rel="noopener">http://www.tuling123.com/</a><br>你可以获取自己的图灵机器人apikey</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import itchat</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def get_response(_info):</span><br><span class="line">    <span class="built_in">print</span>(_info)</span><br><span class="line">    api_url = <span class="string">'http://www.tuling123.com/openapi/api'</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">'key'</span>: <span class="string">'your_tuling_apikey'</span>, <span class="comment"># 上一步注册的apikey</span></span><br><span class="line">        <span class="string">'info'</span>: _info,</span><br><span class="line">        <span class="string">'userid'</span>: <span class="string">'robot'</span>,          <span class="comment"># 随意填</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(api_url, data=data).json()</span><br><span class="line">    <span class="built_in">print</span>(r.get(<span class="string">'text'</span>))</span><br><span class="line">    <span class="built_in">return</span> r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@itchat.msg_register(itchat.content.TEXT)</span><br><span class="line">def text_reply(msg):</span><br><span class="line">    <span class="built_in">return</span> r<span class="string">"[Bao]"</span> + get_response(msg[<span class="string">"Text"</span>])[<span class="string">"text"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"start"</span>)</span><br><span class="line">    itchat.auto_login(hotReload=True)</span><br><span class="line">    itchat.run()</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/21/Mac-teminal-ssh-免密码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/Mac-teminal-ssh-免密码/" itemprop="url">Mac teminal ssh 免密码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T19:13:16+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-21T19:15:08+08:00">
+                2018-12-21
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index">
+                    <span itemprop="name">Mac</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/21/Mac-teminal-ssh-免密码/" class="leancloud_visitors" data-flag-title="Mac teminal ssh 免密码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  204
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、创建expect脚本"><a href="#一、创建expect脚本" class="headerlink" title="一、创建expect脚本"></a>一、创建expect脚本</h1><ol>
+<li><p>在/usr/local/bin目录下创建item2ssh.sh脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/expect</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> timeout 15</span><br><span class="line"><span class="built_in">set</span> port [lindex <span class="variable">$argv</span> 0]</span><br><span class="line"><span class="built_in">set</span> username [lindex <span class="variable">$argv</span> 1]</span><br><span class="line"><span class="built_in">set</span> host [lindex <span class="variable">$argv</span> 2]</span><br><span class="line"><span class="built_in">set</span> passwd [lindex <span class="variable">$argv</span> 3]</span><br><span class="line">spawn ssh -p <span class="variable">$port</span> <span class="variable">$username</span>@<span class="variable">$host</span></span><br><span class="line">expect &#123;</span><br><span class="line">        <span class="string">"(yes/no)?"</span></span><br><span class="line">        &#123;send <span class="string">"yes\n"</span>;exp_continue&#125;</span><br><span class="line">        <span class="string">"password:"</span></span><br><span class="line">        &#123;send <span class="string">"<span class="variable">$passwd</span>\n"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>赋予可执行权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/bin</span><br><span class="line">sudo chmod +x item2ssh.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="二、创建alias"><a href="#二、创建alias" class="headerlink" title="二、创建alias"></a>二、创建alias</h1><ol start="3">
+<li><p>创建alias<br>在~目录下，创建.bash_alies文件，内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> ssh2std=<span class="string">'item2login.sh 22 username ip passwd'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改.bash_profile<br>添加以下几行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f ~/.bash_aliases ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">source</span> ~/.bash_aliases</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>5.source使之生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>这样以后，直接敲ssd2std 就可以免密码ssh登录到std机器上了。</p>
+<h1 id="三、item2中使用"><a href="#三、item2中使用" class="headerlink" title="三、item2中使用"></a>三、item2中使用</h1><p>在item2软件中，<code>comand</code>+<code>,</code> 弹出Preferences，<br>然后可以添加Profiles,如下图所示<br><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/item2.jpg" alt="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/item2.jpg"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/21/MAC使用nginx分发80至8080端口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/MAC使用nginx分发80至8080端口/" itemprop="url">MAC使用nginx分发80至8080端口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-21T19:13:03+08:00">
+                2018-12-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-21T19:15:09+08:00">
+                2018-12-21
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index">
+                    <span itemprop="name">Mac</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/21/MAC使用nginx分发80至8080端口/" class="leancloud_visitors" data-flag-title="MAC使用nginx分发80至8080端口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  542
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1、使用背景"><a href="#1、使用背景" class="headerlink" title="1、使用背景"></a>1、使用背景</h1><p>由于项目必须要启动80端口，但是mac系统中非root用户无法直接使用1024以下的端口</p>
+<h1 id="2、释放apache的80端口"><a href="#2、释放apache的80端口" class="headerlink" title="2、释放apache的80端口"></a>2、释放apache的80端口</h1><p>由于Mac OS是自带Apache服务的，它本身占用了80端口，首先你需要将Apache的监听端口改为其他端口或者将其直接卸载，我选用的是将其端口改为8011<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/httpd.conf</span><br></pre></td></tr></table></figure></p>
+<p>Listen 8011</p>
+<p>改动后，重启生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/sbin/apachectl restart</span><br></pre></td></tr></table></figure></p>
+<p>到这里，你已经释放了80端口</p>
+<h1 id="3、使用Nginx分发80端口到8080端口"><a href="#3、使用Nginx分发80端口到8080端口" class="headerlink" title="3、使用Nginx分发80端口到8080端口"></a>3、使用Nginx分发80端口到8080端口</h1><ol start="0">
+<li>安装brew</li>
+</ol>
+<p>见官网：<a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="noopener">https://brew.sh/index_zh-cn.html</a></p>
+<ol>
+<li><p>使用Homebrew安装库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew search nginx</span><br><span class="line">brew install nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装好了后，修改配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/<span class="built_in">local</span>/etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost l.sogou.com;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    location ~* ^/h5/&#123;</span><br><span class="line">            proxy_pass http://127.0.0.1:8091;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~* ^/weixin/&#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8093;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~* ^/api/&#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8087;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">        proxy_pass http://127.0.0.1:8080;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># redirect server error pages to the static page             /50x.html</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>server下的结点：<br>listen：监听80端口<br>server_name：转发到哪个地址<br>proxy_pass：代理到哪个地址</p>
+<ol start="3">
+<li>Nginx开机启动</li>
+</ol>
+<p>你需要了解的就是plist文件。plist就是property list format的意思，是苹果用来保存应用数据的格式，其实就是个xml。<br>可以在/usr/local/opt/nginx 下找到nginx对应的plist文件，比如在作者电脑上是 homebrew.mxcl.nginx.plist 。</p>
+<p>需要把这个文件复制到 /Library/LaunchDaemons 下，系统启动时启动。<br>也可以复制到 /Library/LaunchAgents下，在用户登录时启动。<br>接着执行launchctl load -w，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /usr/<span class="built_in">local</span>/opt/nginx/*.plist /Library/LaunchDaemons</span><br><span class="line"></span><br><span class="line">sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist</span><br></pre></td></tr></table></figure>
+<p>最后，重启你的机器，你会发现nginx在80端口启动了，试着通过<a href="http://localhost直接访问" target="_blank" rel="noopener">http://localhost直接访问</a></p>
+<ol start="4">
+<li>修改配置 重启生效<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/<span class="built_in">local</span>/etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/opt/nginx/bin/</span><br><span class="line">sudo ./nginx -s reload</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/12/19/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1550,1007 +2412,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/11/01/万圣节/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/万圣节/" itemprop="url">万圣节</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T00:00:07+08:00">
-                2018-11-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/01/万圣节/" class="leancloud_visitors" data-flag-title="万圣节">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  47
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="万圣节"><a href="#万圣节" class="headerlink" title="万圣节"></a>万圣节</h1><p>今天是万圣节，11月1日，又是新的一个月的来临。</p>
-<p>最近的一段时间过得很开心。</p>
-<p>以后还是得继续更新日志才好。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/10/30/RE-Metacharacter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/30/RE-Metacharacter/" itemprop="url">正则表达式使用的特殊符号和字符</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T11:53:21+08:00">
-                2018-10-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-19T13:19:08+08:00">
-                2018-12-19
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/re/" itemprop="url" rel="index">
-                    <span itemprop="name">re</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/30/RE-Metacharacter/" class="leancloud_visitors" data-flag-title="正则表达式使用的特殊符号和字符">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  445
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="正则表达式中最常见的符号和字符"><a href="#正则表达式中最常见的符号和字符" class="headerlink" title="正则表达式中最常见的符号和字符"></a>正则表达式中最常见的符号和字符</h1><table>
-<thead>
-<tr>
-<th>记号</th>
-<th>说明</th>
-<th>正则表达式样例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>literal</em></td>
-<td>匹配字符串的值</td>
-<td>foo</td>
-</tr>
-<tr>
-<td><em>re1&#124;rel2</em></td>
-<td>匹配正则表达式re1或re2</td>
-<td>foo&#124;bar</td>
-</tr>
-<tr>
-<td>.</td>
-<td>匹配任何字符（换行符除外）</td>
-<td>b.b</td>
-</tr>
-<tr>
-<td>^</td>
-<td>匹配字符串的开始</td>
-<td>^Dear</td>
-</tr>
-<tr>
-<td>$</td>
-<td>匹配字符串的结尾</td>
-<td>/bin/*sh$</td>
-</tr>
-<tr>
-<td>*</td>
-<td>匹配前面出现的正则表达式零次或多次</td>
-<td>[A-Za-z0-9]*</td>
-</tr>
-<tr>
-<td>+</td>
-<td>匹配前面出现的正则表达式一次或多次</td>
-<td>[a-z]+\.com</td>
-</tr>
-<tr>
-<td>?</td>
-<td>匹配前面出现的正则表达式零次或一次</td>
-<td>goo?</td>
-</tr>
-<tr>
-<td>{N}</td>
-<td>匹配前面出现的正则表达式N次</td>
-<td>[0-9]{3}</td>
-</tr>
-<tr>
-<td>{M,N}</td>
-<td>匹配重复出现M次到N次的正则表达式</td>
-<td>[0-9]{5,9}</td>
-</tr>
-<tr>
-<td>[…]</td>
-<td>匹配字符组里出现的任意一个字符</td>
-<td>[aeiou]</td>
-</tr>
-<tr>
-<td>[..x-y..]</td>
-<td>匹配从字符x到y中任意一个字符</td>
-<td>[0-9],[A-Za-z]</td>
-</tr>
-<tr>
-<td>[^…]</td>
-<td>不匹配此字符组中出现的任何一个字符，包括某一范围的字符（如果在此字符集中出现）</td>
-<td>[^aeiou],[^A-Za-z]</td>
-</tr>
-<tr>
-<td>(*&#124;+&#124;?&#124;{})?</td>
-<td>用于上面出现的任何“非贪婪”，版本重复匹配次数符号</td>
-<td>.*?[a-z]</td>
-</tr>
-<tr>
-<td>(…)</td>
-<td>匹配封闭括号中正则表达式（RE），并保存为子组</td>
-<td>（[0-9]{3}）?,f(oo&#124;u)bar</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>匹配任何数字，和[0-9]一样，（\D是\d的反义：任何非数字）</td>
-<td>data\d+.txt</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>匹配任何数字和字符，即<a href="\W是\w的反义">A-Za-z0-9</a></td>
-<td>[A-Za-z_]\w+</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>匹配任何空白符，和[\n\t\r\v\f]相同，（\S是\s的反义）</td>
-<td>of\sthe</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>匹配单词边界（\B是\b的反义）</td>
-<td>\bThe\b</td>
-</tr>
-<tr>
-<td>\nn</td>
-<td>匹配已保存的子组(参考上面的正则表达式符合:（…））)</td>
-<td>price:\16</td>
-</tr>
-<tr>
-<td>\c</td>
-<td>逐一匹配特殊字符c（即取消它的特殊含义，按字面匹配）</td>
-<td>.,\,*</td>
-</tr>
-<tr>
-<td>\A(\Z)</td>
-<td>匹配字符换的起始（结束）</td>
-<td>\ADear</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" itemprop="url">Spring中的BeanPostProcessor和BeanFactoryPostProcessor</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T20:26:50+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-31T16:31:47+08:00">
-                2019-08-31
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/" class="leancloud_visitors" data-flag-title="Spring中的BeanPostProcessor和BeanFactoryPostProcessor">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,762
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>BeanPostProcessor和BeanFactoryPostProcessor是Spring初始化Bean时对外暴露的2个接口，两个接口看起来很相似，但是作用和使用场景去不同。</p>
-<p>参考博文：<a href="https://blog.csdn.net/caihaijiang/article/details/35552859" target="_blank" rel="noopener">https://blog.csdn.net/caihaijiang/article/details/35552859</a></p>
-<h1 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h1><h2 id="接口的定义"><a href="#接口的定义" class="headerlink" title="接口的定义"></a>接口的定义</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//实现该接口，可以在spring的bean创建之前，修改bean的定义属性。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postProcessBeanFactory</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实现该接口，可以在spring的bean创建之前，修改bean的定义属性。</p>
-<p>也就是说，Spring允许BeanFactoryPostProcessor在容器实例化任何其它bean之前读取配置元数据，并可以根据需要进行修改。例如可以把bean的scope从singleton改为prototype，也可以把property的值给修改掉。</p>
-<p>可以同时配置多个BeanFactoryPostProcessor，并通过设置<code>order</code>属性来控制各个BeanFactoryPostProcessor的执行次序。</p>
-<blockquote>
-<p>注意：BeanFactoryPostProcessor是在spring容器加载了bean的定义文件之后，在bean实例化之前执行的。接口方法的入参是ConfigurrableListableBeanFactory，使用该参数，可以获取到相关bean的定义信息</p>
-</blockquote>
-<h1 id="BeanPostProcessor简介"><a href="#BeanPostProcessor简介" class="headerlink" title="BeanPostProcessor简介"></a>BeanPostProcessor简介</h1><p>BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接口声明如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//bean初始化方法调用前被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">    <span class="comment">//bean初始化方法调用后被调用</span></span><br><span class="line">    <span class="function">Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>BeanPostProcessor接口有2个回调方法，当一个BeanPostProcessor的实现类注册到Spring IOC容器后，对于该Spring IOC 容器所创造的每一个bean实例的初始化方法（如afterPropertiesSet和自定义init-method方法）调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法；而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法。</p>
-<p>整个调用过程简单示意如下：</p>
-<blockquote>
-<p>Spring IOC容器实例化Bean</p>
-</blockquote>
-<blockquote>
-<p>调用BeanPostProcessor的postProcessBeforeInitialization方法</p>
-</blockquote>
-<blockquote>
-<p>调用bean实例的初始化方法</p>
-</blockquote>
-<blockquote>
-<p>调用BeanPostProcessor的postProcessAfterInitialization方法</p>
-</blockquote>
-<p>可以看到，Spring容器通过BeanPostProcessor给了我们一个机会对Spring管理的bean进行再加工。比如：我们可以修改bean的属性，可以给bean生成一个动态代理实例等等。</p>
-<p>一些Spring AOP的底层处理也是通过实现BeanPostProcessor来执行代理包装逻辑的。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/06/Spring中的BeanPostProcessor和BeanFactoryPostProcessor/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2018/08/01/Spring源码分析1-环境搭建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/01/Spring源码分析1-环境搭建/" itemprop="url">Spring源码分析1-环境搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T11:08:39+08:00">
-                2018-08-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T01:41:27+08:00">
-                2019-09-01
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/08/01/Spring源码分析1-环境搭建/" class="leancloud_visitors" data-flag-title="Spring源码分析1-环境搭建">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  955
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Spring的源码在Github上，基于Gradle的构建来构建项目。所以要构建Spring源码首先要安装Github以及Gradle。<br>github的安装不再赘述。</p>
-<h1 id="一-安装gradle"><a href="#一-安装gradle" class="headerlink" title="一.安装gradle"></a>一.安装gradle</h1><p>Gradle是一个基于Groovy的构建工具，它使用Groovy来编写构建脚本，支持依赖管理和多项目构建，类似于maven。</p>
-<p>下载地址为：<a href="http://gradle.org/downloads" target="_blank" rel="noopener">http://gradle.org/downloads</a></p>
-<h2 id="windows下安装gradle"><a href="#windows下安装gradle" class="headerlink" title="windows下安装gradle"></a>windows下安装gradle</h2><p>下载后解压到指定目录，我放在了<code>C:\Program Files\gradle-1.6</code></p>
-<p>然后配置环境变量</p>
-<ol>
-<li>根据对应目录创建GRADLE_HOME系统变量</li>
-<li>将系统变量加入到path中</li>
-<li>测试，打开命令窗口输入<code>gradle -version</code>,如果安装成功会出现Gradle对应的版本信息。</li>
-</ol>
-<h2 id="Mac下brew安装Gradle"><a href="#Mac下brew安装Gradle" class="headerlink" title="Mac下brew安装Gradle"></a>Mac下brew安装Gradle</h2><p>1.打开终端，使用<code>brew install gradle</code>完成安装</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew info gradle</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...省略</span><br><span class="line">==&gt; Downloading https://services.gradle.org/distributions/gradle-5.6-all.zip</span><br><span class="line">==&gt; Downloading from https://downloads.gradle-dn.com/distributions/gradle-5.6-all.zip</span><br><span class="line"><span class="comment">######################################################################## 100.0%</span></span><br><span class="line">🍺  /usr/<span class="built_in">local</span>/Cellar/gradle/5.6: 14,317 files, 245.0MB, built <span class="keyword">in</span> 45 seconds</span><br></pre></td></tr></table></figure>
-<p>2.安装成功，默认的安装位置为：<br><code>/usr/local/Cellar/gradle/5.6</code></p>
-<p>3.验证是否安装成功，<code>gradle -v</code>,打印下面信息说明安装成功</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ gradle -v</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Gradle 5.6</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build time:   2019-08-14 21:05:25 UTC</span><br><span class="line">Revision:     f0b9d60906c7b8c42cd6c61a39ae7b74767bb012</span><br><span class="line"></span><br><span class="line">Kotlin:       1.3.41</span><br><span class="line">Groovy:       2.5.4</span><br><span class="line">Ant:          Apache Ant(TM) version 1.9.14 compiled on March 12 2019</span><br><span class="line">JVM:          1.8.0_191 (Oracle Corporation 25.191-b12)</span><br><span class="line">OS:           Mac OS X 10.14.6 x86_64</span><br></pre></td></tr></table></figure>
-<h1 id="二-下载Spring"><a href="#二-下载Spring" class="headerlink" title="二.下载Spring"></a>二.下载Spring</h1><p>例如要将下载的源码存储到g:\spring下，进入这个目录，输入一下命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:spring-projects/spring-framework.git spring-framework</span><br></pre></td></tr></table></figure></p>
-<p>等待一段时间后，完成下载。</p>
-<p>进入这个目录，会看到已经存在了相应的源码信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> spring-framework/</span><br><span class="line">$ ll</span><br></pre></td></tr></table></figure></p>
-<h1 id="三-构建spring并导入IDEA"><a href="#三-构建spring并导入IDEA" class="headerlink" title="三.构建spring并导入IDEA"></a>三.构建spring并导入IDEA</h1><p>当前的源码并不可以直接导入到IDEA中，我们还需要将源码转换为IDEA可以读取的形式。</p>
-<p>参考：<a href="https://github.com/spring-projects/spring-framework/blob/master/import-into-idea.md" target="_blank" rel="noopener">https://github.com/spring-projects/spring-framework/blob/master/import-into-idea.md</a></p>
-<h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><h3 id="1-Precompile-spring-oxm-with-gradlew-spring-oxm-compileTestJava"><a href="#1-Precompile-spring-oxm-with-gradlew-spring-oxm-compileTestJava" class="headerlink" title="1.Precompile spring-oxm with ./gradlew :spring-oxm:compileTestJava"></a>1.Precompile spring-oxm with ./gradlew :spring-oxm:compileTestJava</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./gradlew :spring-oxm:compileTestJava</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Downloading https://services.gradle.org/distributions/gradle-5.6-bin.zip</span><br><span class="line">.........................................................................................</span><br><span class="line"></span><br><span class="line">Welcome to Gradle 5.6!</span><br><span class="line"></span><br><span class="line">Here are the highlights of this release:</span><br><span class="line"> - Incremental Groovy compilation</span><br><span class="line"> - Groovy compile avoidance</span><br><span class="line"> - Test fixtures <span class="keyword">for</span> Java projects</span><br><span class="line"> - Manage plugin versions via settings script</span><br><span class="line"></span><br><span class="line">For more details see https://docs.gradle.org/5.6/release-notes.html</span><br><span class="line"></span><br><span class="line">Starting a Gradle Daemon (subsequent builds will be faster)</span><br><span class="line"></span><br><span class="line">&gt; Task :spring-core:compileTestJava</span><br><span class="line">注: 某些输入文件使用或覆盖了已过时的 API。</span><br><span class="line">注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。</span><br><span class="line"></span><br><span class="line">&gt; Task :spring-beans:compileTestJava</span><br><span class="line">注: 某些输入文件使用了未经检查或不安全的操作。</span><br><span class="line">注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。</span><br><span class="line"></span><br><span class="line">&gt; Task :spring-context:compileTestJava</span><br><span class="line">注: 某些输入文件使用或覆盖了已过时的 API。</span><br><span class="line">注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。</span><br><span class="line">注: 某些输入文件使用了未经检查或不安全的操作。</span><br><span class="line">注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。</span><br><span class="line"></span><br><span class="line">&gt; Task :spring-oxm:genJaxb</span><br><span class="line">[ant:javac] : warning: <span class="string">'includeantruntime'</span> was not <span class="built_in">set</span>, defaulting to build.sysclasspath=last; <span class="built_in">set</span> to <span class="literal">false</span> <span class="keyword">for</span> repeatable builds</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 4m 50s</span><br><span class="line">49 actionable tasks: 49 executed</span><br></pre></td></tr></table></figure>
-<h3 id="2-导入IntelliJ"><a href="#2-导入IntelliJ" class="headerlink" title="2.导入IntelliJ"></a>2.导入IntelliJ</h3><p>步骤：</p>
-<p>(File -&gt; New -&gt; Project from Existing Sources -&gt; 打开项目根目录 -&gt; 选择 build.gradle)</p>
-<h3 id="3编译相关模块"><a href="#3编译相关模块" class="headerlink" title="3编译相关模块"></a>3编译相关模块</h3><p>1.因为其他项目需要依赖spring-core和spring-oxm，所以我们导入后需要先编译这两个</p>
-<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/2BF6BF68-CC3B-4F87-B6EB-B549D7023CD9.png" alt="spring-core"></p>
-<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/F3CC7F89-FCFC-4077-B2F3-73F0EF852C58.png" alt="spring-oxm"></p>
-<p>2.执行完了后，接着编译spring-context，spring-bean,同样的方法</p>
-<p>3.最后编译spring-aspects和spring-aop</p>
-<h3 id="4-CoroutinesUtils类-找不到的处理"><a href="#4-CoroutinesUtils类-找不到的处理" class="headerlink" title="4.CoroutinesUtils类 找不到的处理"></a>4.CoroutinesUtils类 找不到的处理</h3><p>在spring-core项目的kotlin-coroutines的build目录下找到<code>kotlin-coroutines-5.2.0.BUILD-SNAPSHOT.jar</code>.再引入spring-core项目中即可。</p>
-<h3 id="5-完成"><a href="#5-完成" class="headerlink" title="5.完成"></a>5.完成</h3><p>到了这里，spring的源码基本编译完成，然后就可以学习、调试、修改了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2602,7 +2468,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2714,7 +2580,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2728,7 +2594,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.8k</span>
+    <span title="Site words total count">60.1k</span>
   
 </div>
 
@@ -2745,7 +2611,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.8k字</span>
+  <span class="post-count">博客全站共60.1k字</span>
 </div>
 -->
 

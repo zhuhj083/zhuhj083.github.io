@@ -325,6 +325,891 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/03/Spring源码解析8-DocumentLoader接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/03/Spring源码解析8-DocumentLoader接口/" itemprop="url">Spring源码解析8-DocumentLoader接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T15:24:34+08:00">
+                2019-09-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-03T15:30:47+08:00">
+                2019-09-03
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/03/Spring源码解析8-DocumentLoader接口/" class="leancloud_visitors" data-flag-title="Spring源码解析8-DocumentLoader接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  822
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-接口定义"><a href="#1-接口定义" class="headerlink" title="1. 接口定义"></a>1. 接口定义</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义从资源文件加载到转换为Document的功能</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DocumentLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Load a &#123;<span class="doctag">@link</span> Document document&#125; from the supplied &#123;<span class="doctag">@link</span> InputSource source&#125;.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> inputSource the source of the document that is to be loaded</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> entityResolver the resolver that is to be used to resolve any entities</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> errorHandler used to report any errors during document loading</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> validationMode the type of validation</span></span><br><span class="line"><span class="comment">	 * &#123;<span class="doctag">@link</span> org.springframework.util.xml.XmlValidationModeDetector#VALIDATION_DTD DTD&#125;</span></span><br><span class="line"><span class="comment">	 * or &#123;<span class="doctag">@link</span> org.springframework.util.xml.XmlValidationModeDetector#VALIDATION_XSD XSD&#125;)</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> namespaceAware &#123;<span class="doctag">@code</span> true&#125; if support for XML namespaces is to be provided</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the loaded &#123;<span class="doctag">@link</span> Document document&#125;</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> Exception if an error occurs</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">Document <span class="title">loadDocument</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			InputSource inputSource, EntityResolver entityResolver,</span></span></span><br><span class="line"><span class="function"><span class="params">			ErrorHandler errorHandler, <span class="keyword">int</span> validationMode, <span class="keyword">boolean</span> namespaceAware)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-默认实现"><a href="#2-默认实现" class="headerlink" title="2. 默认实现"></a>2. 默认实现</h1><p>DefaultDocumentLoader类是DocumentLoader接口的默认实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.beans.factory.xml;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilder;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilderFactory;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.ParserConfigurationException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Document;</span><br><span class="line"><span class="keyword">import</span> org.xml.sax.EntityResolver;</span><br><span class="line"><span class="keyword">import</span> org.xml.sax.ErrorHandler;</span><br><span class="line"><span class="keyword">import</span> org.xml.sax.InputSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.lang.Nullable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.xml.XmlValidationModeDetector;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 通过标准的standard JAXP-configured XML 解析器来加载资源文件</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Spring's default &#123;<span class="doctag">@link</span> DocumentLoader&#125; implementation.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Simply loads &#123;<span class="doctag">@link</span> Document documents&#125; using the standard JAXP-configured</span></span><br><span class="line"><span class="comment"> * XML parser. If you want to change the &#123;<span class="doctag">@link</span> DocumentBuilder&#125; that is used to</span></span><br><span class="line"><span class="comment"> * load documents, then one strategy is to define a corresponding Java system property</span></span><br><span class="line"><span class="comment"> * when starting your JVM. For example, to use the Oracle &#123;<span class="doctag">@link</span> DocumentBuilder&#125;,</span></span><br><span class="line"><span class="comment"> * you might start your application like as follows:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;pre code="class"&gt;java -Djavax.xml.parsers.DocumentBuilderFactory=oracle.xml.jaxp.JXDocumentBuilderFactory MyMainClass&lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rob Harrop</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Juergen Hoeller</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultDocumentLoader</span> <span class="keyword">implements</span> <span class="title">DocumentLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * JAXP attribute used to configure the schema language for validation.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SCHEMA_LANGUAGE_ATTRIBUTE = <span class="string">"http://java.sun.com/xml/jaxp/properties/schemaLanguage"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * JAXP attribute value indicating the XSD schema language.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String XSD_SCHEMA_LANGUAGE = <span class="string">"http://www.w3.org/2001/XMLSchema"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(DefaultDocumentLoader.class);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Load the &#123;<span class="doctag">@link</span> Document&#125; at the supplied &#123;<span class="doctag">@link</span> InputSource&#125; using the standard JAXP-configured</span></span><br><span class="line"><span class="comment">	 * XML parser.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Document <span class="title">loadDocument</span><span class="params">(InputSource inputSource, EntityResolver entityResolver,</span></span></span><br><span class="line"><span class="function"><span class="params">			ErrorHandler errorHandler, <span class="keyword">int</span> validationMode, <span class="keyword">boolean</span> namespaceAware)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 创建 DocumentBuilderFactory</span></span><br><span class="line">		DocumentBuilderFactory factory = createDocumentBuilderFactory(validationMode, namespaceAware);</span><br><span class="line">		<span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">			logger.trace(<span class="string">"Using JAXP provider ["</span> + factory.getClass().getName() + <span class="string">"]"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//创建 DocumentBuilder</span></span><br><span class="line">		DocumentBuilder builder = createDocumentBuilder(factory, entityResolver, errorHandler);</span><br><span class="line">		<span class="keyword">return</span> builder.parse(inputSource);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Create the &#123;<span class="doctag">@link</span> DocumentBuilderFactory&#125; instance.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> validationMode the type of validation: &#123;<span class="doctag">@link</span> XmlValidationModeDetector#VALIDATION_DTD DTD&#125;</span></span><br><span class="line"><span class="comment">	 * or &#123;<span class="doctag">@link</span> XmlValidationModeDetector#VALIDATION_XSD XSD&#125;)</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> namespaceAware whether the returned factory is to provide support for XML namespaces</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the JAXP DocumentBuilderFactory</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> ParserConfigurationException if we failed to build a proper DocumentBuilderFactory</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> DocumentBuilderFactory <span class="title">createDocumentBuilderFactory</span><span class="params">(<span class="keyword">int</span> validationMode, <span class="keyword">boolean</span> namespaceAware)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ParserConfigurationException </span>&#123;</span><br><span class="line"></span><br><span class="line">		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br><span class="line">		factory.setNamespaceAware(namespaceAware);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (validationMode != XmlValidationModeDetector.VALIDATION_NONE) &#123;</span><br><span class="line">			factory.setValidating(<span class="keyword">true</span>);</span><br><span class="line">			<span class="keyword">if</span> (validationMode == XmlValidationModeDetector.VALIDATION_XSD) &#123;</span><br><span class="line">				<span class="comment">// Enforce namespace aware for XSD...</span></span><br><span class="line">				factory.setNamespaceAware(<span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					factory.setAttribute(SCHEMA_LANGUAGE_ATTRIBUTE, XSD_SCHEMA_LANGUAGE);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">catch</span> (IllegalArgumentException ex) &#123;</span><br><span class="line">					ParserConfigurationException pcex = <span class="keyword">new</span> ParserConfigurationException(</span><br><span class="line">							<span class="string">"Unable to validate using XSD: Your JAXP provider ["</span> + factory +</span><br><span class="line">							<span class="string">"] does not support XML Schema. Are you running on Java 1.4 with Apache Crimson? "</span> +</span><br><span class="line">							<span class="string">"Upgrade to Apache Xerces (or Java 1.5) for full XSD support."</span>);</span><br><span class="line">					pcex.initCause(ex);</span><br><span class="line">					<span class="keyword">throw</span> pcex;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> factory;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Create a JAXP DocumentBuilder that this bean definition reader</span></span><br><span class="line"><span class="comment">	 * will use for parsing XML documents. Can be overridden in subclasses,</span></span><br><span class="line"><span class="comment">	 * adding further initialization of the builder.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> factory the JAXP DocumentBuilderFactory that the DocumentBuilder</span></span><br><span class="line"><span class="comment">	 * should be created with</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> entityResolver the SAX EntityResolver to use</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> errorHandler the SAX ErrorHandler to use</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the JAXP DocumentBuilder</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> ParserConfigurationException if thrown by JAXP methods</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> DocumentBuilder <span class="title">createDocumentBuilder</span><span class="params">(DocumentBuilderFactory factory,</span></span></span><br><span class="line"><span class="function"><span class="params">			@Nullable EntityResolver entityResolver, @Nullable ErrorHandler errorHandler)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ParserConfigurationException </span>&#123;</span><br><span class="line"></span><br><span class="line">		DocumentBuilder docBuilder = factory.newDocumentBuilder();</span><br><span class="line">		<span class="keyword">if</span> (entityResolver != <span class="keyword">null</span>) &#123;</span><br><span class="line">			docBuilder.setEntityResolver(entityResolver);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (errorHandler != <span class="keyword">null</span>) &#123;</span><br><span class="line">			docBuilder.setErrorHandler(errorHandler);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> docBuilder;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/03/Spring源码解析7-ResourceLoader接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/03/Spring源码解析7-ResourceLoader接口/" itemprop="url">Spring源码解析7-ResourceLoader接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T09:35:00+08:00">
+                2019-09-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-03T16:41:43+08:00">
+                2019-09-03
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/03/Spring源码解析7-ResourceLoader接口/" class="leancloud_visitors" data-flag-title="Spring源码解析7-ResourceLoader接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  664
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#1. ResourceLoader 接口定义</p>
+<p>ResourceLoader用于定义资源加载器，主要应用于根据给定的资源文件地址返回对应的Resource。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ResourceLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//用于从类路径加载的伪URL前缀: "classpath:"</span></span><br><span class="line">	<span class="comment">/** Pseudo URL prefix for loading from the class path: "classpath:". */</span></span><br><span class="line">	String CLASSPATH_URL_PREFIX = ResourceUtils.CLASSPATH_URL_PREFIX;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 返回指定资源位置的Resource</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">Resource <span class="title">getResource</span><span class="params">(String location)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">ClassLoader <span class="title">getClassLoader</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>#2. DefaultResourceLoader实现类</p>
+<p>DefaultResourceLoader#getResource方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Resource <span class="title">getResource</span><span class="params">(String location)</span> </span>&#123;</span><br><span class="line">	Assert.notNull(location, <span class="string">"Location must not be null"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 通过  用户自定义的指定协议解析器 来 解析</span></span><br><span class="line">	<span class="keyword">for</span> (ProtocolResolver protocolResolver : <span class="keyword">this</span>.protocolResolvers) &#123;</span><br><span class="line">		Resource resource = protocolResolver.resolve(location, <span class="keyword">this</span>);</span><br><span class="line">		<span class="keyword">if</span> (resource != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> resource;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (location.startsWith(<span class="string">"/"</span>)) &#123;</span><br><span class="line">		<span class="comment">// return new ClassPathContextResource(path, getClassLoader());</span></span><br><span class="line">		<span class="keyword">return</span> getResourceByPath(location);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (location.startsWith(CLASSPATH_URL_PREFIX)) &#123;</span><br><span class="line">		<span class="comment">// 类路径加载、通过ClassPathResource进行封装</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ClassPathResource(location.substring(CLASSPATH_URL_PREFIX.length()), getClassLoader());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// Try to parse the location as a URL...</span></span><br><span class="line">			<span class="comment">// 尝试将location当做一个URL来解析</span></span><br><span class="line">			URL url = <span class="keyword">new</span> URL(location);</span><br><span class="line">			<span class="keyword">return</span> (ResourceUtils.isFileURL(url) ? <span class="keyword">new</span> FileUrlResource(url) : <span class="keyword">new</span> UrlResource(url));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (MalformedURLException ex) &#123;</span><br><span class="line">			<span class="comment">// No URL -&gt; resolve as resource path.</span></span><br><span class="line">			<span class="keyword">return</span> getResourceByPath(location);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring的配置文件读取是通过ClassPathResource进行封装的。</p>
+<h2 id="3-Java和Spring中对资源的抽象"><a href="#3-Java和Spring中对资源的抽象" class="headerlink" title="# 3. Java和Spring中对资源的抽象"></a># 3. Java和Spring中对资源的抽象</h2><p>在Java中，将不同来源的资源抽象成URL，通过注册不同的handler来处理不同来源的资源的读取逻辑，一般handler的类型使用不同前缀（协议，Protocol）来识别，例如：“file:”、“http:”、“jar:”等，然后URL没有默认定义相对Classpath或ServletContext等资源的handler。然后这需要了解URL的实现机制，而且URL也没有提供一些基本的方法，例如检查当前资源是否存在，检查当前资源是否可读等方法。</p>
+<p>因为Spring对齐内部使用的资源实现了自己的抽象结构：Resource接口来封装底层资源。</p>
+<p>InputStreamSource接口封装任何能返回InputStream的类。比如File、Classpath下的资源和Byte、Array等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InputStreamSource</span> </span>&#123;</span><br><span class="line">	<span class="function">InputStream <span class="title">getInputStream</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Resource接口抽象了所有Spring内部使用的底层资源：File、URL、Classpath等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Resource</span> <span class="keyword">extends</span> <span class="title">InputStreamSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">exists</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isReadable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> exists();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function">URL <span class="title">getURL</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">URI <span class="title">getURI</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">File <span class="title">getFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">default</span> ReadableByteChannel <span class="title">readableChannel</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Channels.newChannel(getInputStream());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">long</span> <span class="title">contentLength</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">long</span> <span class="title">lastModified</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">Resource <span class="title">createRelative</span><span class="params">(String relativePath)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">String <span class="title">getFilename</span><span class="params">()</span></span>;</span><br><span class="line">  </span><br><span class="line">	<span class="function">String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-不同的Resource实现"><a href="#4-不同的Resource实现" class="headerlink" title="4. 不同的Resource实现"></a>4. 不同的Resource实现</h1><p>对不同来源的资源文件都有相应的Resource实现</p>
+<ul>
+<li>文件（FileSystemResource）</li>
+<li>Classpath资源（ClassPathResource）</li>
+<li>URL资源（URLResource）</li>
+<li>InputStream资源（InputStreamResource）</li>
+<li>Byte数组（ByteArrayResource）</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/03/Spring源码解析6-BeanDefinitionReader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/03/Spring源码解析6-BeanDefinitionReader/" itemprop="url">Spring源码解析6-BeanDefinitionReader</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T09:00:21+08:00">
+                2019-09-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-03T17:16:26+08:00">
+                2019-09-03
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/03/Spring源码解析6-BeanDefinitionReader/" class="leancloud_visitors" data-flag-title="Spring源码解析6-BeanDefinitionReader">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,148
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>BeanDefinitionReader接口有定义资源文件读取并转换为BeanDefinition的功能。</p>
+<p>使用Resource和String位置参数指定加载方法。</p>
+<h1 id="1-BeanDefinitionReader接口"><a href="#1-BeanDefinitionReader接口" class="headerlink" title="1. BeanDefinitionReader接口"></a>1. BeanDefinitionReader接口</h1><p>BeanDefinitionReader定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanDefinitionReader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 返回BeanFactory 以注册bean definitions</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">BeanDefinitionRegistry <span class="title">getRegistry</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 返回资源文件加载器</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">ResourceLoader <span class="title">getResourceLoader</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 返回类加载器</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function">ClassLoader <span class="title">getBeanClassLoader</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return the BeanNameGenerator to use for anonymous beans</span></span><br><span class="line"><span class="comment">	 * (without explicit bean name specified).</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">BeanNameGenerator <span class="title">getBeanNameGenerator</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 从指定的资源里加载bean，以Resource形式给出</span></span><br><span class="line"><span class="comment">	 * 返回加载的bean定义数量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(Resource resource)</span> <span class="keyword">throws</span> BeanDefinitionStoreException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 从多个资源处加载bean definitions</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(Resource... resources)</span> <span class="keyword">throws</span> BeanDefinitionStoreException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 从指定的资源里加载bean，以String形式给出</span></span><br><span class="line"><span class="comment">	 * 返回加载的bean定义数量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(String location)</span> <span class="keyword">throws</span> BeanDefinitionStoreException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 从多个资源处加载bean definitions</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(String... locations)</span> <span class="keyword">throws</span> BeanDefinitionStoreException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-BeanDefinitionReader的常见实现类"><a href="#2-BeanDefinitionReader的常见实现类" class="headerlink" title="2. BeanDefinitionReader的常见实现类"></a>2. BeanDefinitionReader的常见实现类</h1><p>常见的BeanDefinitionReader的实现见下图。</p>
+<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/spring_BeanDefinitionReader_hierarchy.png" alt=""></p>
+<h2 id="2-1-AbstractBeanDefinitionReader类"><a href="#2-1-AbstractBeanDefinitionReader类" class="headerlink" title="2.1 AbstractBeanDefinitionReader类"></a>2.1 AbstractBeanDefinitionReader类</h2><p>AbstractBeanDefinitionReader类实现了BeanDefinitionReader。</p>
+<p>提供常用属性，例如要处理的bean工厂和用于加载bean类的类加载器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractBeanDefinitionReader</span> <span class="keyword">implements</span> <span class="title">BeanDefinitionReader</span>, <span class="title">EnvironmentCapable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** Logger available to subclasses. */</span></span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(getClass());</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 注册器</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> BeanDefinitionRegistry registry;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 资源加载器</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> ResourceLoader resourceLoader;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 类加载器</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> ClassLoader beanClassLoader;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 环境</span></span><br><span class="line">	<span class="keyword">private</span> Environment environment;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// bean名称生成器</span></span><br><span class="line">	<span class="keyword">private</span> BeanNameGenerator beanNameGenerator = DefaultBeanNameGenerator.INSTANCE;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 使用给定的bean factory创建一个AbstractBeanDefinitionReader</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="title">AbstractBeanDefinitionReader</span><span class="params">(BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">		Assert.notNull(registry, <span class="string">"BeanDefinitionRegistry must not be null"</span>);</span><br><span class="line">		<span class="keyword">this</span>.registry = registry;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 确定要使用的ResourceLoader。</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.registry <span class="keyword">instanceof</span> ResourceLoader) &#123;</span><br><span class="line">			<span class="comment">// 如果构造函数的参数registry 也实现了ResourceLoader，那么就使用这个registry作为资源加载器</span></span><br><span class="line">			<span class="keyword">this</span>.resourceLoader = (ResourceLoader) <span class="keyword">this</span>.registry;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 否则，使用PathMatchingResourcePatternResolver作为资源加载器</span></span><br><span class="line">			<span class="keyword">this</span>.resourceLoader = <span class="keyword">new</span> PathMatchingResourcePatternResolver();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 如果可能，继承Environment</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.registry <span class="keyword">instanceof</span> EnvironmentCapable) &#123;</span><br><span class="line">			<span class="keyword">this</span>.environment = ((EnvironmentCapable) <span class="keyword">this</span>.registry).getEnvironment();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 否则默认的是StandardEnvironment</span></span><br><span class="line">			<span class="keyword">this</span>.environment = <span class="keyword">new</span> StandardEnvironment();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> BeanDefinitionRegistry <span class="title">getBeanFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.registry;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> BeanDefinitionRegistry <span class="title">getRegistry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.registry;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setResourceLoader</span><span class="params">(@Nullable ResourceLoader resourceLoader)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resourceLoader = resourceLoader;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResourceLoader <span class="title">getResourceLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.resourceLoader;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanClassLoader</span><span class="params">(@Nullable ClassLoader beanClassLoader)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.beanClassLoader = beanClassLoader;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ClassLoader <span class="title">getBeanClassLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.beanClassLoader;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEnvironment</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">		Assert.notNull(environment, <span class="string">"Environment must not be null"</span>);</span><br><span class="line">		<span class="keyword">this</span>.environment = environment;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Environment <span class="title">getEnvironment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.environment;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanNameGenerator</span><span class="params">(@Nullable BeanNameGenerator beanNameGenerator)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 默认的是 DefaultBeanNameGenerator</span></span><br><span class="line">		<span class="keyword">this</span>.beanNameGenerator = (beanNameGenerator != <span class="keyword">null</span> ? beanNameGenerator : DefaultBeanNameGenerator.INSTANCE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> BeanNameGenerator <span class="title">getBeanNameGenerator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.beanNameGenerator;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(Resource... resources)</span> <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">		Assert.notNull(resources, <span class="string">"Resource array must not be null"</span>);</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (Resource resource : resources) &#123;</span><br><span class="line">			count += loadBeanDefinitions(resource);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> count;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(String location)</span> <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> loadBeanDefinitions(location, <span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(String location, @Nullable Set&lt;Resource&gt; actualResources)</span> <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">		ResourceLoader resourceLoader = getResourceLoader();</span><br><span class="line">		<span class="keyword">if</span> (resourceLoader == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(</span><br><span class="line">					<span class="string">"Cannot load bean definitions from location ["</span> + location + <span class="string">"]: no ResourceLoader available"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (resourceLoader <span class="keyword">instanceof</span> ResourcePatternResolver) &#123;</span><br><span class="line">			<span class="comment">// Resource pattern matching available.</span></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);</span><br><span class="line">				<span class="keyword">int</span> count = loadBeanDefinitions(resources);</span><br><span class="line">				<span class="keyword">if</span> (actualResources != <span class="keyword">null</span>) &#123;</span><br><span class="line">					Collections.addAll(actualResources, resources);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">					logger.trace(<span class="string">"Loaded "</span> + count + <span class="string">" bean definitions from location pattern ["</span> + location + <span class="string">"]"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> count;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(</span><br><span class="line">						<span class="string">"Could not resolve bean definition resource pattern ["</span> + location + <span class="string">"]"</span>, ex);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 只能从使用绝对URL路径的Resource中加载</span></span><br><span class="line">			<span class="comment">// Can only load single resources by absolute URL.</span></span><br><span class="line">			Resource resource = resourceLoader.getResource(location);</span><br><span class="line">			<span class="keyword">int</span> count = loadBeanDefinitions(resource);</span><br><span class="line">			<span class="keyword">if</span> (actualResources != <span class="keyword">null</span>) &#123;</span><br><span class="line">				actualResources.add(resource);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">				logger.trace(<span class="string">"Loaded "</span> + count + <span class="string">" bean definitions from location ["</span> + location + <span class="string">"]"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> count;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">loadBeanDefinitions</span><span class="params">(String... locations)</span> <span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line">		Assert.notNull(locations, <span class="string">"Location array must not be null"</span>);</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (String location : locations) &#123;</span><br><span class="line">			count += loadBeanDefinitions(location);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> count;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-2-XmlBeanDefinitionReader类"><a href="#2-2-XmlBeanDefinitionReader类" class="headerlink" title="2.2 XmlBeanDefinitionReader类"></a>2.2 XmlBeanDefinitionReader类</h1><p>各个类的功能</p>
+<ul>
+<li><p>ResourceLoader：定义资源加载器，主要应用于根据给定的资源文件地址返回对应的Resource</p>
+</li>
+<li><p>BeanDefinitionReader：主要定义资源文件读取并转换为BeanDefinition的各个功能</p>
+</li>
+<li><p>EnvironmentCapable：定义获取Environment的方法</p>
+</li>
+<li><p>DocumentLoader：定义从资源文件加载到转换为Document的功能</p>
+</li>
+<li><p>AbstractBeanDefinitionReader：对EnvironmentCapable、BeanDefinitionReader类定义的功能进行实现</p>
+</li>
+<li><p>BeanDefinitionDocumentReader：定义读取Document并注册BeanDefinition功能</p>
+</li>
+<li><p>BeanDefinitionParserDelegate：定义解析Element的各种方法</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/spring_XmlBeanDefinitionReader_uml.png" alt=""></p>
+<p>在XMLBeanDefinitionReader中主要包含以下几步的处理：</p>
+<ol>
+<li>通过继承AbstractBeanDefinitionReader中的方法，来使用ResourceLoader将资源文件路径转换为对应的Resource文件</li>
+<li>通过DocumentLoader对Resource文件进行转换，将Resource文件转换为Document文件</li>
+<li>通过实现接口BeanDefinitionDocumentReader的DefaultBeanDefinitionDocumentReader类对Document进行解析，并使用BeanDefinitionParserDelegate对Element进行解析</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/02/Spring源码解析10-Aware接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/02/Spring源码解析10-Aware接口/" itemprop="url">Spring源码解析10-Aware接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T18:26:49+08:00">
+                2019-09-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-03T08:59:38+08:00">
+                2019-09-03
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/02/Spring源码解析10-Aware接口/" class="leancloud_visitors" data-flag-title="Spring源码解析10-Aware接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  986
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Spring中有很多接口继承自Aware接口的接口。</p>
+<p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/spring_aware_hierarchy.png" alt=""></p>
+<p>aware 这个单词的意思是感知、察觉。所以这些接口从字面意思上理解就是能感知到所有<strong>Aware</strong>前面的内容的含义。</p>
+<p>例如：</p>
+<ul>
+<li><p>BeanNameAware，实现了Aware接口，可以让该bean感知到自身的BeanName（对应Spring容器的<code>BeanId</code>属性）属性。</p>
+</li>
+<li><p>实现了ApplicationContextAware接口的类，能够获取到ApplicationContext</p>
+</li>
+<li><p>实现了BeanFactoryAware接口的类，能够获取到BeanFactory对象。</p>
+</li>
+</ul>
+<h1 id="1-Aware源码"><a href="#1-Aware源码" class="headerlink" title="1. Aware源码"></a>1. Aware源码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.beans.factory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A marker superinterface indicating（说明） that a bean is eligible to（有资格） be notified by the</span></span><br><span class="line"><span class="comment"> * Spring container of a particular(特定的) framework object through a callback-style method.</span></span><br><span class="line"><span class="comment"> * The actual method signature（方法签名） is determined（确定） by individual subinterfaces but should</span></span><br><span class="line"><span class="comment"> * typically consist of（包括） just one void-returning method that accepts a single argument.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Aware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个超级接口标记。说明实现了这个接口的bean，可以被Spring 容器通过一个回调函数来获取到一个特定的对象。</p>
+<p>这个回调函数由子接口来定义。通常是返回值是void，有一个参数的方法。</p>
+<h1 id="2-子接口举例"><a href="#2-子接口举例" class="headerlink" title="2.子接口举例"></a>2.子接口举例</h1><p>BeanNameAware接口定义：</p>
+<p>这个回调函数在普通bean<strong>属性填充之后</strong>但在<strong>初始化回调(afterPropertiesSet或自定义init方法)之前</strong>调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 需要在BeanFactory感知其bean name的beans 需要实现这个接口。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Interface to be implemented by beans that want to be aware of their</span></span><br><span class="line"><span class="comment"> * bean name in a bean factory. Note that it is not usually recommended</span></span><br><span class="line"><span class="comment"> * that an object depends on its bean name, as this represents a potentially</span></span><br><span class="line"><span class="comment"> * brittle dependence on external configuration, as well as a possibly</span></span><br><span class="line"><span class="comment"> * unnecessary dependence on a Spring API.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;For a list of all bean lifecycle methods, see the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> BeanFactory BeanFactory javadocs&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Juergen Hoeller</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Chris Beams</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 01.11.2003</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> BeanClassLoaderAware</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> BeanFactoryAware</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> InitializingBean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanNameAware</span> <span class="keyword">extends</span> <span class="title">Aware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Set the name of the bean in the bean factory that created this bean.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Invoked after population of normal bean properties but before an</span></span><br><span class="line"><span class="comment">	 * init callback such as &#123;<span class="doctag">@link</span> InitializingBean#afterPropertiesSet()&#125;</span></span><br><span class="line"><span class="comment">	 * or a custom init-method.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> name the name of the bean in the factory.</span></span><br><span class="line"><span class="comment">	 * Note that this name is the actual bean name used in the factory, which may</span></span><br><span class="line"><span class="comment">	 * differ from the originally specified name: in particular for inner bean</span></span><br><span class="line"><span class="comment">	 * names, the actual bean name might have been made unique through appending</span></span><br><span class="line"><span class="comment">	 * "#..." suffixes. Use the &#123;<span class="doctag">@link</span> BeanFactoryUtils#originalBeanName(String)&#125;</span></span><br><span class="line"><span class="comment">	 * method to extract the original bean name (without suffix), if desired.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setBeanName</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ApplicationContextAware接口定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.BeansException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.Aware;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Interface to be implemented by any object that wishes to be notified</span></span><br><span class="line"><span class="comment"> * of the &#123;<span class="doctag">@link</span> ApplicationContext&#125; that it runs in.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Implementing this interface makes sense for example when an object</span></span><br><span class="line"><span class="comment"> * requires access to a set of collaborating beans. Note that configuration</span></span><br><span class="line"><span class="comment"> * via bean references is preferable to implementing this interface just</span></span><br><span class="line"><span class="comment"> * for bean lookup purposes.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This interface can also be implemented if an object needs access to file</span></span><br><span class="line"><span class="comment"> * resources, i.e. wants to call &#123;<span class="doctag">@code</span> getResource&#125;, wants to publish</span></span><br><span class="line"><span class="comment"> * an application event, or requires access to the MessageSource. However,</span></span><br><span class="line"><span class="comment"> * it is preferable to implement the more specific &#123;<span class="doctag">@link</span> ResourceLoaderAware&#125;,</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> ApplicationEventPublisherAware&#125; or &#123;<span class="doctag">@link</span> MessageSourceAware&#125; interface</span></span><br><span class="line"><span class="comment"> * in such a specific scenario.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Note that file resource dependencies can also be exposed as bean properties</span></span><br><span class="line"><span class="comment"> * of type &#123;<span class="doctag">@link</span> org.springframework.core.io.Resource&#125;, populated via Strings</span></span><br><span class="line"><span class="comment"> * with automatic type conversion by the bean factory. This removes the need</span></span><br><span class="line"><span class="comment"> * for implementing any callback interface just for the purpose of accessing</span></span><br><span class="line"><span class="comment"> * a specific file resource.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;&#123;<span class="doctag">@link</span> org.springframework.context.support.ApplicationObjectSupport&#125; is a</span></span><br><span class="line"><span class="comment"> * convenience base class for application objects, implementing this interface.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;For a list of all bean lifecycle methods, see the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanFactory BeanFactory javadocs&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rod Johnson</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Juergen Hoeller</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Chris Beams</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ResourceLoaderAware</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ApplicationEventPublisherAware</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> MessageSourceAware</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> org.springframework.context.support.ApplicationObjectSupport</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> org.springframework.beans.factory.BeanFactoryAware</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContextAware</span> <span class="keyword">extends</span> <span class="title">Aware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Set the ApplicationContext that this object runs in.</span></span><br><span class="line"><span class="comment">	 * Normally this call will be used to initialize the object.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Invoked after population of normal bean properties but before an init callback such</span></span><br><span class="line"><span class="comment">	 * as &#123;<span class="doctag">@link</span> org.springframework.beans.factory.InitializingBean#afterPropertiesSet()&#125;</span></span><br><span class="line"><span class="comment">	 * or a custom init-method. Invoked after &#123;<span class="doctag">@link</span> ResourceLoaderAware#setResourceLoader&#125;,</span></span><br><span class="line"><span class="comment">	 * &#123;<span class="doctag">@link</span> ApplicationEventPublisherAware#setApplicationEventPublisher&#125; and</span></span><br><span class="line"><span class="comment">	 * &#123;<span class="doctag">@link</span> MessageSourceAware&#125;, if applicable.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> applicationContext the ApplicationContext object to be used by this object</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> ApplicationContextException in case of context initialization errors</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> BeansException if thrown by application context methods</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> org.springframework.beans.factory.BeanInitializationException</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/01/dubbo源码分析2_EnableDubbo注解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -479,6 +1364,217 @@
 <p>所以我们再分别去分析EnableDubboConfig注解和DubboComponentScan注解</p>
 
           
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" itemprop="url">Dubbo源码分析4-DubboComponentScan注解分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T02:59:53+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:13:59+08:00">
+                2019-09-01
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dubbo/" itemprop="url" rel="index">
+                    <span itemprop="name">dubbo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" class="leancloud_visitors" data-flag-title="Dubbo源码分析4-DubboComponentScan注解分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,024
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="一-DubboComponentScan注解类分析"><a href="#一-DubboComponentScan注解类分析" class="headerlink" title="一. DubboComponentScan注解类分析"></a>一. DubboComponentScan注解类分析</h1><h2 id="1-首先看DubboComponentScan源码"><a href="#1-首先看DubboComponentScan源码" class="headerlink" title="1. 首先看DubboComponentScan源码"></a>1. 首先看DubboComponentScan源码</h2><p>DubboComponentScan注解类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import</span>(DubboComponentScanRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DubboComponentScan &#123;</span><br><span class="line"></span><br><span class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] basePackages() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] basePackageClasses() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到@Import了DubboComponentScanRegistrar类。这个类也是实现了Spring的ImportBeanDefinitionRegistrar接口，直接看registerBeanDefinitions()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据importingClassMetadata找到贴有DubboComponentScan注解的类的信息，</span></span><br><span class="line">    <span class="comment">// 从中获取需要扫描的包</span></span><br><span class="line">    Set&lt;String&gt; packagesToScan = getPackagesToScan(importingClassMetadata);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册ServiceAnnotationBeanPostProcessor，会传入packagesToScan</span></span><br><span class="line">    registerServiceAnnotationBeanPostProcessor(packagesToScan, registry);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册ReferenceAnnotationBeanPostProcessor</span></span><br><span class="line">    registerReferenceAnnotationBeanPostProcessor(registry);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的主要的工作就是对需要扫描的包或者类的处理，统一处理为包路径。然后注册两个Bean(ServiceAnnotationBeanPostProcessor和ReferenceAnnotationBeanPostProcessor)</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -741,7 +1837,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/01/Spring源码分析15-ResolvableType/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhu Haijun">
@@ -760,218 +1856,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" itemprop="url">Dubbo源码分析4-DubboComponentScan注解分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T02:59:53+08:00">
-                2019-09-01
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:11:49+08:00">
-                2019-09-01
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dubbo/" itemprop="url" rel="index">
-                    <span itemprop="name">dubbo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/" class="leancloud_visitors" data-flag-title="Dubbo源码分析4-DubboComponentScan注解分析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,024
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  15
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="一-DubboComponentScan注解类分析"><a href="#一-DubboComponentScan注解类分析" class="headerlink" title="一. DubboComponentScan注解类分析"></a>一. DubboComponentScan注解类分析</h1><h2 id="1-首先看DubboComponentScan源码"><a href="#1-首先看DubboComponentScan源码" class="headerlink" title="1. 首先看DubboComponentScan源码"></a>1. 首先看DubboComponentScan源码</h2><p>DubboComponentScan注解类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import</span>(DubboComponentScanRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DubboComponentScan &#123;</span><br><span class="line"></span><br><span class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] basePackages() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] basePackageClasses() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看到@Import了DubboComponentScanRegistrar类。这个类也是实现了Spring的ImportBeanDefinitionRegistrar接口，直接看registerBeanDefinitions()方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据importingClassMetadata找到贴有DubboComponentScan注解的类的信息，</span></span><br><span class="line">    <span class="comment">// 从中获取需要扫描的包</span></span><br><span class="line">    Set&lt;String&gt; packagesToScan = getPackagesToScan(importingClassMetadata);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册ServiceAnnotationBeanPostProcessor，会传入packagesToScan</span></span><br><span class="line">    registerServiceAnnotationBeanPostProcessor(packagesToScan, registry);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册ReferenceAnnotationBeanPostProcessor</span></span><br><span class="line">    registerReferenceAnnotationBeanPostProcessor(registry);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的主要的工作就是对需要扫描的包或者类的处理，统一处理为包路径。然后注册两个Bean(ServiceAnnotationBeanPostProcessor和ReferenceAnnotationBeanPostProcessor)</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/01/Dubbo源码分析4-DubboComponentScan注解分析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/09/01/Spring源码分析5-ResolvableType/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/01/Spring源码分析5-ResolvableType/" itemprop="url">Spring源码分析5-ResolvableType</a></h1>
+                <a class="post-title-link" href="/2019/09/01/Spring源码分析15-ResolvableType/" itemprop="url">Spring源码分析15-ResolvableType</a></h1>
         
 
         <div class="post-meta">
@@ -999,8 +1884,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T02:47:36+08:00">
-                2019-09-01
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-03T08:59:26+08:00">
+                2019-09-03
               </time>
             
           </span>
@@ -1036,7 +1921,7 @@
 
           
           
-             <span id="/2019/09/01/Spring源码分析5-ResolvableType/" class="leancloud_visitors" data-flag-title="Spring源码分析5-ResolvableType">
+             <span id="/2019/09/01/Spring源码分析15-ResolvableType/" class="leancloud_visitors" data-flag-title="Spring源码分析15-ResolvableType">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1202,8 +2087,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T01:42:24+08:00">
-                2019-09-01
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-02T13:03:27+08:00">
+                2019-09-02
               </time>
             
           </span>
@@ -1429,8 +2314,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T14:34:07+08:00">
-                2019-09-01
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-04T11:36:48+08:00">
+                2019-09-04
               </time>
             
           </span>
@@ -1491,7 +2376,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  8,619
+                  8,802
                 </span>
               
 
@@ -1529,12 +2414,20 @@
 
       
         
-          <p>BeanDefinition描述了一个bean实例，是配置文件\&lt;bean>元素标签在容器中内部表示形式。</p>
+          <h1 id="1-BeanDefinition简介"><a href="#1-BeanDefinition简介" class="headerlink" title="1. BeanDefinition简介"></a>1. BeanDefinition简介</h1><p>BeanDefinition描述了一个bean实例，是配置文件\&lt;bean>元素标签在容器中内部表示形式。</p>
 <p>它具有<strong>属性值</strong>，<strong>构造函数参数值</strong>以及具体实现提供的更多信息。<br>这是一个最小化的接口，主要的意向是允许一个BeanFactoryPostProcessor来修改它的属性值和其他的元数据。</p>
-<h1 id="1-继承关系"><a href="#1-继承关系" class="headerlink" title="1 继承关系"></a>1 继承关系</h1><p>BeanDefinition继承了AttributeAccessor，说明它具有处理属性的能力</p>
+<p>BeanDefinition是一个接口，在Spring中有三种实现，三种实现均继承了AbstractBeanDefinition。BeanDefinition是配置文件\&lt;bean>元素标签在容器中的内部表现形式，&lt;bean>元素标签拥有class、scope、lazy-init等配置属性，BeanDefinition则提供了相应的beanClass、scope、lazyInit属性。BeanDefinition和\&lt;bean>是一一对应的。</p>
+<ul>
+<li>RootBeanDefinition——最常用的实现类，它对应一般性的\&lt;bean>元素</li>
+<li>ChildBeanDefinition</li>
+<li>GenericBeanDefinition——2.5版本后加入的bean文件配置属性定义类，是一站式服务类</li>
+</ul>
+<p>Spring通过BeanDefinition将配置文件中的\&lt;bean>配置信息转换为容器的内部表示，并将这些BeanDefinition注册到BeanDefinitionRegistry中（主要以map的形式保存）。</p>
+<h1 id="2-BeanDefinition的父接口"><a href="#2-BeanDefinition的父接口" class="headerlink" title="2. BeanDefinition的父接口"></a>2. BeanDefinition的父接口</h1><p>BeanDefinition继承了AttributeAccessor，说明它具有处理属性的能</p>
 <p>BeanDefinition继承了BeanMetadataElement，说明它可以持有<strong>Bean元数据元素</strong>，作用是可以持有XML文件的一个bean标签对应的Object。</p>
 <p>继承关系：</p>
 <p><img src="https://raw.githubusercontent.com/zhuhj083/storehouse/master/pictures/hexo/spring_BeanDefinition_uml.png" alt=""></p>
+<p>下面看BeanDefinition继承的接口。</p>
 <h2 id="1-1-BeanMetadataElement接口"><a href="#1-1-BeanMetadataElement接口" class="headerlink" title="1.1 BeanMetadataElement接口"></a>1.1 BeanMetadataElement接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 由携带配置源对象的bean元数据元素实现的接口。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanMetadataElement</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 返回此元数据元素的配置源</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">default</span> Object <span class="title">getSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="1-1-1-BeanMetadataAttribute类"><a href="#1-1-1-BeanMetadataAttribute类" class="headerlink" title="1.1.1 BeanMetadataAttribute类"></a>1.1.1 BeanMetadataAttribute类</h3><p>BeanMetadataAttribute类是BeanMetadataElement接口的一个实现。通常作为BeanDefinition的一部分。</p>
 <p>以key-value的形式持有属性。</p>
@@ -1586,872 +2479,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/" itemprop="url">Spring源码分析4-BeanFactory与DefaultListableBeanFactory</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T16:31:19+08:00">
-                2019-08-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T14:47:26+08:00">
-                2019-09-01
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/" class="leancloud_visitors" data-flag-title="Spring源码分析4-BeanFactory与DefaultListableBeanFactory">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  863
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Spring Beans模块是Spring中的一个重要模块，所有的应用都需要使用，功能主要有</p>
-<ul>
-<li>访问配置文件</li>
-<li>创建和管理bean</li>
-<li>进行IoC/DI相关操作</li>
-</ul>
-<h1 id="1-BeanFactory接口"><a href="#1-BeanFactory接口" class="headerlink" title="1. BeanFactory接口"></a>1. BeanFactory接口</h1><p>BeanFactory顾名思义就是生产bean的工厂。</p>
-<p>首先来看BeanFactory定义：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * FactoryBean这种在注入bean的时候会在beanName前添加一个"&amp;"修饰符</span></span><br><span class="line"><span class="comment">	 * 例如，如果名为myJndiObject的bean是FactoryBean，</span></span><br><span class="line"><span class="comment">	 * 则获取＆myJndiObject将返回这个工厂，而不是工厂返回的实例。</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	String FACTORY_BEAN_PREFIX = <span class="string">"&amp;"</span>;</span><br><span class="line">  </span><br><span class="line">	<span class="function">Object <span class="title">getBean</span><span class="params">(String name)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">Object <span class="title">getBean</span><span class="params">(String name, Object... args)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">  </span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; requiredType, Object... args)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	&lt;T&gt; <span class="function">ObjectProvider&lt;T&gt; <span class="title">getBeanProvider</span><span class="params">(Class&lt;T&gt; requiredType)</span></span>;</span><br><span class="line"></span><br><span class="line">	&lt;T&gt; <span class="function">ObjectProvider&lt;T&gt; <span class="title">getBeanProvider</span><span class="params">(ResolvableType requiredType)</span></span>;</span><br><span class="line">  </span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">containsBean</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">(String name)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line">  </span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isPrototype</span><span class="params">(String name)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isTypeMatch</span><span class="params">(String name, ResolvableType typeToMatch)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isTypeMatch</span><span class="params">(String name, Class&lt;?&gt; typeToMatch)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	Class&lt;?&gt; getType(String name) <span class="keyword">throws</span> NoSuchBeanDefinitionException;</span><br><span class="line">  </span><br><span class="line">	String[] getAliases(String name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-DefaultListableBeanFactory"><a href="#2-DefaultListableBeanFactory" class="headerlink" title="2.DefaultListableBeanFactory"></a>2.DefaultListableBeanFactory</h1><p>DefaultListableBeanFactory间接实现了BeanFactory，是整个bean加载的核心部分，是Spring注册以及加载bean的默认实现。</p>
-<p>DefaultListableBeanFactory继承了AbstractAutowireCapableBeanFactory，并实现了ConfigurableListableBeanFactory，以及BeanDefinitionRegister接口。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" itemprop="url">Spring ImportBeanDefinitionRegistrar介绍.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T16:32:51+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-31T16:31:55+08:00">
-                2019-08-31
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" class="leancloud_visitors" data-flag-title="Spring ImportBeanDefinitionRegistrar介绍.md">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,209
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文需要介绍的ImportBeanDefinitionRegistrar的用法和作用跟ImportSelector类似。</p>
-<p>唯一的不同点是ImportBeanDefinitionRegistrar的接口方法<code>void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</code>的返回类型是<code>void</code>，且多了一个BeanDefinitionRegistry类型的参数，它允许我们直接通过BeanDefinitionRegistry对象注册bean。</p>
-<h1 id="一-源码"><a href="#一-源码" class="headerlink" title="一.源码"></a>一.源码</h1><p>ImportBeanDefinitionRegistrar源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.springframework.context.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Interface to be implemented by types that register additional bean definitions when</span></span><br><span class="line"><span class="comment"> * processing @&#123;<span class="doctag">@link</span> Configuration&#125; classes. Useful when operating at the bean definition</span></span><br><span class="line"><span class="comment"> * level (as opposed to &#123;<span class="doctag">@code</span> <span class="doctag">@Bean</span>&#125; method/instance level) is desired or necessary.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Along with &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; and &#123;<span class="doctag">@link</span> ImportSelector&#125;, classes of this type</span></span><br><span class="line"><span class="comment"> * may be provided to the @&#123;<span class="doctag">@link</span> Import&#125; annotation (or may also be returned from an</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> ImportSelector&#125;).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;An &#123;<span class="doctag">@link</span> ImportBeanDefinitionRegistrar&#125; may implement any of the following</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.springframework.beans.factory.Aware Aware&#125; interfaces, and their respective</span></span><br><span class="line"><span class="comment"> * methods will be called prior to &#123;<span class="doctag">@link</span> #registerBeanDefinitions&#125;:</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.EnvironmentAware EnvironmentAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanFactoryAware BeanFactoryAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanClassLoaderAware BeanClassLoaderAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.ResourceLoaderAware ResourceLoaderAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;See implementations and associated unit tests for usage examples.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Chris Beams</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 3.1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Import</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ImportSelector</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Configuration</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Register bean definitions as necessary based on the given annotation metadata of</span></span><br><span class="line"><span class="comment">	 * the importing &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; class.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Note that &#123;<span class="doctag">@link</span> BeanDefinitionRegistryPostProcessor&#125; types may &lt;em&gt;not&lt;/em&gt; be</span></span><br><span class="line"><span class="comment">	 * registered here, due to lifecycle constraints related to &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125;</span></span><br><span class="line"><span class="comment">	 * class processing.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> importingClassMetadata annotation metadata of the importing class</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> registry current bean definition registry</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/08/22/Spring ImportSelector介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/Spring ImportSelector介绍/" itemprop="url">Spring ImportSelector介绍.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T16:32:51+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-31T16:31:49+08:00">
-                2019-08-31
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/22/Spring ImportSelector介绍/" class="leancloud_visitors" data-flag-title="Spring ImportSelector介绍.md">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,542
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  13
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>ImportSelecto的用途比较简单，可以根据启动的相关环境配置来决定让哪些类能够被Spring容器初始化。</p>
-<p>Spring中，在<code>@Configuration</code>标注的Class（配置类）上可以使用<code>@Import</code>引入其它的配置类，其实它还可以引入<code>org.springframework.context.annotation.ImportSelector</code>的实现类。</p>
-<h1 id="一-ImportSelector接口说明"><a href="#一-ImportSelector接口说明" class="headerlink" title="一.ImportSelector接口说明"></a>一.ImportSelector接口说明</h1><p>ImportSelector接口只定义了一个<code>selectImports()</code>，用于指定需要注册为bean的Class名称。</p>
-<p>当在<code>@Configuration</code>标注的Class上使用<code>@Import</code>引入了一个ImportSelector实现类后，会把实现类中返回的Class名称都定义为bean。    </p>
-<h2 id="1-源码解读"><a href="#1-源码解读" class="headerlink" title="1.源码解读"></a>1.源码解读</h2><p>下面是ImportSelector的源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.context.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Interface to be implemented by types that determine which @&#123;<span class="doctag">@link</span> Configuration&#125;</span></span><br><span class="line"><span class="comment"> * class(es) should be imported based on a given selection criteria, usually one or more</span></span><br><span class="line"><span class="comment"> * annotation attributes.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;An &#123;<span class="doctag">@link</span> ImportSelector&#125; may implement any of the following</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.springframework.beans.factory.Aware Aware&#125; interfaces, and their respective</span></span><br><span class="line"><span class="comment"> * methods will be called prior to &#123;<span class="doctag">@link</span> #selectImports&#125;:</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.EnvironmentAware EnvironmentAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanFactoryAware BeanFactoryAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanClassLoaderAware BeanClassLoaderAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.ResourceLoaderAware ResourceLoaderAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;ImportSelectors are usually processed in the same way as regular &#123;<span class="doctag">@code</span> <span class="doctag">@Import</span>&#125;</span></span><br><span class="line"><span class="comment"> * annotations, however, it is also possible to defer selection of imports until all</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; classes have been processed (see &#123;<span class="doctag">@link</span> DeferredImportSelector&#125;</span></span><br><span class="line"><span class="comment"> * for details).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Chris Beams</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 3.1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> DeferredImportSelector</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Import</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ImportBeanDefinitionRegistrar</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Configuration</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportSelector</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Select and return the names of which class(es) should be imported based on</span></span><br><span class="line"><span class="comment">	 * the &#123;<span class="doctag">@link</span> AnnotationMetadata&#125; of the importing @&#123;<span class="doctag">@link</span> Configuration&#125; class.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	String[] selectImports(AnnotationMetadata importingClassMetadata);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接口文档上写明，主要作用是收集需要导入的配置类，如果该接口的实现类同时实现下列接</p>
-<ul>
-<li>EnvironmentAware</li>
-<li>BeanFactoryAware</li>
-<li>BeanClassLoaderAware</li>
-<li>ResourceLoaderAware</li>
-</ul>
-<p>那么在调用其selectImports方法之前先调用上述接口中对应的方法，如果需要在所有的@Configuration处理完再导入时可以实现DeferredImportSelector接口。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/22/Spring ImportSelector介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/06/24/Mac上安装Redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/24/Mac上安装Redis/" itemprop="url">Mac上安装Redis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-24T19:40:51+08:00">
-                2019-06-24
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-24T19:45:02+08:00">
-                2019-06-24
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mac/" itemprop="url" rel="index">
-                    <span itemprop="name">Mac</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/06/24/Mac上安装Redis/" class="leancloud_visitors" data-flag-title="Mac上安装Redis">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  887
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h1><p>redis安装有两种方式：下载源码编译安装、使用homebrew安装。 </p>
-<p>通过homebrew安装redis </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">brew install redis</span><br></pre></td></tr></table></figure>
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>安装完成后redis默认的配置文件redis.conf位于 </p>
-<p>/usr/local/etc </p>
-<p>同时，redis-sentinel.conf也在这里。 </p>
-<p>使用cat命令查看redis.conf： </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cat /usr/<span class="built_in">local</span>/etc/redis.conf</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/24/Mac上安装Redis/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2503,7 +2535,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2615,7 +2647,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2629,7 +2661,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.8k</span>
+    <span title="Site words total count">60.1k</span>
   
 </div>
 
@@ -2646,7 +2678,7 @@
 <!--
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共54.8k字</span>
+  <span class="post-count">博客全站共60.1k字</span>
 </div>
 -->
 
