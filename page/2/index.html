@@ -405,6 +405,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/" class="cy_cmt_count" data-xid="2019/08/31/Spring源码分析4-BeanFactory与DefaultListableBeanFactory/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
           
 
           
@@ -542,6 +553,227 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhu Haijun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm somebody">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" itemprop="url">Spring ImportBeanDefinitionRegistrar介绍.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T16:32:51+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-31T16:31:55+08:00">
+                2019-08-31
+              </time>
+            
+          </span>
+
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" class="cy_cmt_count" data-xid="2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" class="leancloud_visitors" data-flag-title="Spring ImportBeanDefinitionRegistrar介绍.md">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,209
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本文需要介绍的ImportBeanDefinitionRegistrar的用法和作用跟ImportSelector类似。</p>
+<p>唯一的不同点是ImportBeanDefinitionRegistrar的接口方法<code>void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</code>的返回类型是<code>void</code>，且多了一个BeanDefinitionRegistry类型的参数，它允许我们直接通过BeanDefinitionRegistry对象注册bean。</p>
+<h1 id="一-源码"><a href="#一-源码" class="headerlink" title="一.源码"></a>一.源码</h1><p>ImportBeanDefinitionRegistrar源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.springframework.context.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Interface to be implemented by types that register additional bean definitions when</span></span><br><span class="line"><span class="comment"> * processing @&#123;<span class="doctag">@link</span> Configuration&#125; classes. Useful when operating at the bean definition</span></span><br><span class="line"><span class="comment"> * level (as opposed to &#123;<span class="doctag">@code</span> <span class="doctag">@Bean</span>&#125; method/instance level) is desired or necessary.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Along with &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; and &#123;<span class="doctag">@link</span> ImportSelector&#125;, classes of this type</span></span><br><span class="line"><span class="comment"> * may be provided to the @&#123;<span class="doctag">@link</span> Import&#125; annotation (or may also be returned from an</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> ImportSelector&#125;).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;An &#123;<span class="doctag">@link</span> ImportBeanDefinitionRegistrar&#125; may implement any of the following</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.springframework.beans.factory.Aware Aware&#125; interfaces, and their respective</span></span><br><span class="line"><span class="comment"> * methods will be called prior to &#123;<span class="doctag">@link</span> #registerBeanDefinitions&#125;:</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.EnvironmentAware EnvironmentAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanFactoryAware BeanFactoryAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanClassLoaderAware BeanClassLoaderAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.ResourceLoaderAware ResourceLoaderAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;See implementations and associated unit tests for usage examples.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Chris Beams</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 3.1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Import</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ImportSelector</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Configuration</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Register bean definitions as necessary based on the given annotation metadata of</span></span><br><span class="line"><span class="comment">	 * the importing &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; class.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Note that &#123;<span class="doctag">@link</span> BeanDefinitionRegistryPostProcessor&#125; types may &lt;em&gt;not&lt;/em&gt; be</span></span><br><span class="line"><span class="comment">	 * registered here, due to lifecycle constraints related to &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125;</span></span><br><span class="line"><span class="comment">	 * class processing.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> importingClassMetadata annotation metadata of the importing class</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> registry current bean definition registry</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+    <div>
+     
+    </div>
+    
+
+    
+
+    
+
+    
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/08/22/Spring ImportSelector介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -621,6 +853,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/08/22/Spring ImportSelector介绍/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/08/22/Spring ImportSelector介绍/" class="cy_cmt_count" data-xid="2019/08/22/Spring ImportSelector介绍/" itemprop="commentsCount" ></span>
+                </a>
+              
             
           
 
@@ -762,216 +1005,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhu Haijun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="I'm somebody">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" itemprop="url">Spring ImportBeanDefinitionRegistrar介绍.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T16:32:51+08:00">
-                2019-08-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-31T16:31:55+08:00">
-                2019-08-31
-              </time>
-            
-          </span>
-
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/" class="leancloud_visitors" data-flag-title="Spring ImportBeanDefinitionRegistrar介绍.md">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,209
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文需要介绍的ImportBeanDefinitionRegistrar的用法和作用跟ImportSelector类似。</p>
-<p>唯一的不同点是ImportBeanDefinitionRegistrar的接口方法<code>void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</code>的返回类型是<code>void</code>，且多了一个BeanDefinitionRegistry类型的参数，它允许我们直接通过BeanDefinitionRegistry对象注册bean。</p>
-<h1 id="一-源码"><a href="#一-源码" class="headerlink" title="一.源码"></a>一.源码</h1><p>ImportBeanDefinitionRegistrar源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.springframework.context.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Interface to be implemented by types that register additional bean definitions when</span></span><br><span class="line"><span class="comment"> * processing @&#123;<span class="doctag">@link</span> Configuration&#125; classes. Useful when operating at the bean definition</span></span><br><span class="line"><span class="comment"> * level (as opposed to &#123;<span class="doctag">@code</span> <span class="doctag">@Bean</span>&#125; method/instance level) is desired or necessary.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Along with &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; and &#123;<span class="doctag">@link</span> ImportSelector&#125;, classes of this type</span></span><br><span class="line"><span class="comment"> * may be provided to the @&#123;<span class="doctag">@link</span> Import&#125; annotation (or may also be returned from an</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> ImportSelector&#125;).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;An &#123;<span class="doctag">@link</span> ImportBeanDefinitionRegistrar&#125; may implement any of the following</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.springframework.beans.factory.Aware Aware&#125; interfaces, and their respective</span></span><br><span class="line"><span class="comment"> * methods will be called prior to &#123;<span class="doctag">@link</span> #registerBeanDefinitions&#125;:</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.EnvironmentAware EnvironmentAware&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanFactoryAware BeanFactoryAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.beans.factory.BeanClassLoaderAware BeanClassLoaderAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@link</span> org.springframework.context.ResourceLoaderAware ResourceLoaderAware&#125;</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;See implementations and associated unit tests for usage examples.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Chris Beams</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 3.1</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Import</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ImportSelector</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Configuration</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Register bean definitions as necessary based on the given annotation metadata of</span></span><br><span class="line"><span class="comment">	 * the importing &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; class.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Note that &#123;<span class="doctag">@link</span> BeanDefinitionRegistryPostProcessor&#125; types may &lt;em&gt;not&lt;/em&gt; be</span></span><br><span class="line"><span class="comment">	 * registered here, due to lifecycle constraints related to &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125;</span></span><br><span class="line"><span class="comment">	 * class processing.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> importingClassMetadata annotation metadata of the importing class</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> registry current bean definition registry</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/22/Spring ImportBeanDefinitionRegistrar介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-    <div>
-     
-    </div>
-    
-
-    
-
-    
-
-    
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http:zhuhaijun.cn/2019/06/24/Mac上安装Redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1051,6 +1084,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/06/24/Mac上安装Redis/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/06/24/Mac上安装Redis/" class="cy_cmt_count" data-xid="2019/06/24/Mac上安装Redis/" itemprop="commentsCount" ></span>
+                </a>
+              
             
           
 
@@ -1266,6 +1310,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/06/17/js-utils/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/06/17/js-utils/" class="cy_cmt_count" data-xid="2019/06/17/js-utils/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
           
 
           
@@ -1468,6 +1523,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/03/14/线程交替打印ABC的多种实现方法/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/03/14/线程交替打印ABC的多种实现方法/" class="cy_cmt_count" data-xid="2019/03/14/线程交替打印ABC的多种实现方法/" itemprop="commentsCount" ></span>
+                </a>
+              
             
           
 
@@ -1674,6 +1740,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/01/23/买卖股票的最佳时机-IV/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/01/23/买卖股票的最佳时机-IV/" class="cy_cmt_count" data-xid="2019/01/23/买卖股票的最佳时机-IV/" itemprop="commentsCount" ></span>
+                </a>
+              
             
           
 
@@ -1886,6 +1963,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/01/23/买卖股票的最佳时机-III/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/01/23/买卖股票的最佳时机-III/" class="cy_cmt_count" data-xid="2019/01/23/买卖股票的最佳时机-III/" itemprop="commentsCount" ></span>
+                </a>
+              
             
           
 
@@ -2103,6 +2191,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/01/23/买卖股票的最佳时机-II/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/01/23/买卖股票的最佳时机-II/" class="cy_cmt_count" data-xid="2019/01/23/买卖股票的最佳时机-II/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
           
 
           
@@ -2313,6 +2412,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/01/23/买卖股票的最佳时机I/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http:zhuhaijun.cn/2019/01/23/买卖股票的最佳时机I/" class="cy_cmt_count" data-xid="2019/01/23/买卖股票的最佳时机I/" itemprop="commentsCount" ></span>
+                </a>
+              
             
           
 
@@ -2625,6 +2735,12 @@
 
 
 
+  <div class="theme-info">
+    <a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn/">京ICP备20008757号</a>
+  </div>
+
+
+
 
 
 
@@ -2792,20 +2908,11 @@
 
 
 
+  
+    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytASUmSU"></script>
+  
 
 
-
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
 
 
 
